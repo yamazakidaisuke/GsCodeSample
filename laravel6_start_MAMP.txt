@@ -1,24 +1,24 @@
 
 #****************************************
-# MAMPŠÂ‹«F Å’ZIƒRƒ}ƒ“ƒh•ƒR[ƒhWII
-# ˆÈ‰º‚Í‰ğà‚ğ”²‚©‚µ‚Ä‚ ‚é‚½‚ßAÅ’Z‚Ì§ì‚ª‚Å‚«‚éƒRƒ}ƒ“ƒhƒŠƒXƒg‚Å‚·B
-# ‡”Ô‚Éi‚ß‚Ä‚¢‚­‚¾‚¯‚ÅƒVƒ“ƒvƒ‹‚ÈƒAƒvƒŠ‚ªì‚ê‚Ü‚·B
-# ˆÈ‰º‡”Ô‚ÉÀs‚µ‚Ä‚¢‚«‚Ü‚µ‚å‚¤III
+# MAMPç’°å¢ƒï¼š æœ€çŸ­ï¼ã‚³ãƒãƒ³ãƒ‰ï¼†ã‚³ãƒ¼ãƒ‰é›†ï¼ï¼
+# ä»¥ä¸‹ã¯è§£èª¬ã‚’æŠœã‹ã—ã¦ã‚ã‚‹ãŸã‚ã€æœ€çŸ­ã®åˆ¶ä½œãŒã§ãã‚‹ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆã§ã™ã€‚
+# é †ç•ªã«é€²ã‚ã¦ã„ãã ã‘ã§ã‚·ãƒ³ãƒ—ãƒ«ãªã‚¢ãƒ—ãƒªãŒä½œã‚Œã¾ã™ã€‚
+# ä»¥ä¸‹é †ç•ªã«å®Ÿè¡Œã—ã¦ã„ãã¾ã—ã‚‡ã†ï¼ï¼ï¼
 #****************************************
-MAMP‚ÌƒCƒ“ƒXƒg[ƒ‹‚Íæ‚É‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢B
+MAMPã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¯å…ˆã«ã—ã¦ãŠã„ã¦ãã ã•ã„ã€‚
 
 
 #***************************
-#  ‘æ‚PÍ 
-# MAMPŠÂ‹«\’ziPHP7.2ˆÈã•Laravel6.x ƒCƒ“ƒXƒg[ƒ‹j 
-# PHP7.3Œn ‚ÍNG !!! “®ì‚µ‚È‚¢‚©‚çA‚»‚êˆÈŠO‚ğ’T‚µ‚ÄŠÂ‹«‚ğ—pˆÓ‚·‚é‚±‚Æ
+# â—‡ ç¬¬ï¼‘ç«  â—‡
+# MAMPç’°å¢ƒæ§‹ç¯‰ï¼ˆPHP7.2ä»¥ä¸Šï¼†Laravel6.x ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ï¼‰ 
+# PHP7.3ç³» ã¯NG !!! å‹•ä½œã—ãªã„ã‹ã‚‰ã€ãã‚Œä»¥å¤–ã‚’æ¢ã—ã¦ç’°å¢ƒã‚’ç”¨æ„ã™ã‚‹ã“ã¨
 #***************************
 
 #--------------------------------------------
-#‚PDComposerƒCƒ“ƒXƒg[ƒ‹
-#    WindowsFƒ_ƒEƒ“ƒ[ƒh•ƒCƒ“ƒXƒg[ƒ‹(https://getcomposer.org/doc/00-intro.md#installation-windows)
-#    MacFˆÈ‰º‚ÌƒRƒ}ƒ“ƒh‚ğÀs
-#   –{‘F32P
+#ï¼‘ï¼Composerã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+#    Windowsï¼šãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ï¼†ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«(https://getcomposer.org/doc/00-intro.md#installation-windows)
+#    Macï¼šä»¥ä¸‹ã®ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œ
+#   æœ¬æ›¸ï¼š32P
 #--------------------------------------------
 /usr/bin/ruby -e "$(curl -fsSL /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
@@ -34,82 +34,82 @@ composer
 
 
 #--------------------------------------------
-#‚QDLaravelƒCƒ“ƒXƒg[ƒ‹ 
+#ï¼’ï¼Laravelã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ« 
 #   33P
 #--------------------------------------------
-2.1 .../MAMP/htdocs/ˆÈ‰º‚É "laravel" ƒtƒHƒ‹ƒ_‚ğì¬
-2.2 VisualStudioCode ‚Åì¬‚µ‚½ "laravel" ƒtƒHƒ‹ƒ_‚ğŠJ‚­
+2.1 .../MAMP/htdocs/ä»¥ä¸‹ã« "laravel" ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œæˆ
+2.2 VisualStudioCode ã§ä½œæˆã—ãŸ "laravel" ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã
 2.3 composer global require "laravel/installer"
-#2.[Š®—¹]Laravel ƒCƒ“ƒXƒg[ƒ‹Š®—¹***
+#2.[å®Œäº†]Laravel ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å®Œäº†***
 
 
 #--------------------------------------------
-#‚RDLaravel6.x ‚ğcmsƒfƒBƒŒƒNƒgƒŠ‚Éİ’u 
-#   33ƒy[ƒW
+#ï¼“ï¼Laravel6.x ã‚’cmsãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«è¨­ç½® 
+#   33ãƒšãƒ¼ã‚¸
 #--------------------------------------------
 composer create-project laravel/laravel cms 6.* --prefer-dist
 
 composer update
 
-#3.[Š®—¹]Laravel "cmsƒtƒHƒ‹ƒ_"‚ğì‚Á‚Ä‚»‚Ì’†‚ÉLaravel‚ğİ’uŠ®—¹***
+#3.[å®Œäº†]Laravel "cmsãƒ•ã‚©ãƒ«ãƒ€"ã‚’ä½œã£ã¦ãã®ä¸­ã«Laravelã‚’è¨­ç½®å®Œäº†***
 
 
 #--------------------------------------------
-#‚SDApacheFDocumentRoot‚Ì•ÏX
-#   35,36   ƒy[ƒW
+#ï¼”ï¼Apacheï¼šDocumentRootã®å¤‰æ›´
+#   35,36   ãƒšãƒ¼ã‚¸
 #--------------------------------------------
-#4.1 Mamp > Preferences > Web-Server > DocumentRootiƒtƒHƒ‹ƒ_ƒAƒCƒRƒ“j ‚ğƒNƒŠƒbƒN
-#4.2 htdocs > laravel > cms > public ‚ğ‘I‘ğiƒT[ƒo[Ä‹N“®j
-#4.3 ƒuƒ‰ƒEƒU‚ÅURL‚É hlocalhosth ‚Å•\¦Šm”F
-#‚S.[Š®—¹]Laravel “®ìŠm”FŠ®—¹***
+#4.1 Mamp > Preferences > Web-Server > DocumentRootï¼ˆãƒ•ã‚©ãƒ«ãƒ€ã‚¢ã‚¤ã‚³ãƒ³ï¼‰ ã‚’ã‚¯ãƒªãƒƒã‚¯
+#4.2 htdocs > laravel > cms > public ã‚’é¸æŠï¼ˆã‚µãƒ¼ãƒãƒ¼å†èµ·å‹•ï¼‰
+#4.3 ãƒ–ãƒ©ã‚¦ã‚¶ã§URLã« â€localhostâ€ ã§è¡¨ç¤ºç¢ºèª
+#ï¼”.[å®Œäº†]Laravel å‹•ä½œç¢ºèªå®Œäº†***
 
 
 #--------------------------------------------
-#‚T .envƒtƒ@ƒCƒ‹‚ÌDBİ’è 
-#    44,45ƒy[ƒW
+#ï¼• .envãƒ•ã‚¡ã‚¤ãƒ«ã®DBè¨­å®š 
+#    44,45ãƒšãƒ¼ã‚¸
 #--------------------------------------------
 DB_HOST=127.0.0.1
 DB_DATABASE=cms
 DB_USERNAME=root
 DB_PASSWORD=root
 
-#6.[Š®—¹]DBÚ‘±İ’èŠ®—¹***
-#  ƒd—v„ŠÔˆá‚¤‚Æuƒf[ƒ^\‘¢‚ğì¬iƒe[ƒuƒ‹ì¬jv‚ÌŸÍ‚ÅError!
+#6.[å®Œäº†]DBæ¥ç¶šè¨­å®šå®Œäº†***
+#  ï¼œé‡è¦ï¼é–“é•ã†ã¨ã€Œãƒ‡ãƒ¼ã‚¿æ§‹é€ ã‚’ä½œæˆï¼ˆãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆï¼‰ã€ã®æ¬¡ç« ã§Error!
 
 
 #--------------------------------------------
-#‚UDDB‹N“®Šm”F(rootƒ†[ƒU‚ÅDBì¬)EphpMyAdminİ’è
+#ï¼–ï¼DBèµ·å‹•ç¢ºèª(rootãƒ¦ãƒ¼ã‚¶ã§DBä½œæˆ)ãƒ»phpMyAdminè¨­å®š
 #--------------------------------------------
-ˆÈ‰ºURL‚ğŠJ‚­
+ä»¥ä¸‹URLã‚’é–‹ã
 localhost/phpmyadmin/index.php
 
-ƒf[ƒ^ƒx[ƒXì¬: 
+ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ä½œæˆ: 
 cms
 
-Æ‡‡˜(ˆÈ‰º‚Ç‚¿‚ç‚©):
+ç…§åˆé †åº(ä»¥ä¸‹ã©ã¡ã‚‰ã‹):
 utf8mb4_unicode_ci 
 utf8_unicode_ci 
 
 
 
 #--------------------------------------------
-#‚VD‰Šúİ’è
-# /app/Providers/ AppServiceProvider.php ƒtƒ@ƒCƒ‹‚ğC³
-# Laravel5.5ˆÈãİ’èI
-#@ 53ƒy[ƒW
+#ï¼—ï¼åˆæœŸè¨­å®š
+# /app/Providers/ AppServiceProvider.php ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿®æ­£
+# Laravel5.5ä»¥ä¸Šè¨­å®šï¼
+#ã€€ 53ãƒšãƒ¼ã‚¸
 #--------------------------------------------
-use Illuminate_Support_Facades_Schema; //‚±‚Ìs‚ğ’Ç‰Á
+use Illuminate\Support\Facades\Schema; //ã“ã®è¡Œã‚’è¿½åŠ 
 public function boot() {
-   Schema::defaultStringLength(191);   //‚±‚Ìs‚ğ’Ç‰Á
+   Schema::defaultStringLength(191);   //ã“ã®è¡Œã‚’è¿½åŠ 
 }
 
-#[Š®—¹]Laravel6.xˆÈã ‘Î‰İ’è Š®—¹***
+#[å®Œäº†]Laravel6.xä»¥ä¸Š å¯¾å¿œè¨­å®š å®Œäº†***
 
 
 
 
 #*********************************************************************************
-#‚±‚±‚Ü‚Å‚ª‰Šúİ’è
+#ã“ã“ã¾ã§ãŒåˆæœŸè¨­å®š
 #*********************************************************************************
 
 
@@ -118,25 +118,25 @@ public function boot() {
 
 
 #***************************
-# ‘æ‚QÍ
-# ƒf[ƒ^\‘¢‚ğì¬iƒe[ƒuƒ‹ì¬j 
+# â—‡ç¬¬ï¼’ç« â—‡
+# ãƒ‡ãƒ¼ã‚¿æ§‹é€ ã‚’ä½œæˆï¼ˆãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆï¼‰ 
 #***************************
 
 #--------------------------------------------
-#‚PDbooksƒe[ƒuƒ‹‚ğì¬iƒ}ƒCƒOƒŒ[ƒVƒ‡ƒ“ƒtƒ@ƒCƒ‹ì¬j
-#    48ƒy[ƒW
+#ï¼‘ï¼booksãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆï¼ˆãƒã‚¤ã‚°ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚¡ã‚¤ãƒ«ä½œæˆï¼‰
+#    48ãƒšãƒ¼ã‚¸
 #--------------------------------------------
 cd cms
 
 php artisan make:migration create_books_table --create=books
 
-#1.[Š®—¹]Table‚ğì¬‚·‚éMigrationƒtƒ@ƒCƒ‹‚ğì¬ Š®—¹***
+#1.[å®Œäº†]Tableã‚’ä½œæˆã™ã‚‹Migrationãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆ å®Œäº†***
 
 
 #--------------------------------------------
-#‚QD[”N]_[Œ]_[“ú]_[•ª•b]_create_books_table.php
-#   52ƒy[ƒW
-#   public function up(){...}‚Ì’†‚ğ’Ç‰ÁC³
+#ï¼’ï¼[å¹´]_[æœˆ]_[æ—¥]_[æ™‚åˆ†ç§’]_create_books_table.php
+#   52ãƒšãƒ¼ã‚¸
+#   public function up(){...}ã®ä¸­ã‚’è¿½åŠ ä¿®æ­£
 #--------------------------------------------
 public function up()
     {
@@ -150,74 +150,74 @@ public function up()
         });
 }
 
-#2.[Š®—¹]Tableì¬‚·‚éƒXƒNƒŠƒvƒg€”õ Š®—¹***
+#2.[å®Œäº†]Tableä½œæˆã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆæº–å‚™ å®Œäº†***
 
 
 #--------------------------------------------
-#‚RDƒ}ƒCƒOƒŒ[ƒVƒ‡ƒ“‚ğÀsiƒe[ƒuƒ‹ì¬j
-#   54ƒy[ƒW
+#ï¼“ï¼ãƒã‚¤ã‚°ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œï¼ˆãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆï¼‰
+#   54ãƒšãƒ¼ã‚¸
 #--------------------------------------------
 php artisan migrate
 
-#3.[Š®—¹]Tableì¬ƒXƒNƒŠƒvƒgÀs Š®—¹***
+#3.[å®Œäº†]Tableä½œæˆã‚¹ã‚¯ãƒªãƒ—ãƒˆå®Ÿè¡Œ å®Œäº†***
 
 
 #--------------------------------------------
-#‚SDMySQL[DB‚Éì¬‚³‚ê‚½ƒe[ƒuƒ‹‚ğŠm”F 
-#   54ƒy[ƒW
+#ï¼”ï¼MySQLãƒ¼DBã«ä½œæˆã•ã‚ŒãŸãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç¢ºèª 
+#   54ãƒšãƒ¼ã‚¸
 #--------------------------------------------
-ƒuƒ‰ƒEƒU‚©‚ç hlocalhost/phpmyadmin/index.phph ‚Å•\¦Šm”F
+ãƒ–ãƒ©ã‚¦ã‚¶ã‹ã‚‰ â€localhost/phpmyadmin/index.phpâ€ ã§è¡¨ç¤ºç¢ºèª
 
 
 #--------------------------------------------
-#‚TDƒ‚ƒfƒ‹‚ğì¬iƒe[ƒuƒ‹‚ğŠÈ’P‚Éˆµ‚¦‚é‚æ‚¤‚É‚·‚é‹@”\j
-  59ƒy[ƒW
+#ï¼•ï¼ãƒ¢ãƒ‡ãƒ«ã‚’ä½œæˆï¼ˆãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç°¡å˜ã«æ‰±ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹æ©Ÿèƒ½ï¼‰
+  59ãƒšãƒ¼ã‚¸
 #--------------------------------------------
 php artisan make:model Book
 
-#5.[Š®—¹]DB‚ğŠÈ’P‚É‘€ì‚·‚é‚½‚ß‚Ìƒtƒ@ƒCƒ‹‚ğì¬ Š®—¹***
+#5.[å®Œäº†]DBã‚’ç°¡å˜ã«æ“ä½œã™ã‚‹ãŸã‚ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆ å®Œäº†***
 
 
 #--------------------------------------------
-#‚UDƒ‚ƒfƒ‹‚ğì¬iƒe[ƒuƒ‹‚ğŠÈ’P‚Éˆµ‚¦‚é‚æ‚¤‚É‚·‚é‹@”\j
-#   60ƒy[ƒW
-#   /app/Book.php ‚Éì¬‚³‚ê‚Ü‚·B
+#ï¼–ï¼ãƒ¢ãƒ‡ãƒ«ã‚’ä½œæˆï¼ˆãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç°¡å˜ã«æ‰±ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹æ©Ÿèƒ½ï¼‰
+#   60ãƒšãƒ¼ã‚¸
+#   /app/Book.php ã«ä½œæˆã•ã‚Œã¾ã™ã€‚
 #--------------------------------------------
 
-#6.[Š®—¹]/app/Book.php‚Éƒtƒ@ƒCƒ‹‚ª‚Å‚«‚ÄŠ®—¹***
+#6.[å®Œäº†]/app/Book.phpã«ãƒ•ã‚¡ã‚¤ãƒ«ãŒã§ãã¦å®Œäº†***
 
 
 
 #***************************
-# ‘æ‚RÍ
-# ƒ‹[ƒg’è‹`iƒ‹[ƒeƒBƒ“ƒOj
+# ç¬¬ï¼“ç« 
+# ãƒ«ãƒ¼ãƒˆå®šç¾©ï¼ˆãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚°ï¼‰
 #***************************
 #--------------------------------------------
-#‚PD/routes/web.php ‚É ˆÈ‰ºƒR[ƒh‚ğ“\‚è•t‚¯‚Ü‚·B
-#   65ƒy[ƒW
+#ï¼‘ï¼/routes/web.php ã« ä»¥ä¸‹ã‚³ãƒ¼ãƒ‰ã‚’è²¼ã‚Šä»˜ã‘ã¾ã™ã€‚
+#   65ãƒšãƒ¼ã‚¸
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
-use App_Book;
-use Illuminate_Http_Request;
+use App\Book;
+use Illuminate\Http\Request;
 
 /**
-* –{‚Ìƒ_ƒbƒVƒ…ƒ{[ƒh•\¦(books.blade.php)
+* æœ¬ã®ãƒ€ãƒƒã‚·ãƒ¥ãƒœãƒ¼ãƒ‰è¡¨ç¤º(books.blade.php)
 */
 Route::get('/', function () {
     return view('books');
 });
 
 /**
-* Vu–{v‚ğ’Ç‰Á 
+* æ–°ã€Œæœ¬ã€ã‚’è¿½åŠ  
 */
 Route::post('/books', function (Request $request) {
     //
 });
 
 /**
-* –{‚ğíœ 
+* æœ¬ã‚’å‰Šé™¤ 
 */
 Route::delete('/book/{book}', function (Book $book) {
     //
@@ -235,11 +235,11 @@ Route::delete('/book/{book}', function (Book $book) {
 # View
 #***************************
 #--------------------------------------------
-#‚PD/resources/views/layouts/app.blade.php ‚ğì¬
-#   72ƒy[ƒW
-#   ˆÈ‰ºƒR[ƒh‚ğ“\‚è•t‚¯‚Ü‚·B
+#ï¼‘ï¼/resources/views/layouts/app.blade.php ã‚’ä½œæˆ
+#   72ãƒšãƒ¼ã‚¸
+#   ä»¥ä¸‹ã‚³ãƒ¼ãƒ‰ã‚’è²¼ã‚Šä»˜ã‘ã¾ã™ã€‚
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
 <!-- resources/views/layouts/app.blade.php -->
@@ -247,13 +247,13 @@ Route::delete('/book/{book}', function (Book $book) {
 <html lang="ja">
 <head>
 <title>Book List</title>
-<!-- CSS ‚Æ JavaScript -->
+<!-- CSS ã¨ JavaScript -->
 
 </head>
 <body>
     <div class="container">
         <nav class="navbar navbar-default">
-        <!-- ƒiƒrƒo[‚Ì“à—e -->
+        <!-- ãƒŠãƒ“ãƒãƒ¼ã®å†…å®¹ -->
         </nav>
     </div>
     @yield('content')
@@ -267,38 +267,38 @@ Route::delete('/book/{book}', function (Book $book) {
 
 
 #--------------------------------------------
-#‚PD/resources/views/books.blade.php ‚ğì¬
-#   73ƒy[ƒW
-#   ˆÈ‰ºƒR[ƒh‚ğ“\‚è•t‚¯‚Ü‚·B
+#ï¼‘ï¼/resources/views/books.blade.php ã‚’ä½œæˆ
+#   73ãƒšãƒ¼ã‚¸
+#   ä»¥ä¸‹ã‚³ãƒ¼ãƒ‰ã‚’è²¼ã‚Šä»˜ã‘ã¾ã™ã€‚
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
 <!-- resources/views/books.blade.php -->
 @extends('layouts.app')
 @section('content')
-    <!-- Bootstrap‚Ì’èŒ`ƒR[ƒhc -->
+    <!-- Bootstrapã®å®šå½¢ã‚³ãƒ¼ãƒ‰â€¦ -->
     <div class="card-body">
         <div class="card-title">
-            –{‚Ìƒ^ƒCƒgƒ‹
+            æœ¬ã®ã‚¿ã‚¤ãƒˆãƒ«
         </div>
         
-        <!-- ƒoƒŠƒf[ƒVƒ‡ƒ“ƒGƒ‰[‚Ì•\¦‚Ég—p-->
+        <!-- ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼ã®è¡¨ç¤ºã«ä½¿ç”¨-->
     	@include('common.errors')
-        <!-- ƒoƒŠƒf[ƒVƒ‡ƒ“ƒGƒ‰[‚Ì•\¦‚Ég—p-->
+        <!-- ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼ã®è¡¨ç¤ºã«ä½¿ç”¨-->
 
-        <!-- –{“o˜^ƒtƒH[ƒ€ -->
+        <!-- æœ¬ç™»éŒ²ãƒ•ã‚©ãƒ¼ãƒ  -->
         <form action="{{ url('books') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
-            <!-- –{‚Ìƒ^ƒCƒgƒ‹ -->
+            <!-- æœ¬ã®ã‚¿ã‚¤ãƒˆãƒ« -->
             <div class="form-group">
                 <div class="col-sm-6">
                     <input type="text" name="item_name" class="form-control">
                 </div>
             </div>
 
-            <!-- –{ “o˜^ƒ{ƒ^ƒ“ -->
+            <!-- æœ¬ ç™»éŒ²ãƒœã‚¿ãƒ³ -->
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-primary">
@@ -308,7 +308,7 @@ Route::delete('/book/{book}', function (Book $book) {
             </div>
         </form>
     </div>
-    <!-- Book: Šù‚É“o˜^‚³‚ê‚Ä‚é–{‚ÌƒŠƒXƒg -->
+    <!-- Book: æ—¢ã«ç™»éŒ²ã•ã‚Œã¦ã‚‹æœ¬ã®ãƒªã‚¹ãƒˆ -->
 
 @endsection
 
@@ -321,18 +321,18 @@ Route::delete('/book/{book}', function (Book $book) {
 
 
 #--------------------------------------------
-# ‚RD/resources/views/common/errors.blade.php ‚ğì¬ 
-# 76ƒy[ƒW
-# ˆÈ‰ºƒR[ƒh‚ğ“\‚è•t‚¯‚Ü‚·B
+# ï¼“ï¼/resources/views/common/errors.blade.php ã‚’ä½œæˆ 
+# 76ãƒšãƒ¼ã‚¸
+# ä»¥ä¸‹ã‚³ãƒ¼ãƒ‰ã‚’è²¼ã‚Šä»˜ã‘ã¾ã™ã€‚
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
 <!-- resources/views/common/errors.blade.php -->
 @if (count($errors) > 0)
     <!-- Form Error List -->
     <div class="alert alert-danger">
-        <div><strong>“ü—Í‚µ‚½•¶š‚ğC³‚µ‚Ä‚­‚¾‚³‚¢B</strong></div> 
+        <div><strong>å…¥åŠ›ã—ãŸæ–‡å­—ã‚’ä¿®æ­£ã—ã¦ãã ã•ã„ã€‚</strong></div> 
         <div>
             <ul>
             @foreach ($errors->all() as $error)
@@ -354,27 +354,27 @@ Route::delete('/book/{book}', function (Book $book) {
 # Chapter10
 #***************************
 #--------------------------------------------
-#‚PD/routes/web.php
-#   81ƒy[ƒW
-#   wVu–{v‚ğ’Ç‰Áx‚Ìƒ‹[ƒg’è‹`‚ÉˆÈ‰ºƒR[ƒh‚ğã‘‚«B
+#ï¼‘ï¼/routes/web.php
+#   81ãƒšãƒ¼ã‚¸
+#   ã€æ–°ã€Œæœ¬ã€ã‚’è¿½åŠ ã€ã®ãƒ«ãƒ¼ãƒˆå®šç¾©ã«ä»¥ä¸‹ã‚³ãƒ¼ãƒ‰ã‚’ä¸Šæ›¸ãã€‚
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
 Route::post('/books', function (Request $request) {
 
-    //ƒoƒŠƒf[ƒVƒ‡ƒ“
+    //ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³
     $validator = Validator::make($request->all(), [
         'item_name' => 'required|max:255',
     ]);
 
-    //ƒoƒŠƒf[ƒVƒ‡ƒ“:ƒGƒ‰[ 
+    //ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³:ã‚¨ãƒ©ãƒ¼ 
     if ($validator->fails()) {
         return redirect('/')
             ->withInput()
             ->withErrors($validator);
     }
-    //ˆÈ‰º‚É“o˜^ˆ—‚ğ‹LqiEloquentƒ‚ƒfƒ‹j
+    //ä»¥ä¸‹ã«ç™»éŒ²å‡¦ç†ã‚’è¨˜è¿°ï¼ˆEloquentãƒ¢ãƒ‡ãƒ«ï¼‰
 
 
 
@@ -388,14 +388,14 @@ Route::post('/books', function (Request $request) {
 
 
 #--------------------------------------------
-#‚QD/routes/web.php 
-#   83ƒy[ƒW
-#   //ˆÈ‰º‚É“o˜^ˆ—‚ğ‹LqiEloquentƒ‚ƒfƒ‹jƒRƒƒ“ƒg‚Ì‰º‚ÉˆÈ‰ºƒR[ƒh‚ğ“\‚è•t‚¯‚Ü‚·B
+#ï¼’ï¼/routes/web.php 
+#   83ãƒšãƒ¼ã‚¸
+#   //ä»¥ä¸‹ã«ç™»éŒ²å‡¦ç†ã‚’è¨˜è¿°ï¼ˆEloquentãƒ¢ãƒ‡ãƒ«ï¼‰ã‚³ãƒ¡ãƒ³ãƒˆã®ä¸‹ã«ä»¥ä¸‹ã‚³ãƒ¼ãƒ‰ã‚’è²¼ã‚Šä»˜ã‘ã¾ã™ã€‚
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
-// Eloquent ƒ‚ƒfƒ‹
+// Eloquent ãƒ¢ãƒ‡ãƒ«
 $books = new Book;
 $books->item_name = $request->item_name;
 $books->item_number = '1';
@@ -413,11 +413,11 @@ return redirect('/');
 # Chapter11
 #***************************
 #--------------------------------------------
-#‚PD/routes/web.php
-#   85ƒy[ƒW
-#   w–{‚Ìƒ_ƒbƒVƒ…ƒ{[ƒh•\¦ x‚Ìƒ‹[ƒg’è‹`‚ÉˆÈ‰ºƒR[ƒh‚ğã‘‚«B
+#ï¼‘ï¼/routes/web.php
+#   85ãƒšãƒ¼ã‚¸
+#   ã€æœ¬ã®ãƒ€ãƒƒã‚·ãƒ¥ãƒœãƒ¼ãƒ‰è¡¨ç¤º ã€ã®ãƒ«ãƒ¼ãƒˆå®šç¾©ã«ä»¥ä¸‹ã‚³ãƒ¼ãƒ‰ã‚’ä¸Šæ›¸ãã€‚
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
 Route::get('/', function () {
@@ -425,7 +425,7 @@ Route::get('/', function () {
     return view('books', [
         'books' => $books
     ]);
-    //return view('books',compact('books')); //‚à“¯‚¶ˆÓ–¡
+    //return view('books',compact('books')); //ã‚‚åŒã˜æ„å‘³
 });
 
 
@@ -435,33 +435,33 @@ Route::get('/', function () {
 
 
 #--------------------------------------------
-#‚QD/resources/views/books.blade.php
-#   86ƒy[ƒW
-#   books.blade.php“à‚Ì</form>ƒ^ƒO‚Ì‰ºs‚ÉˆÈ‰ºƒR[ƒh‚ğ’Ç‹L
+#ï¼’ï¼/resources/views/books.blade.php
+#   86ãƒšãƒ¼ã‚¸
+#   books.blade.phpå†…ã®</form>ã‚¿ã‚°ã®ä¸‹è¡Œã«ä»¥ä¸‹ã‚³ãƒ¼ãƒ‰ã‚’è¿½è¨˜
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
-     <!-- Œ»İ‚Ì–{ -->
+     <!-- ç¾åœ¨ã®æœ¬ -->
     @if (count($books) > 0)
         <div class="card-body">
             <div class="card-body">
                 <table class="table table-striped task-table">
-                    <!-- ƒe[ƒuƒ‹ƒwƒbƒ_ -->
+                    <!-- ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ˜ãƒƒãƒ€ -->
                     <thead>
-                        <th>–{ˆê——</th>
+                        <th>æœ¬ä¸€è¦§</th>
                         <th>&nbsp;</th>
                     </thead>
-                    <!-- ƒe[ƒuƒ‹–{‘Ì -->
+                    <!-- ãƒ†ãƒ¼ãƒ–ãƒ«æœ¬ä½“ -->
                     <tbody>
                         @foreach ($books as $book)
                             <tr>
-                                <!-- –{ƒ^ƒCƒgƒ‹ -->
+                                <!-- æœ¬ã‚¿ã‚¤ãƒˆãƒ« -->
                                 <td class="table-text">
                                     <div>{{ $book->item_name }}</div>
                                 </td>
 
-			        <!-- –{: íœƒ{ƒ^ƒ“ -->
+			        <!-- æœ¬: å‰Šé™¤ãƒœã‚¿ãƒ³ -->
                                 <td>
 
                                 </td>
@@ -481,21 +481,21 @@ Route::get('/', function () {
 
 
 #***************************
-# Chapter‚P‚Q
+# Chapterï¼‘ï¼’
 #***************************
 #--------------------------------------------
-#‚PD/resources/views/books.blade.php
-#   91ƒy[ƒW
-#   <!-- –{: íœƒ{ƒ^ƒ“ -->‰º‚Ì<td></td>—v‘f“à‚É’Ç‰Á
+#ï¼‘ï¼/resources/views/books.blade.php
+#   91ãƒšãƒ¼ã‚¸
+#   <!-- æœ¬: å‰Šé™¤ãƒœã‚¿ãƒ³ -->ä¸‹ã®<td></td>è¦ç´ å†…ã«è¿½åŠ 
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
     <form action="{{ url('book/'.$book->id) }}" method="POST">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
         <button type="submit" class="btn btn-danger">
-            íœ
+            å‰Šé™¤
         </button>
      </form>
 
@@ -506,16 +506,16 @@ Route::get('/', function () {
 
 
 #--------------------------------------------
-#‚QD/routes/web.php
-#   93ƒy[ƒW
-#   w–{‚ğíœx‚Ìƒ‹[ƒg’è‹`‚ğ’Ç‰Á•ÒW
+#ï¼’ï¼/routes/web.php
+#   93ãƒšãƒ¼ã‚¸
+#   ã€æœ¬ã‚’å‰Šé™¤ã€ã®ãƒ«ãƒ¼ãƒˆå®šç¾©ã‚’è¿½åŠ ç·¨é›†
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
 
 Route::delete('/book/{book}', function (Book $book) {
-    $book->delete();       //’Ç‰Á
-    return redirect('/');     //’Ç‰Á
+    $book->delete();       //è¿½åŠ 
+    return redirect('/');     //è¿½åŠ 
 });
 
 
@@ -525,23 +525,23 @@ Route::delete('/book/{book}', function (Book $book) {
 
 
 #--------------------------------------------
-#‚RD/resources/views/layouts/app.blade.php ‚ğC³
-#   96ƒy[ƒW
-#   Bootstrap4‚ğ“Ç‚İ‚Şihead—v‘f“à‚É‹Lqj
+#ï¼“ï¼/resources/views/layouts/app.blade.php ã‚’ä¿®æ­£
+#   96ãƒšãƒ¼ã‚¸
+#   Bootstrap4ã‚’èª­ã¿è¾¼ã‚€ï¼ˆheadè¦ç´ å†…ã«è¨˜è¿°ï¼‰
 #--------------------------------------------
-#ˆÈ‰º[END]‚Ü‚Å‚Ì‘S‚Ä‚ÌƒR[ƒh‚ğƒRƒs[
+#ä»¥ä¸‹[END]ã¾ã§ã®å…¨ã¦ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ”ãƒ¼
 
-”3.1 BootstrapCSS‚ğ“Ç‚İ‚Ş
+ï¼ƒ3.1 BootstrapCSSã‚’èª­ã¿è¾¼ã‚€
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
 
 
 #--------------------------------------------
-#.”FØ‰æ–Êì¬(Node.js ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é‚±‚Æ) 
-# 144ƒy[ƒW
+#.èªè¨¼ç”»é¢ä½œæˆ(Node.js ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã“ã¨) 
+# 144ãƒšãƒ¼ã‚¸
 #--------------------------------------------
-# ƒRƒ}ƒ“ƒh‚ğÀs
+# ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œ
 composer update
 
 composer require laravel/ui
@@ -553,23 +553,23 @@ npm install
 npm run dev
 
 
-# ƒ‹[ƒg’è‹`/routes/web.php‚Éu‚Qs’Ç‰Áv‚³‚ê‚Ä‚¢‚Ü‚·
-Auth::routes(); /”FØ‹@”\‚ğg—p‚·‚é
+# ãƒ«ãƒ¼ãƒˆå®šç¾©/routes/web.phpã«ã€Œï¼’è¡Œè¿½åŠ ã€ã•ã‚Œã¦ã„ã¾ã™
+Auth::routes(); /èªè¨¼æ©Ÿèƒ½ã‚’ä½¿ç”¨ã™ã‚‹
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-# ƒtƒ@ƒCƒ‹/ƒtƒHƒ‹ƒ_ì¬‚ğŠm”F
-src="{{asset("ƒpƒX");}} " ‚ğ src="/js/app.js"  ‚É•ÏX
-href="{{asset("ƒpƒX");}} "‚ğ src="/css/app.css"  ‚É•ÏX
+# ãƒ•ã‚¡ã‚¤ãƒ«/ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆã‚’ç¢ºèª
+src="{{asset("ãƒ‘ã‚¹");}} " ã‚’ src="/js/app.js"  ã«å¤‰æ›´
+href="{{asset("ãƒ‘ã‚¹");}} "ã‚’ src="/css/app.css"  ã«å¤‰æ›´
 
 
-# Bootstrap‚Ìdiv.container‚ğ“–‚Ä‚é
+# Bootstrapã®div.containerã‚’å½“ã¦ã‚‹
 <div class="container">
     @yield('content')
 </div>
 
 
-# ƒuƒ‰ƒEƒU‚Å‰æ–Ê‚ğŠm”F
+# ãƒ–ãƒ©ã‚¦ã‚¶ã§ç”»é¢ã‚’ç¢ºèª
 
 
 
