@@ -121,8 +121,10 @@ DB_PASSWORD=root
 #　 58ページ
 #--------------------------------------------
 use Illuminate\Support\Facades\Schema; //この行を追加
+use Illuminate\Support\Facades\URL;    //この行を追加
 public function boot() {
    Schema::defaultStringLength(191);   //この行を追加
+   URL::forceScheme('https');          //この行を追加
 }
 
 #[完了]Laravel5.5以上 対応設定 完了***
