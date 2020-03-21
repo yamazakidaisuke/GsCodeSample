@@ -607,6 +607,17 @@ php artisan migrate
 
 
 
+#--------------------------------------------
+# 認証後にのみ表示する設定
+# 例）Middlewareを使用
+#     /routes/web.php
+#--------------------------------------------
+Route::group(['middleware' => 'auth'], function () {
+      $books = Book::orderBy('created_at', 'asc')->get();
+      return view('books', [
+          'books' => $books
+     ]);
+});
 
 
 
