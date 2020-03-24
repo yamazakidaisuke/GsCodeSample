@@ -1,6 +1,13 @@
-# Update: 2020-03-06 
+#---------------------------------------
+# 「はじめてのLaravel6入門 ~ AWS Cloud9で学ぶ ~」
+# https://www.amazon.co.jp/dp/B07XZNJT6D/
+#---------------------------------------
+# Update: 2020-03-24 
 # Author: Yamazaki Daisuke [G'sACADEMY]
-#基本演習用
+# 基本演習用
+#---------------------------------------
+
+
 
 #****************************************
 # Display browser: Chrome, Firefox, Edge
