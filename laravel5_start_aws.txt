@@ -1,6 +1,11 @@
-# Update: 2020-03-06 
+#---------------------------------------
+# 「はじめてのLaravel5.5入門 ~AWS Cloud9で学ぶ~」
+# https://www.amazon.co.jp/gp/product/B07R9RPVCR/
+#---------------------------------------
+# Update: 2020-03-24 
 # Author: Yamazaki Daisuke [G'sACADEMY]
 #基本演習用
+
 
 #****************************************
 # AWS+Cloud9 最短！コマンド＆コード集！！
