@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Dateオブジェクト</title>
+    <style>
+        #main {
+            margin: 5px;
+            padding: 5px;
+            background: #666;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Dateオブジェクト</h1>
+    <script>
+        //曜日配列
+        //let youbi = ["日", "月", "火", "水", "木", "金", "土"];
+
+        //日時取得
+        let now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth() + 1; //+１を入れる。
+        let date = now.getDate();
+        let day = now.getDay();
+        let h = now.getHours();
+        let m = now.getMinutes();
+        let s = now.getSeconds();
+        //日時表示文字列の作成
+        let str = year + "-" + month + "-" + date + " " + h + ":" + m + ":" + s;
+
+        console.log(str);
+    </script>
+</body>
+
+</html>
