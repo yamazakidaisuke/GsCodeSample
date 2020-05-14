@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>セレクトボックスを関数化！！</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>セレクトボックスを関数化！！</h1>
+
+
+
+<!-- セレクトボックス作成[START] -->
+<select id="year"></select>
+<select id="month"></select>
+<select id="date"></select>
+<!-- セレクトボックス作成[END] -->
+
+
+
+
+<script>
+//年:1900~2022
+let y = ""; //例) y += '<option value="'+i+'">'+i+'</option>';
+for(let i=1900; i<2025; i++){
+    y += '<option value="'+i+'">'+i+'</option>';
+}
+$("#year").html(y);
+
+//月:1~12
+let m = "";
+for(let i=1; i<13; i++){
+    m += '<option value="'+i+'">'+i+'</option>';
+}
+$("#month").html(m);
+
+//日:1~31
+let d = "";
+for(let i=1; i<32; i++){
+    d += '<option value="'+i+'">'+i+'</option>';
+}
+$("#date").html(d);
+
+</script>
+</body>
+</html>

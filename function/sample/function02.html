@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>function02: 関数の引数＆戻り値</title>
+</head>
+<body>
+<h1>function02: 関数の引数＆戻り値</h1>
+
+
+
+
+<script>
+
+    //関数定義: addition(a=第1引数, b=第2引数){...}
+    function addition(a, b) {
+        const total = a + b;
+        return total;            //return は関数の外に値を渡す
+    }
+
+
+    const sum = addition(10, 20); //const sum変数は関数からの「return」を受け取る
+    console.log( sum );
+
+</script>
+</body>
+</html>
