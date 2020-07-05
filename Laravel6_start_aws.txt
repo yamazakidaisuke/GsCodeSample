@@ -317,11 +317,12 @@ Route::delete('/book/{book}', function (Book $book) {
 #１．Auth( ユーザー登録・認証画面 )
 #--------------------------------------------
 # laravel/ui パッケージをインストール
+# 【注意】Laraveのバージョンを確認して実行しないとErrorになります！！
 -----
-#laravel6の場合
-composer require laravel/ui 1.*
+#Laravel 6.x の場合
+composer require laravel/ui:^1.0 --dev
 -----
-#laravel7の場合
+#laravel 7.x の場合
 composer require laravel/ui
 -----
 
