@@ -165,9 +165,12 @@ public function boot() {
 # 192ページ
 #----------------------
 cd public   ＃publicフォルダに移動
+
 wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
+
 unzip phpMyAdmin-4.8.3-all-languages.zip
 
+#＜手順解説＞
 #5.1 publicフォルダ内に「phpMyAdmin-4.8.3-all-languages」フォルダが作成される 
 #5.2 フォルダ名が長いので「phpMyAdmin」に変更
 #5.3「Preview」でサイトを開き、URLの最後に「phpMyAdmin/index.php」をつけてEnterキーを押す
@@ -229,11 +232,11 @@ php artisan migrate
 
 
 #--------------------------------------------
-#４．MySQLーDBに作成されたテーブルを確認 
+#４．MySQL DBに作成されたテーブルを確認 
 #   59ページ
 #--------------------------------------------
 #ブラウザで確認：する場合[phpMyAdmin]
-# URL例： https://***********＊.cloud9.us-east-1.amazonaws.com/phpMyAdmin/
+# URL例： https://***********.com/phpMyAdmin/
 
 # ※コマンドで確認する場合（コマンドに慣れてる人用）
 mysql -u root -p
@@ -282,7 +285,7 @@ use App\Book;
 use Illuminate\Http\Request;
 
 /**
-* 本のタ?ッシュホ?ート?表示(books.blade.php)
+* 本のダッシュボード表示(books.blade.php)
 */
 Route::get('/', function () {
     return view('welcome');
@@ -316,23 +319,23 @@ Route::delete('/book/{book}', function (Book $book) {
 #--------------------------------------------
 #１．Auth( ユーザー登録・認証画面 )
 #--------------------------------------------
-# laravel/ui パッケージをインストール
+# laravel/ui パッケージをインストール（４ステップ！）
 # 【注意】Laraveのバージョンを確認して実行しないとErrorになります！！
 -----
-#Laravel 6.x の場合
+#1. Laravel 6.x の場合
 composer require laravel/ui:^1.0 --dev
 -----
-#laravel 7.x の場合
+#1. laravel 7.x の場合
 composer require laravel/ui
 -----
 
-# artisan コマンドを実行
+#2. artisan コマンドを実行
 php artisan ui vue --auth
 
-# npmパッケージをインストール
+#3. npmパッケージをインストール
 npm install
 
-#パッケージをビルド
+#4. パッケージをビルド
 npm run dev
 --------------------------------------------------
 // ログイン機能・画面が作成されました。
@@ -357,12 +360,12 @@ npm run dev
         </div>
         
         <!-- バリデーションエラーの表示に使用-->
-    	@include('common.errors')
+        @include('common.errors')
         <!-- バリデーションエラーの表示に使用-->
 
         <!-- 本登録フォーム -->
         <form action="{{ url('books') }}" method="POST" class="form-horizontal">
-            {{ csrf_field() }}
+            @csrf
 
             <!-- 本のタイトル -->
             <div class="form-group">
@@ -430,7 +433,7 @@ npm run dev
 #以下[END]までの全てのコードをコピー
 
 /**
-* 本のタ?ッシュホ?ート?表示(books.blade.php)
+* 本のダッシュボード表示(books.blade.php)
 */
 Route::get('/', function () {
     return view('books');  //＊＊ ここを修正 ＊＊
@@ -441,7 +444,7 @@ Route::get('/', function () {
 #--------------------------------------------
 #５．ブラウザプレビュー確認
 #--------------------------------------------
-#エラーが出る場合
+#*エラーが出る場合
 /resources/views/layouts/app.blade.php を修正
 #２箇所の修正（https対応）
 13行目： {{ asset('js/app.js') }} を {{ asset('js/app.js',true) }}
@@ -464,12 +467,12 @@ Route::get('/', function () {
 
 Route::post('/books', function (Request $request) {
 
-    //ハ?リテ?ーション
+    //バリデーション
     $validator = Validator::make($request->all(), [
         'item_name' => 'required|max:255',
     ]);
 
-    //ハ?リテ?ーション:エラー 
+    //バリデーション:エラー 
     if ($validator->fails()) {
         return redirect('/')
             ->withInput()
@@ -496,7 +499,7 @@ Route::post('/books', function (Request $request) {
 #以下[END]までの全てのコードをコピー
 
 
-// Eloquent モテ?ル
+// Eloquentモデル
 $books = new Book;
 $books->item_name = $request->item_name;
 $books->item_number = '1';
@@ -516,7 +519,7 @@ return redirect('/');
 #--------------------------------------------
 #１．/routes/web.php
 #   90ページ
-#   『本のタ?ッシュホ?ート?表示 』のルート定義に以下コードを上書き。
+#   『本のダッシュボード表示 』のルート定義に以下コードを上書き。
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
@@ -562,7 +565,7 @@ Route::get('/', function () {
                                     <div>{{ $book->item_name }}</div>
                                 </td>
 
-			        <!-- 本: 削除ボタン -->
+                                <!-- 本: 削除ボタン -->
                                 <td>
 
                                 </td>
@@ -587,14 +590,15 @@ Route::get('/', function () {
 #--------------------------------------------
 #１．/resources/views/books.blade.php
 #   96ページ
-#   <!-- 本: 削除ホ?タン -->下の<td></td>要素内に追加
+#   <!-- 本: 削除ボタン -->下の<td></td>要素内に追加
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
     <form action="{{ url('book/'.$book->id) }}" method="POST">
-        {{ csrf_field() }}
-        {{ method_field('DELETE') }}
+        @csrf
+        @method('DELETE')
+        
         <button type="submit" class="btn btn-danger">
             削除
         </button>
