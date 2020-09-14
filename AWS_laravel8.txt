@@ -1,0 +1,104 @@
+#---------------------------------------
+# Laravel8「サンプルコマンド・サンプルコード」
+#---------------------------------------
+# Author: Yamazaki Daisuke [G'sACADEMY]
+# 超速体験用
+#---------------------------------------
+
+<<設定確認>>
+ 「Create environment」で新規作成する際に、
+ EC2 [ t2.micro（無料内） ]を選択してる想定で用意しています。 
+
+
+#***************************
+# ◇ 第１章 ◇
+# 環境構築（PHP7.3アップデート＆Laravel8インストール） 
+#***************************
+
+#--------------------------------------------
+#１．PHPバージョン確認コマンド ＊コピペ失敗要注意！！
+#--------------------------------------------
+php -v
+
+#--------------------------------------------
+#２．Cloud9：PHP7.3_Updateコマンド 
+#   注意 → コマンド１行が長いのでコピペ失敗には要注意！！
+#--------------------------------------------
+
+sudo yum -y install php73 php73-cli php73-common php73-devel php73-mysqlnd php73-pdo php73-xml php73-gd php73-intl php73-mbstring php73-mcrypt php73-opcache php73-pecl-apcu php73-pecl-imagick php73-pecl-memcached php73-pecl-redis php73-pecl-xdebug
+
+sudo alternatives --set php /usr/bin/php-7.3
+
+php -v
+
+#--------------------------------------------
+#３．Cloud9：Composer 
+#   注意 → コマンド１行が長いのでコピペ失敗には要注意！！
+#--------------------------------------------
+
+curl -sS https://getcomposer.org/installer | php
+
+sudo mv composer.phar /usr/bin/composer
+
+composer
+
+#--------------------------------------------
+#1.[完了]PHP7.2 インストール完了***
+
+
+#--------------------------------------------
+#２．Laravelインストーラーをダウンロード
+#--------------------------------------------
+composer global require "laravel/installer"
+#--------------------------------------------
+#2.[完了]Laravel ダウンロード完了***
+
+
+#-------------------------------------------
+#４. SWap作成：メモリ不足エラーにならないために
+#    t2.microには512MのSwapを用意
+#-------------------------------------------
+sudo dd if=/dev/zero of=/swapfile bs=1M count=512
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+#--------------------------------------------
+#５．Laravel6.* をcmsディレクトリに設置（インストール） 
+#--------------------------------------------
+composer create-project laravel/laravel cms 8.* --prefer-dist
+#--------------------------------------------
+#3.[完了]Laravel "cmsフォルダ"を作ってその中にLaravelを設置完了***
+
+#-------------------------------------------
+#６．SWap削除（上記コマンド終了したらSWap削除します）
+#-------------------------------------------
+sudo swapoff /swapfile
+sudo rm /swapfile
+sudo swapoff -a && swapon -a  
+#swapon: cannot open /var/swapfile: Permission denied と出ますが無視してOK
+
+#--------------------------------------------
+#７．MySQL起動＆Apache起動
+#--------------------------------------------
+sudo service mysqld restart
+cd cms
+php artisan serve --port=8080
+#--------------------------------------------
+#4. [完了]Webサーバー起動確認***
+#4.1 Preview→ [Preview Running Application]選択
+#4.2 /resouces/views/welcome.blade.php を編集して見よう！
+#4.3 ブラウザ・更新で確認 →　変更確認できればOK
+
+
+#**********************************************
+#  ＊超大事！！！！
+#  いつも使うので、覚えておくか直ぐコピペできる場所に書いておきましょう！
+#**********************************************
+#MySQL起動（ログインしたら必ず実行）
+sudo service mysqld restart
+
+#Webサーバー起動（ログインしたら必ず実行）
+php artisan serve --port=8080
+#**********************************************
+
