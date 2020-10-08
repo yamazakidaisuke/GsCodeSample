@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Dateオブジェクト演習2</title>
+
+<script>
+
+    //日時取得
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;  //月は必ず +１をする！
+    var date = now.getDate();
+    var day = now.getDay();  //曜日[0=日曜日,1=月曜日...]
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    //日時表示文字列の作成
+    var str = "現在日時：";
+    alert( str + year+"年"+ month+"月"+date+"日 "+h+"時"+m+"分"+s+"秒" );
+
+</script>
+</head>
+<body>
+<h1>Dateオブジェクト：console.logで確認</h1>
+</body>
+</html>
