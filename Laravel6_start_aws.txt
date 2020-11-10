@@ -317,28 +317,32 @@ Route::delete('/book/{book}', function (Book $book) {
 # View
 #***************************
 #--------------------------------------------
-#１．Auth( ユーザー登録・認証画面 )
+#１．/resources/views/layouts/app.blade.php を作成
+#   以下コードを貼り付けます。
 #--------------------------------------------
-# laravel/ui パッケージをインストール（４ステップ！）
-# 【注意】Laraveのバージョンを確認して実行しないとErrorになります！！
------
-#1. Laravel 6.x の場合
-composer require laravel/ui:^1.0 --dev
------
-#1. laravel 7.x の場合
-composer require laravel/ui
------
+#以下[END]までの全てのコードをコピー
 
-#2. artisan コマンドを実行
-php artisan ui vue --auth
 
-#3. npmパッケージをインストール
-npm install
+<!-- resources/views/layouts/app.blade.php -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>Book List</title>
+<!-- CSS と JavaScript -->
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+        <!-- ナビバーの内容 -->
+        </nav>
+    </div>
+    @yield('content')
+</body>
+</html>
 
-#4. パッケージをビルド
-npm run dev
---------------------------------------------------
-// ログイン機能・画面が作成されました。
+
+#[END]--------------------------------------------
+
 
 
 
@@ -365,7 +369,7 @@ npm run dev
 
         <!-- 本登録フォーム -->
         <form action="{{ url('books') }}" method="POST" class="form-horizontal">
-            @csrf
+            {{ csrf_field() }}
 
             <!-- 本のタイトル -->
             <div class="form-group">
@@ -438,18 +442,6 @@ npm run dev
 Route::get('/', function () {
     return view('books');  //＊＊ ここを修正 ＊＊
 });
-
-
-
-#--------------------------------------------
-#５．ブラウザプレビュー確認
-#--------------------------------------------
-#*エラーが出る場合
-/resources/views/layouts/app.blade.php を修正
-#２箇所の修正（https対応）
-13行目： {{ asset('js/app.js') }} を {{ asset('js/app.js',true) }}
-20行目： {{ asset('css/app.css') }} を {{ asset('css/app.css',true) }}
-#--------------------------------------------
 
 
 
@@ -596,8 +588,8 @@ Route::get('/', function () {
 
 
     <form action="{{ url('book/'.$book->id) }}" method="POST">
-        @csrf
-        @method('DELETE')
+         {{ csrf_field() }}
+         {{ method_field('delete') }}
         
         <button type="submit" class="btn btn-danger">
             削除
@@ -607,6 +599,7 @@ Route::get('/', function () {
 
 
 #[END]--------------------------------------------
+
 
 
 
@@ -630,7 +623,38 @@ Route::delete('/book/{book}', function (Book $book) {
 
 
 
+#***************************
+# Login
+#***************************
+#--------------------------------------------
+# Auth( ユーザー登録・認証画面 )
+#--------------------------------------------
+# laravel/ui パッケージをインストール（４ステップ！）
+# 【注意】Laraveのバージョンを確認して実行しないとErrorになります！！
+#  コマンド打って、yes/no がでたらyes で！！
+-----
 
+#1. Laravel 6.x の場合
+composer require laravel/ui:^1.0 --dev
+
+#2. artisan コマンドを実行
+php artisan ui vue --auth
+
+#3. npmパッケージをインストール
+npm install
+
+#4. パッケージをビルド
+npm run dev
+
+--------------------------------------------------
+// ログイン機能・画面が作成されました。
+
+#*エラーが出る場合(画面がくずる場合：JS/CSSが読み込めてない)
+/resources/views/layouts/app.blade.php を修正
+#２箇所の修正（https対応）
+13行目： {{ asset('js/app.js') }} を {{ asset('js/app.js',true) }}
+20行目： {{ asset('css/app.css') }} を {{ asset('css/app.css',true) }}
+#--------------------------------------------
 
 
 
