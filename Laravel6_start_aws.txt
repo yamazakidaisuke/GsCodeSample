@@ -210,7 +210,7 @@ php artisan make:migration create_books_table --create=books
 public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('item_name');
             $table->integer('item_number');
             $table->integer('item_amount');
