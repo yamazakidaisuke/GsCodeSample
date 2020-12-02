@@ -1,0 +1,33 @@
+ sudo amazon-linux-extras install php7.2=stable
+
+ sudo yum install --enablerepo=epel,remi,remi-php73 php-devel
+ 
+ sudo yum install --enablerepo=epel libmcrypt
+
+ sudo yum install --enablerepo=epel libargon2
+
+ sudo yum install --enablerepo=epel libargon2-devel
+
+sudo yum install php-mbstring
+sudo yum install php-gd
+sudo yum install php-xml
+sudo yum install php-xmlrpc
+sudo yum install php-opcache
+sudo yum install php-pecl-zip
+sudo yum install php-pear
+sudo yum install php-pecl-mcrypt
+
+curl -sS https://getcomposer.org/installer | php
+
+sudo mv composer.phar /usr/bin/composer
+
+composer
+
+composer global require "laravel/installer"
+
+composer create-project laravel/laravel cms 6.* --prefer-dist
+
+php artisan serve --port=8080
+
+
+
