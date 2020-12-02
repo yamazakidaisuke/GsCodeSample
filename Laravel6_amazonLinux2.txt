@@ -1,6 +1,6 @@
  sudo amazon-linux-extras install php7.2=stable
 
- sudo yum install --enablerepo=epel,remi,remi-php73 php-devel
+ sudo yum install --enablerepo=epel,remi,remi-php72 php-devel
  
  sudo yum install --enablerepo=epel libmcrypt
 
