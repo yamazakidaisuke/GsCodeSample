@@ -27,7 +27,37 @@ composer global require "laravel/installer"
 
 composer create-project laravel/laravel cms 6.* --prefer-dist
 
+cd cms
+
 php artisan serve --port=8080
 
 
+#EC2 Update
+sudo yum update -y
 
+#PHP / MaryaDB 構築
+sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+
+
+#Apache、MariaDBのインストール
+sudo yum install -y httpd mariadb-server
+
+#Apache, MariaDBの起動
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo systemctl is-enabled httpd
+sudo systemctl start mariadb
+sudo mysql_secure_installation
+#
+
+#MaridaDBの自動起動を有効化
+sudo systemctl enable mariadb
+sudo systemctl is-enabled mariadb
+
+#.env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=c9
+DB_USERNAME=root
+DB_PASSWORD=root
