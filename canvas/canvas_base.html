@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>canvas_base.html</title>
+</head>
+
+<body>
+    <section>
+        <h1>Canvas</h1>
+        <nav>
+            <!-- 線の色を変更するHTML要素 -->
+            <!-- 線の太さを変更するHTML要素 -->
+            <button id="clear_btn">クリアー</button>
+        </nav>
+        <canvas id="drowarea" width="500" height="500" style="border:1px solid blue;"></canvas>
+    </section>
+
+
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script>
+        //初期化(変数letで宣言)
+        let canvas_mouse_event = false; //スイッチ [ true=線を引く, false=線は引かない ]  ＊＊＊
+        let oldX = 0; //１つ前の座標を代入するための変数
+        let oldY = 0; //１つ前の座標を代入するための変数
+        let bold_line = 3; //ラインの太さをここで指定
+        let color = "#ccc"; //ラインの色をここで指定
+
+        //------------------------------------------------
+        //const can = $("#drowarea")[0]; //CanvasElement
+        //const ctx = can.getContext("2d"); //描画するための準備！
+        //------------------------------------------------
+        //上2つのスクリプトを記述します。
+
+
+        //mousedown：フラグをTrue
+        //-----------------------------------------------
+        //oldX = e.offsetX;       //MOUSEDOWNしたX横座標取得
+        //oldY = e.offsetY; //MOUSEDOWN Y高さ座標取得
+        //canvas_mouse_event=true;
+        //-----------------------------------------------
+        //上5つのスクリプトを記述します。
+
+
+        //mousemove：フラグがTrueだったら描く ※e：イベント引数取得
+        //----------------------------------------------
+        //  if(canvas_mouse_event==true){
+        //      const px = e.offsetX;
+        //      const py = e.offsetY;
+        //      ctx.strokeStyle = color;
+        //      ctx.lineWidth = bold_line;
+        //      ctx.beginPath();
+        //      ctx.lineJoin= "round";
+        //      ctx.lineCap = "round";
+        //      ctx.moveTo(oldX, oldY);
+        //      ctx.lineTo(px, py);
+        //      ctx.stroke();
+        //      oldX = px;
+        //      oldY = py;
+        //  }
+
+
+        //mouseup：フラグをfalse
+        //------------------------------------------------
+        //    canvas_mouse_event=false;
+        //------------------------------------------------
+
+
+        //#clear_btn：クリアーボタンAction
+        //-----------------------------------------------------------------
+        //    ctx.beginPath();
+        //    ctx.clearRect(0, 0, can.width, can.height);
+        //-----------------------------------------------------------------
+    </script>
+</body>
+
+</html>

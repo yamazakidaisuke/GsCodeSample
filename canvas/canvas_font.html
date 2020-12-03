@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>文字</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="300"></canvas>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script>
+        const canvas = $("#canvas")[0];
+        const ctx = canvas.getContext("2d");
+        //カラー指定
+        ctx.fillStyle = "#ff0000";
+        //fontサイズ、書式
+        ctx.font = "20px _sans";
+        //文字の設置位置
+        ctx.textBaseline = "top"; //top,middle,bottom...
+        //表示文字と座標
+        ctx.fillText("Hello World!", 10, 100); //ctx.fillText(文字列,x,y)
+    </script>
+
+</body>
+
+</html>

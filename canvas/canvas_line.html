@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>線</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="300"></canvas>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script>
+        const can = $("#canvas")[0];
+        const ctx = can.getContext("2d");
+
+        //色指定
+        ctx.strokeStyle = "#000"; //need list of available colors
+        //線の太さ
+        ctx.lineWidth = 10;
+        //線の端の形状
+        //http://www.html5.jp/canvas/ref/property/lineCap.html
+        ctx.lineCap = 'square'; //round=丸い,square=四角い,butt=ラインキャップなし
+        //パスの開始
+        ctx.beginPath();
+        //始点
+        //http://www.html5.jp/canvas/ref/method/moveTo.html
+        ctx.moveTo(20, 0);
+        //終点
+        //http://www.html5.jp/canvas/ref/method/lineTo.html
+        ctx.lineTo(100, 0);
+        //描画
+        ctx.stroke();
+        //パスを閉じる
+        ctx.closePath();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ArcTest</title>
+</head>
+
+<body>
+    <canvas id="drowarea" width="500" height="500" style="border:1px solid blue;"></canvas>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script>
+        //上2つのスクリプトを記述します。
+        const can = $("#drowarea")[0]; //CanvasElement
+        const ctx = can.getContext("2d"); //描画するための準備！
+
+        ctx.beginPath();
+        /* 円弧を生成 */
+        let startAngle = 45 * Math.PI / 180;
+        let endAngle = 135 * Math.PI / 180;
+        ctx.arc(100, 100, 45, startAngle, endAngle, true);
+        /* サブパスを閉じる */
+        ctx.closePath();
+        /* これまで描いたパスを表示 */
+        ctx.stroke();
+    </script>
+</body>
+
+</html>

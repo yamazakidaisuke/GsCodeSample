@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>三角形</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="300"></canvas>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script>
+        const can = $("#canvas")[0];
+        const ctx = can.getContext("2d");
+        //色指定
+        ctx.strokeStyle = "#f00"; //need list of available colors
+        //線の太さ
+        ctx.lineWidth = 10;
+        //線の端の形状
+        ctx.lineCap = 'square'; //round=丸い,square=四角い,butt=ラインキャップなし
+        //パスの開始
+        ctx.beginPath();
+        //始点
+        ctx.moveTo(20, 200);
+        ctx.lineTo(100, 20);
+        ctx.lineTo(200, 200);
+        //自動的に閉じてくれる
+        ctx.closePath();
+        //描画
+        ctx.stroke();
+    </script>
+</body>
+
+</html>
