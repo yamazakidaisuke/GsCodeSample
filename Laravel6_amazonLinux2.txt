@@ -17,20 +17,6 @@ sudo yum install php-pecl-zip
 sudo yum install php-pear
 sudo yum install php-pecl-mcrypt
 
-curl -sS https://getcomposer.org/installer | php
-
-sudo mv composer.phar /usr/bin/composer
-
-composer
-
-composer global require "laravel/installer"
-
-composer create-project laravel/laravel cms 6.* --prefer-dist
-
-cd cms
-
-php artisan serve --port=8080
-
 
 #EC2 Update
 sudo yum update -y
@@ -53,6 +39,24 @@ sudo mysql_secure_installation
 #MaridaDBの自動起動を有効化
 sudo systemctl enable mariadb
 sudo systemctl is-enabled mariadb
+
+
+
+
+curl -sS https://getcomposer.org/installer | php
+
+sudo mv composer.phar /usr/bin/composer
+
+composer
+
+composer global require "laravel/installer"
+
+composer create-project laravel/laravel cms 6.* --prefer-dist
+
+cd cms
+
+php artisan serve --port=8080
+
 
 #.env
 DB_CONNECTION=mysql
