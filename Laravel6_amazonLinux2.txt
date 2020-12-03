@@ -1,36 +1,18 @@
+#PHPセットアップ
+
 sudo amazon-linux-extras install php7.2=stable
 
-sudo yum install --enablerepo=epel,remi,remi-php72 php-devel
-
-sudo yum install --enablerepo=epel libmcrypt
-
-sudo yum install --enablerepo=epel libargon2
-
-sudo yum install --enablerepo=epel libargon2-devel
-
-sudo yum install php-mbstring
-
-sudo yum install php-gd
-
-sudo yum install php-xml
-
-sudo yum install php-xmlrpc
-
-sudo yum install php-opcache
-
-sudo yum install php-pecl-zip
-
-sudo yum install php-pear
-
-sudo yum install php-pecl-mcrypt
+sudo yum install php-mbstring php-pecl-memcached php-gd php-apcu php-xml
 
 
 # MaryaDB 構築
+
 sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2
 
 
 #MariaDBのインストール
-sudo yum install -y httpd mariadb-server
+
+sudo yum install -y mariadb-server
 
 
 #Apache, MariaDBの起動
