@@ -170,6 +170,9 @@ wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-language
 
 unzip phpMyAdmin-4.8.3-all-languages.zip
 
+cd cms
+
+
 #＜手順解説＞
 #5.1 publicフォルダ内に「phpMyAdmin-4.8.3-all-languages」フォルダが作成される 
 #5.2 フォルダ名が長いので「phpMyAdmin」に変更
