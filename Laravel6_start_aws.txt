@@ -291,6 +291,7 @@ use Illuminate\Http\Request;
 * 本のダッシュボード表示(books.blade.php)
 */
 Route::get('/', function () {
+    //return view('books');  //＊＊ 以下４でこちらへ修正 ＊＊
     return view('welcome');
 });
 
