@@ -44,8 +44,6 @@ composer
 
 #Laravelインストール
 
-composer global require "laravel/installer"
-
 composer create-project laravel/laravel cms 6.* --prefer-dist
 
 
@@ -61,7 +59,7 @@ php artisan serve --port=8080
 
 #.env（ファイル内の同じ箇所を上書き）
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+DB_HOST=localhost
 DB_PORT=3306
 DB_DATABASE=c9
 DB_USERNAME=root
