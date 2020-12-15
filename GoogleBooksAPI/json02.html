@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/sample.css">
+<title>GoogleBookAPI【練習】</title>
+</head>
+<body>
+
+  <header>
+    <h1>GoogleBookAPI</h1>
+  </header>
+
+  <main>
+    <p id="content">console.dirで表示［右クリック → 検証 → consoleで確認］</p>
+  </main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  //** getJSON[開始]
+  $.getJSON("https://www.googleapis.com/books/v1/volumes?q=jquery",
+    function (data) {
+        console.dir(data); //確認用
+
+        //1.items[0]個目のitemsデータを参照
+
+
+        //２．itemの中のvolumeInfoの中のtitleを参照 → id="content"に文字追加
+
+
+    }
+); //** getJSON[終了]
+</script>
+</body>
+</html>

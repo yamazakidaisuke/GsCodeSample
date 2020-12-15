@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/sample.css">
+<title>GoogleBook検索</title>
+</head>
+<body>
+
+  <header>
+    <h1>GoogleBooks検索</h1>
+    <p>
+      <input type="text" id="keyword" value="jquery">
+      <button id="readbook">データ読み込み</button>
+    </p>
+  </header>
+
+  <main>
+    <p id="content">ここに表示されます</p>
+  </main>
+  
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+//-----------------------------------
+//getJSON（Ajax通信開始）
+//＊演習：題名・出版社・リンクを表示する！！
+//-----------------------------------
+$("#readbook").on("click",function(){
+    const url = "https://www.googleapis.com/books/v1/volumes?q=jquery";
+    $.getJSON(url, function (data) {
+        console.log(data);
+
+
+
+    });
+});
+//----------------------------------
+</script>
+</body>
+
+</html>
