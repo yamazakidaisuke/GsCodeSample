@@ -118,9 +118,11 @@ exit;
 
 
 #--------------------------------------------
-#６ .envファイルのDB設定 
+#６ .envファイルのDB設定 （まるっとDB＿＊＊＊箇所を上書き）
 #    49,50ページ
 #--------------------------------------------
+DB_CONNECTION=mysql
+DB_PORT=3306
 DB_HOST=localhost
 DB_DATABASE=c9
 DB_USERNAME=root
