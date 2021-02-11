@@ -81,10 +81,12 @@ php artisan serve --port=8080
 
 sudo composer update
 
+
 #4. [完了]Webサーバー起動確認***
 #4.1 Preview→ [Preview Running Application]選択
 #4.2 /resouces/views/welcome.blade.php を編集して見よう！
 #4.3 ブラウザ・更新で確認 →　変更確認できればOK
+
 
 
 
