@@ -132,7 +132,7 @@ DB_PASSWORD=root
 #！！ [.env] 設定を変更したら必ずWebサーバーを再起動！！
 ------
 #Webサーバー止める
-[ Ctl + C ]キーでWebサーバーを止めます。
+[Ctrl] + [C]キーでWebサーバーを止めます。
 ------
 #Webサーバー起動（.envの再読み込み！）
 php artisan serve --port=8080
