@@ -175,7 +175,7 @@ wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-language
 unzip phpMyAdmin-4.8.3-all-languages.zip
 #重要：unzipできない場合は「PCにダウンロード→ 展開（解凍） → cloud9 → cms/publicフォルダにドラッグ＆ドロップでアップロード」
 
-cd cms
+cd ..
 
 
 #＜手順解説＞
