@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+
+
+<!-- PWA -->
+<!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization/?hl=ja-->
+<meta name="theme-color" content="#F8F7F8">
+<link rel="manifest" href="./manifest.json">
+<script>
+if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('./sw.js');
+}
+</script>
+<!-- PWA -->
+
+
+<meta name="viewport" content="width=device-width" />
+<link rel="stylesheet" href="./css/index.css" />
+<title>My Animals Note！ for iPad ~2010~</title>
+<style>
+#rotate_title{
+    -webkit-animation-name: imove;
+    -webkit-animation-duration: 10s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count:1;
+ }
+@-webkit-keyframes imove{
+    0% {
+        -webkit-transform:rotateY(0deg) scale(1.0) translate3d(0px,30px,0px);
+    }
+    50% {
+        -webkit-transform:rotateY(300deg) scale(1.6) translate3d(300px,300px,30px);
+    }
+    100% {
+        -webkit-transform:rotateY(0deg) scale(1.0) translate3d(0px,0px,0px);
+    }
+}
+</style>
+</head>
+<body>
+<div id="rotate_title">My Animals Note！ </div>
+<article>
+    <h1 class="title">My Animals Note！はiPadを利用した、子供向けお絵かきアプリです。</h1>
+    <h2>▼利用方法▼：</h2>
+    <div id="service_select">
+        <h2>1. 背景選択：　最初に画像を選択します。</h2>
+        <div id="img_1">
+            <img src="img/img_1.gif" />
+        </div>
+    </div>
+    <div id="campus_select">
+        <h2>2. キャンパス：　動物にあった色を選択しなぞって絵を完成させます。保存ボタンをタップします。</h2>
+        <div id="img_2">
+            <img src="img/img_2.gif" />
+        </div>
+    </div>
+    <div id="action_select">
+        <h2>3. 保存データ：　保存された画像が表示されます。画像をタップすると自分が描いた動物が動き出します！</h2>
+        <div id="img_3">
+            <img src="img/img_3.gif" />
+        </div>
+    </div>
+    <div id="action_start">
+        <h2>それでは下記をタップして開始！！</h2>
+        <h3 class="center"><button id="btn"> Let's Go  &gt;&gt; スタート！！</button></h3>
+    </div>
+</article>
+<script>
+document.querySelector("#btn").addEventListener("click",function(){
+    location.href='campas.html';
+});
+    
+</script>
+</body>
+</html>

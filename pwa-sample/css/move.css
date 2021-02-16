@@ -1,0 +1,104 @@
+.face_bg {
+    position: relative;
+	float:left;
+    height: 150px;
+    width: 200px;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+    -webkit-backface-visibility: hidden;
+}
+.dvd_move_3d{
+	-webkit-transform-style:preserve-3d;
+	-webkit-transform:rotateY(0deg);
+}
+.save_3d_bg{
+	background-image:url(../img/yama1.gif);
+	background-repeat:repeat;
+	background-position:center;
+}
+
+/*IMGキーフレームを指定*/
+@-webkit-keyframes img_rocate {
+	0% {
+		-webkit-transform:rotateY(45deg);
+	}
+	100% {
+		-webkit-transform:rotateY(360deg);
+	}
+}
+/*IMGキーフレームを指定*/
+@-webkit-keyframes img_rocate_smp {
+	0% {
+		-webkit-transform:rotateY(360deg);
+	}
+	100% {
+		-webkit-transform:rotateY(45deg);
+	}
+}
+
+
+/*IMGキーフレームを指定*/
+/**
+* scale 1.0=Default
+* rotateX 0=Default
+* translate3d 0=Default
+*/
+
+@-webkit-keyframes move_3d {
+	0% {
+		-webkit-transform:rotateY(-180deg) scale(1.5) translate3d(-500px,0px,0px);
+	}
+	25% {
+		-webkit-transform:rotateY(0deg) scale(0.5) translate3d(0px,0px,0px);
+	}
+	50% {
+		-webkit-transform:rotateY(180deg) scale(2.5) translate3d(500px,-200px,0px);
+	}
+	75% {
+		-webkit-transform:rotateY(0deg) scale(0.5) translate3d(-500px,300px,0px);
+	}
+	100% {
+		-webkit-transform:rotateY(-180deg) scale(1.0) translate3d(500px,0px,0px);
+	}
+}
+/*IMGキーフレームを指定*/
+@-webkit-keyframes move_3d_mo {
+	0% {
+		-webkit-transform:rotateY(0deg) scale(1.0) translate3d(100px,30px,0px);
+	}
+	25% {
+		-webkit-transform:rotateY(180deg) scale(1.5) translate3d(300px,-100px,0px);
+	}
+	50% {
+		-webkit-transform:rotateY(45deg) scale(0.5) translate3d(-300px,0px,0px);
+	}
+	75% {
+		-webkit-transform:rotateY(180deg) scale(2.0) translate3d(-50px,200px,0px);
+	}
+	80% {
+		-webkit-transform:rotateY(180deg) scale(2.0) translate3d(0px,400px,0px);
+	}
+	100% {
+		-webkit-transform:rotateY(0deg) scale(1.0) translate3d(100px,30px,0px);
+	}
+}
+
+/* IMG */
+@-webkit-keyframes backimg_3d {
+	0% {
+		-webkit-transform:rotateY(0deg) scale(1.0) translate3d(0px,0px,0px);
+	}
+	25% {
+		-webkit-transform:rotateY(10deg) scale(.8) translate3d(300px,0px,50px);
+	}
+	50% {
+		-webkit-transform:rotateY(0deg) scale(1.0) translate3d(-300px,0px,0px);
+	}
+	75% {
+		-webkit-transform:rotateY(10deg) scale(.8) translate3d(400px,-300px,20px);
+	}
+	100% {
+		-webkit-transform:rotateY(0deg) scale(1.0) translate3d(500px,0px,0px);
+	}
+}
+

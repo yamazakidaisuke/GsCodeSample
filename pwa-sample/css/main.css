@@ -1,0 +1,196 @@
+/* Reset */
+body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {margin:0; padding:0; list-style:none; border:none;}
+/* End Reset */
+
+body {font-size:0.8em; font-family:Arial,Verdana,Sans-Serif; background: #fff;}
+a {color:white;}
+
+/* Colors */
+.color-yellow {background:#f2bc00;}
+.color-red    {background:#dd0000;}
+.color-blue   {background:#148ea4;}
+.color-white  {background:#dfdfdf;}
+.color-orange {background:#f66e00;}
+.color-green  {background:#8dc100;}
+.color-yellow h3,
+.color-white h3,
+.color-green h3
+	{color:#000;}
+.color-red h3,
+.color-blue h3,
+.color-orange h3
+	{color:#FFF;}
+/* End Colors */
+
+/* Head section */
+#head {
+    background: #000;
+    height: 100px;
+}
+/* End Head Section */
+
+/* Columns section */
+#columns .column {
+    float: left;
+    width: 33.3%;
+		/* Min-height: */
+		min-height: 400px;
+		height: auto !important; 
+		height: 400px;
+}
+
+	
+#columns #column1 .widget { margin: 30px 35px 0 25px; }
+#columns #column3 .widget { margin: 30px 25px 0 35px; }
+#columns .widget {
+    margin: 30px 20px 0 20px;
+    padding: 2px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+#columns .widget .widget-head {
+    color: #000;
+    overflow: hidden;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+}
+#columns .widget .widget-head h3 {
+    padding: 0 5px;
+    float: left;
+}
+#columns .widget .widget-content {
+    background: #333 url(img/widget-content-bg.png) repeat-x;
+    padding: 0 5px;
+    color: #DDD;
+    -moz-border-radius-bottomleft: 2px;
+    -moz-border-radius-bottomright: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -webkit-border-bottom-right-radius: 2px;
+    line-height: 1.2em;
+    overflow: hidden;
+}
+#columns .widget .widget-content p {
+    padding: 0.8em 0;
+    border-bottom: 1px solid #666;
+}
+#columns .widget .widget-content img {
+    float: right;
+    margin: 10px;
+    border: 1px solid #FFF;
+}
+#columns .widget .widget-content pre {
+    padding: 0.5em 5px;
+    color: #EEE;
+    font-size: 12px;
+}
+#columns .widget .widget-content ul {
+    padding: 5px 0 5px 20px;
+    list-style: disc;
+}
+#columns .widget .widget-content ul li {padding: 3px 0;}
+#columns .widget .widget-content ul.images {
+    padding: 7px 0 0 0;
+    list-style: none;
+    height: 1%;
+}
+#columns .widget .widget-content ul.images li {
+    display: inline;
+    float: left;
+}
+#columns .widget .widget-content ul.images img {
+    display: inline;
+    float: left;
+    margin: 0 0 7px 7px;
+}
+/* End Columns section */
+
+/* CSS Document */
+a{
+	margin-left:20px;font-size:300%;color:#30c;
+}
+canvas{
+	border:7px dotted #FFCC00;
+	background-color:#FFFFFF;
+	/* -webkit-transition: 1s ease-in-out; */
+}
+/*
+canvas:hover{
+	-webkit-border-top-left-radius: 50px;
+	-webkit-border-top-right-radius: 50px;
+	-webkit-border-bottom-right-radius: 50px;
+	-webkit-border-bottom-left-radius: 50px;
+}
+*/
+.btnheight{
+	margin:0px 10px 5px 5px;
+}
+.gmenu{
+	text-align:center;color:#666;font-size:140%;font-weight:bold;
+}
+.g_select{
+	color:#f60;
+	border: solid 2px #fc0;
+	-webkit-box-shadow: 0px 3px 6px rgba(0,0,0,0.25);
+	-webkit-transition: -opacity 0.5s ease-out;
+}
+#child_school_link{
+	font-size:40%;
+}
+#facebook{
+	margin-top:0px;
+}
+.facebook_block{
+	background-color:#9FC0FF;
+	border:2px solid #3B5998;
+	float:left;
+	height:30px;
+	margin-left:5px;
+	width:8px;
+    opacity:0.1;
+	-webkit-transform:scale(0.7);
+	-webkit-animation-name: facebook;
+ 	-webkit-animation-duration: 1s;
+ 	-webkit-animation-iteration-count: infinite;
+ 	-webkit-animation-direction: linear;
+}
+#block_1{
+ 	-webkit-animation-delay: .2s;
+ }
+#block_2{
+ 	-webkit-animation-delay: .4s;
+}
+#block_3{
+ 	-webkit-animation-delay: .6s;
+}
+#block_4{
+ 	-webkit-animation-delay: .8s;
+}
+@-webkit-keyframes facebook{
+	0%{-webkit-transform: scale(1.2);opacity:1;}
+	100%{-webkit-transform: scale(0.7);opacity:0.1;}
+}
+.loding_string{
+	font-size:120%;
+	font-weight:bold;
+	text-align:center;
+	color:#FFF;
+}
+#black_line{color:#333;}
+#glay_line{color:#888;}
+#white_line{color:#555;}
+#cyan_line{color:#3cf;}
+#blue_line{color:#009;}
+#green_line{color:#3c3;}
+#yellow_line{color:#ff0;}
+#orange_line{color:#f93;}
+#brawn_line{color:#930;}
+#magenta_line{color:#c3c;}
+#red_line{color:#f00;}
+#save_p{
+font-size:130%;
+height:100px;
+}
+
+
+

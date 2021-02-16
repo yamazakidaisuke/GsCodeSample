@@ -1,0 +1,106 @@
+body{
+	background-color:#fff;
+	margin:0px;
+	font-size:10.5px;
+}
+h1{
+	color:#444;
+	padding:2px;
+}
+h2{
+	background-color:#555;
+	color:#fff;
+	padding:2px;
+}
+section h2{
+	color:#fff;
+	border-bottom:1px dotted #888;
+}
+section h3{
+	color:#336699;
+	border-bottom:1px dotted #ccc;
+}
+button{
+	color: #fff;
+	font-weight:bold;
+	font-size:120%;
+	width:400px;
+	height:40px;
+	border-top:3px double #f36;
+	border-left:3px double #f36;
+	border-right:3px double #c00;
+	border-bottom:3px double #c00;
+	background-color:#F90000;
+	text-align: center;
+	vertical-align:middle;
+	margin:2px;
+}
+.center{
+	text-align: center;
+	margin-bottom:30px;
+}
+.title{
+	border-bottom:3px dotted #FF6600
+}
+img{
+	height:128px;
+	width:96px;
+}
+
+/* 各SECTION */
+#service_select{
+	-webkit-animation-name: section_rocate;
+ 	-webkit-animation-duration: 5s;
+	-webkit-transform: perspective(1000);
+}
+#campus_select{
+	-webkit-animation-name: section_rocate;
+ 	-webkit-animation-duration: 6s;
+	-webkit-transform: perspective(900);
+}
+#action_select{
+	-webkit-animation-name: section_rocate;
+ 	-webkit-animation-duration: 7s;
+	-webkit-transform: perspective(800);
+}
+#action_start{
+	-webkit-animation-name: section_rocate;
+ 	-webkit-animation-duration: 8s;
+	-webkit-transform: perspective(700);
+}
+section{
+	margin: 15px;
+	padding: 15px;
+	color: #555;
+	border: 2px solid #006;
+	background-color: #fff;
+	-webkit-transform-style: preserve-3d;
+ 	-webkit-animation-iteration-count: 1;
+ 	-webkit-animation-direction: ease-in;
+	-webkit-transform-origin: 90% 60% 10;
+	-webkit-border-radius: 10px;
+}
+/*IMGキーフレームを指定*/
+@-webkit-keyframes section_rocate {
+	0% {
+		-webkit-transform:rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.0);
+	}
+	20% {
+		/* */
+	}
+	35% {
+		-webkit-transform:rotateY(180deg) rotateX(45deg) rotateZ(30deg) scale(0.4);
+	}
+	40% {
+		-webkit-transform:rotateY(180deg) rotateX(100deg) rotateZ(60deg) scale(0.3);
+	}
+	85% {
+		-webkit-transform:rotateY(250deg) rotateX(0deg) rotateZ(60deg) scale(1.4) translateX(-500px);
+	}
+	95% {
+		-webkit-transform:rotateY(120deg) rotateX(10deg) rotateZ(90deg) scale(0.8) translateX(-200px);
+	}
+	100% {
+		-webkit-transform:rotateY(360deg) rotateX(0deg) rotateZ(0deg) scale(1.0) translateX(0px);
+	}
+}
