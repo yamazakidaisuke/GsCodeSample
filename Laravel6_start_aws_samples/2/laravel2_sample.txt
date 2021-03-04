@@ -1,0 +1,731 @@
+#**************************************************
+# 2回目
+# 課題１答え： ルーティング（バリデーション・更新処理）
+#**************************************************
+#--------------------------------------------
+#以下[END]までのコードをコピー
+
+
+<?php
+
+use App\Book;
+use Illuminate\Http\Request;
+
+
+/**
+* 本の一覧表示(books.blade.php)
+*/
+Route::get('/', function () {
+    $books = Book::orderBy('created_at', 'asc')->get();
+    return view('books', [
+        'books' => $books
+    ]);
+    //return view('books',compact('books')); //も同じ意味
+});
+
+/**
+* 本を登録
+*/
+Route::post('/books', function (Request $request) {
+    //バリデーション
+    $validator = Validator::make($request->all(), [
+        'item_name' => 'required|min:3|max:255',
+        'item_number' => 'required | min:1 | max:3',
+        'item_amount' => 'required | max:6',
+         'published'   => 'required',
+    ]);
+    //バリデーション:エラー 
+    if ($validator->fails()) {
+        return redirect('/')
+            ->withInput()
+            ->withErrors($validator);
+    }
+    // Eloquentモデル（登録処理）
+    $books = new Book;
+    $books->item_name =    $request->item_name;
+    $books->item_number =  $request->item_number;
+    $books->item_amount =  $request->item_amount;
+    $books->published =    $request->published;
+    $books->save(); 
+    return redirect('/');
+
+});
+
+//更新画面
+Route::post('/booksedit/{books}', function(Book $books) {
+    //{books}id 値を取得 => Book $books id 値の1レコード取得
+    return view('booksedit', ['book' => $books]);
+});
+
+//更新処理
+Route::post('/books/update', function(Request $request){
+    //バリデーション
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'item_name' => 'required|min:3|max:255',
+            'item_number' => 'required|min:1|max:3',
+            'item_amount' => 'required|max:6',
+            'published' => 'required',
+    ]);
+    //バリデーション:エラー
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withInput()
+                ->withErrors($validator);
+    }
+    
+    //データ更新
+    $books = Book::find($request->id);
+    $books->item_name   = $request->item_name;
+    $books->item_number = $request->item_number;
+    $books->item_amount = $request->item_amount;
+    $books->published   = $request->published;
+    $books->save();
+    return redirect('/');
+});
+
+/**
+* 本を削除 
+*/
+Route::delete('/book/{book}', function (Book $book) {
+    $book->delete();
+    return redirect('/');
+});
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+#**************************************************
+# 課題１答え： 一覧画面（更新ボタン・項目の追加）
+#**************************************************
+resources/views/books.blade.phpに、以下コードを全て上書きします（リスト12.5、12.6）。
+#--------------------------------------------
+#以下[END]までのコードをコピー
+
+
+<!-- resources/views/books.blade.php -->
+@extends('layouts.app')
+@section('content')
+    <!-- Bootstrapの定形コード… -->
+    <div class="card-body">
+        <div class="card-title">
+            本のタイトル
+        </div>
+
+        <!-- バリデーションエラーの表示に使用-->
+        @include('common.errors')
+        <!-- バリデーションエラーの表示に使用-->
+
+        <!-- 本のタイトル -->
+        <form action="{{ url('books') }}" method="POST" class="form-horizontal">
+            @csrf
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="book" class="col-sm-3 control-label">Book</label>
+                    <input type="text" name="item_name" class="form-control">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="amount" class="col-sm-3 control-label">金額</label>
+                    <input type="text" name="item_amount" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="number" class="col-sm-3 control-label">数</label>
+                    <input type="text" name="item_number" class="form-control">
+                </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="published" class="col-sm-3 control-label">公開日</label>
+                    <input type="date" name="published" class="form-control">
+                </div>
+            </div>
+
+            <!-- 本 登録ボタン -->
+            <div class="form-row">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <button type="submit" class="btn btn-primary">
+                    Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- Book: 既に登録されてる本のリスト -->
+     <!-- 現在の本 -->
+    @if (count($books) > 0)
+        <div class="card-body">
+            <div class="card-body">
+                <table class="table table-striped task-table">
+                    <!-- テーブルヘッダ -->
+                    <thead>
+                        <th>本一覧</th>
+                        <th>&nbsp;</th>
+                    </thead>
+                    <!-- テーブル本体 -->
+                    <tbody>
+                        @foreach ($books as $book)
+                            <tr>
+                                <!-- 本タイトル -->
+                                <td class="table-text">
+                                    <div>{{ $book->item_name }}</div>
+                                </td>
+
+                                <!-- 本: 更新ボタン -->
+                                <td>
+                                    <form action="{{ url('booksedit/'.$book->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">
+                                            更新
+                                        </button>
+                                    </form>
+                                </td>
+
+                                <!-- 本: 削除ボタン -->
+                                <td>
+                                    <form action="{{ url('book/'.$book->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-danger">
+                                            削除
+                                        </button>
+                                    </form>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
+
+@endsection
+
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+
+
+#**************************************************
+# 課題１答え： 更新画面
+#**************************************************
+booksedit.blade.phpを新規作成し、以下コードを貼り付けます（リスト12.7）。
+#--------------------------------------------
+#以下[END]までのコードをコピー
+
+
+@extends('layouts.app')
+@section('content')
+<div class="row container">
+    <div class="col-md-12">
+    @include('common.errors')
+    <form action="{{ url('books/update') }}" method="POST">
+
+        <!-- item_name -->
+        <div class="form-group">
+           <label for="item_name">Title</label>
+           <input type="text" name="item_name" class="form-control" value="{{$book->item_name}}">
+        </div>
+        <!--/ item_name -->
+        
+        <!-- item_number -->
+        <div class="form-group">
+           <label for="item_number">Number</label>
+        <input type="text" name="item_number" class="form-control" value="{{$book->item_number}}">
+        </div>
+        <!--/ item_number -->
+
+        <!-- item_amount -->
+        <div class="form-group">
+           <label for="item_amount">Amount</label>
+        <input type="text" name="item_amount" class="form-control" value="{{$book->item_amount}}">
+        </div>
+        <!--/ item_amount -->
+        
+        <!-- published -->
+        <div class="form-group">
+           <label for="published">published</label>
+            <input type="datetime" name="published" class="form-control" value="{{$book->published}}"/>
+        </div>
+        <!--/ published -->
+        
+        <!-- Saveボタン/Backボタン -->
+        <div class="well well-sm">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a class="btn btn-link pull-right" href="{{ url('/') }}">
+                Back
+            </a>
+        </div>
+        <!--/ Saveボタン/Backボタン -->
+         
+         <!-- id値を送信 -->
+         <input type="hidden" name="id" value="{{$book->id}}">
+         <!--/ id値を送信 -->
+         
+         <!-- CSRF -->
+         @csrf
+         <!--/ CSRF -->
+         
+    </form>
+    </div>
+</div>
+@endsection
+
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#--------------------------------------------
+# ◇Chapter13　本管理アプリ：ルート定義以外の各処理をコントローラに移動する
+#   課題１：完成してるコードを用意してます
+#--------------------------------------------
+
+
+
+#**************************************************
+# １．コントローラの作成
+#**************************************************
+#--------------------------------------------
+#以下コマンドを実行、app/Http/Controllers/以下に「BooksController.php」に作成されます。
+
+#cmsディレクトリに入って実行
+cd cms
+
+#コントローラー作成
+php artisan make:controller BooksController
+
+#[END]--------------------------------------------
+
+
+
+
+#**************************************************
+# ２．ルート定義を修正（/routes/web.php）（リスト13.5、13.6、13.7）
+#**************************************************
+#--------------------------------------------
+#以下[END]までの全てのコードをコピーして全て上書きします。
+
+
+<?php
+
+use App\Book;
+use Illuminate\Http\Request;
+
+
+/**
+* 本ダッシュボード表示
+*/
+Route::get('/', function () {
+    $books = Book::orderBy('created_at', 'asc')->get();
+    return view('books', [
+        'books' => $books
+    ]);
+    //return view('books',compact('books')); //も同じ意味
+});
+
+//登録処理
+Route::post('/books','BooksController@store');
+
+//更新画面
+Route::post('/booksedit/{books}', function(Book $books) {
+    //{books}id 値を取得 => Book $books id 値の1レコード取得
+    return view('booksedit', [
+        'book' => $books
+    ]);
+});
+
+//更新処理
+Route::post('/books/update','BooksController@update');
+
+/**
+* 本を削除 
+*/
+Route::delete('/book/{book}', function (Book $book) {
+    $book->delete();
+    return redirect('/');
+});
+
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+#**************************************************
+# ３．Booksコントローラを修正（app/Http/Controllers/BooksController.php）（リスト13.2、13.3、13.5、13.8、13.10、13.12）
+# * 注意 *
+#   <?php のタグが１行目になるよう貼り付けてください！！
+#   <?php のタグの上に空白があると「エラー」になります！！　　　
+#**************************************************
+#--------------------------------------------
+#以下[END]までの全てのコードをコピーして全て上書きします。
+
+
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+
+
+//使うClassを宣言:自分で追加
+use App\Book;   //Bookモデルを使えるようにする
+use Validator;  //バリデーションを使えるようにする
+use Auth;       //認証モデルを使用する
+
+class BooksController extends Controller
+{
+    //更新
+    public function update(Request $request) {
+        //バリデーション
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'item_name' => 'required|min:3|max:255',
+            'item_number' => 'required|min:1|max:3',
+            'item_amount' => 'required|max:6',
+            'published' => 'required',
+        ]); 
+        //バリデーション:エラー 
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        
+        // データ更新
+        $books = Book::find($request->id);
+        $books->item_name   = $request->item_name;
+        $books->item_number = $request->item_number;
+        $books->item_amount = $request->item_amount;
+        $books->published   = $request->published;
+        $books->save();
+        return redirect('/');
+    }
+    //登録
+    public function store(Request $request) {
+        //バリデーション
+        $validator = Validator::make($request->all(), [
+                'item_name' => 'required|min:3|max:255',
+                'item_number' => 'required|min:1|max:3',
+                'item_amount' => 'required|max:6',
+                'published' => 'required',
+        ]);
+        //バリデーション:エラー 
+        if ($validator->fails()) {
+                return redirect('/')
+                    ->withInput()
+                    ->withErrors($validator);
+        }
+        // Eloquentモデル（登録処理）
+        $books = new Book;
+        $books->item_name = $request->item_name;
+        $books->item_number = $request->item_number;
+        $books->item_amount = $request->item_amount;
+        $books->published = $request->published;
+        $books->save();
+        return redirect('/');
+    }
+}
+
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+#--------------------------------------------
+# ◇Chapter13 本管理アプリ：ルート定義以外の各処理をコントローラに移動する
+#--------------------------------------------
+#**************************************************
+# 課題２答え： ルーティング
+#**************************************************
+routes/web.php に 以下コードを全て上書きします（リスト13.17、13.19、13.21、13.22）。
+#--------------------------------------------
+#以下[END]までのコードをコピー
+
+
+<?php
+use App\Book;
+use Illuminate\Http\Request; 
+
+//本ダッシュボード表示
+Route::get('/', 'BooksController@index');
+
+//登録処理
+Route::post('/books','BooksController@store');
+
+//更新画面
+Route::post('/booksedit/{books}','BooksController@edit');
+
+//更新処理
+Route::post('/books/update','BooksController@update');
+
+//本を削除
+Route::delete('/book/{book}','BooksController@destroy');
+
+//Auth
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+#**************************************************
+# 課題２答え： コントローラ
+#**************************************************
+app/Http/Controllers/BooksController.phpに以下コードを全て上書きします（リスト13.16、13.18、13.20）。
+#--------------------------------------------
+#以下[END]までのコードをコピー
+
+
+<?php
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+
+
+//使うClassを宣言:自分で追加
+use App\Book;   //Bookモデルを使えるようにする
+use Validator;  //バリデーションを使えるようにする
+use Auth;       //認証モデルを使用する
+
+class BooksController extends Controller
+{
+    //本ダッシュボード表示
+    public function index() {
+        $books = Book::orderBy('created_at', 'asc')->get();
+        return view('books', [
+            'books' => $books
+        ]);
+    }
+    
+    //更新画面
+    public function edit(Book $books) {
+        return view('booksedit', [
+            'book' => $books
+        ]);
+    }
+    
+    //更新
+    public function update(Request $request) {
+        //バリデーション
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'item_name' => 'required|min:3|max:255',
+            'item_number' => 'required|min:1|max:3',
+            'item_amount' => 'required|max:6',
+            'published' => 'required',
+        ]); 
+        //バリデーション:エラー 
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        
+        //データ更新
+        $books = Book::find($request->id);
+        $books->item_name   = $request->item_name;
+        $books->item_number = $request->item_number;
+        $books->item_amount = $request->item_amount;
+        $books->published   = $request->published;
+        $books->save();
+        return redirect('/');
+    }
+    
+    //登録
+    public function store(Request $request) {
+        //バリデーション
+        $validator = Validator::make($request->all(), [
+                'item_name' => 'required|min:3|max:255',
+                'item_number' => 'required|min:1|max:3',
+                'item_amount' => 'required|max:6',
+                'published' => 'required',
+        ]);
+        //バリデーション:エラー 
+        if ($validator->fails()) {
+                return redirect('/')
+                    ->withInput()
+                    ->withErrors($validator);
+        }
+        //Eloquentモデル（登録処理）
+        $books = new Book;
+        $books->item_name = $request->item_name;
+        $books->item_number = $request->item_number;
+        $books->item_amount = $request->item_amount;
+        $books->published = $request->published;
+        $books->save();
+        return redirect('/');
+    }
+        
+    //削除処理
+    public function destroy(Book $book) {
+        $book->delete();
+        return redirect('/');
+    }
+    
+}
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+
+
+#--------------------------------------------
+# ◇Chapter14 本管理アプリ：ページネーションを使用する 
+#--------------------------------------------
+#**************************************************
+# 1. コントローラ：indexメソッドの修正
+#**************************************************
+ BooksController に 以下コードを貼り付けます（リスト14.2）。
+#--------------------------------------------
+#以下[END]までの全てのコード、indexメソッドのみ上書き。
+
+    //本ダッシュボード表示
+    public function index() {
+        $books = Book::orderBy('created_at', 'asc')->paginate(3);
+        return view('books', [
+            'books' => $books
+        ]);
+    }
+
+#[END]--------------------------------------------
+# paginate(3)の"3"は 1ページに表示するレコード数です。
+
+
+
+
+#**************************************************
+# 2. ビュー：コードを追加
+#**************************************************
+ books.blade.php に 以下コードを追加します（リスト14.3）。
+#--------------------------------------------
+#以下[END]までの全てのコード、books.blade.phpの @endifの上の行くらいに追加してみましょう。
+
+
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                {{ $books->links()}}
+            </div>
+       </div>
+       
+       
+       
+#[END]--------------------------------------------
+#  {{ $books->links()}} がリンクを表示するメソッドです。
+
+
+
+
+
+#**************************************************
+# <重要›ページリンクをクリックしたら「エラーが表示される場合」の対処
+#**************************************************
+# App\Http\Middleware\TrustProxies.php を開き以下の１行を以下のように変更する（リスト14.4）
+------------------------------------------
+protected $proxies = '*';
+------------------------------------------
+$proxiesに * を値としてもたせるだけで解決するはずです。
+
+
+
+
+
+#--------------------------------------------
+# ◇Chapter15　 本管理アプリ：SESSIONを利用する
+#--------------------------------------------
+#**************************************************
+# 1. SESSION（Flashメッセージを追加）
+#**************************************************
+/app/Http/Controllers/BooksController.php [@store]を変更（リスト15.1）
+#--------------------------------------------
+#登録処理「store」メソッド内の「redirect('/');」の後ろにwith(...)を追記する。
+#以下参照
+
+
+return redirect('/')->with('message', '本登録が完了しました');
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+#**************************************************
+# 2. SESSION（Flashメッセージを受け取り表示する）
+#**************************************************
+/resources/views/books.blade.phpに 以下コードを追加します（リスト15.2）。
+#--------------------------------------------
+#以下[END]までのコードをコピーし、表示したい箇所に追加します。
+
+  @if (session('message'))
+      <div class="alert alert-success">
+          {{ session('message') }}
+      </div>
+  @endif
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+
+

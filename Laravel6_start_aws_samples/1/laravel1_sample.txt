@@ -1,0 +1,675 @@
+#---------------------------------------
+# 「はじめてのLaravel6入門 ~ AWS Cloud9で学ぶ ~」
+# https://www.amazon.co.jp/dp/B07XZNJT6D/
+#---------------------------------------
+# Update: 2020-03-24 
+# Author: Yamazaki Daisuke [G'sACADEMY]
+# 基本演習用
+#---------------------------------------
+
+
+
+#****************************************
+# Display browser: Chrome, Firefox, Edge
+# AWS+Cloud9 & Laravel6.*   最短！コマンド＆コード集！！
+# 以下は解説を抜かしてあるため、最短の制作ができるコマンドリストです。
+# 順番に進めていくだけでシンプルなアプリが作れます。
+
+# 以下順番に実行していきましょう！！！
+# !CSS/JS!の読み込みは本書の45ページ
+#****************************************
+
+
+
+<<設定確認>>
+ 「Create environment」で新規作成する際に、
+ EC2 [ t2.small ] をセレクトボックスで選択していること!!
+ ※Laravel6より Memory 2G 必須のため
+
+
+
+#***************************
+# ◇ 第１章 ◇
+# 環境構築（PHP7.2アップデート＆Laravel6インストール） 
+#***************************
+#--------------------------------------------
+#１．Cloud9_PHP7.2_Updateコマンド 
+#   注意 → sudoからここのコマンドは始まります。コピペ失敗要注意！
+#   30,31P
+#--------------------------------------------
+sudo yum -y install php72 php72-cli php72-common php72-devel php72-mysqlnd php72-pdo php72-xml php72-gd php72-intl php72-mbstring php72-mcrypt php72-opcache php72-pecl-apcu php72-pecl-imagick php72-pecl-memcached php72-pecl-redis php72-pecl-xdebug
+
+sudo alternatives --set php /usr/bin/php-7.2
+
+php -v
+
+curl -sS https://getcomposer.org/installer | php
+
+sudo mv composer.phar /usr/bin/composer
+
+composer
+
+#1.[完了]PHP7.2 インストール完了***
+
+
+#--------------------------------------------
+#２．Laravelインストール 
+#   32P
+#--------------------------------------------
+composer global require "laravel/installer"
+
+#2.[完了]Laravel インストール完了***
+
+
+#--------------------------------------------
+#３．Laravel6.* をcmsディレクトリに設置 
+#   33ページ
+#--------------------------------------------
+composer create-project laravel/laravel cms 6.* --prefer-dist
+
+#3.[完了]Laravel "cmsフォルダ"を作ってその中にLaravelを設置完了***
+
+
+#--------------------------------------------
+#４．Apache起動
+#   34ページ
+#--------------------------------------------
+cd cms
+
+#Webサーバー起動
+php artisan serve --port=8080
+
+sudo composer update
+
+
+#4. [完了]Webサーバー起動確認***
+#4.1 Preview→ [Preview Running Application]選択
+#4.2 /resouces/views/welcome.blade.php を編集して見よう！
+#4.3 ブラウザ・更新で確認 →　変更確認できればOK
+
+
+
+
+#**********************************************
+#  超大事！！！！！！！！！！！！！！！
+#  いつも使うので、覚えておくか直ぐコピペできる場所に書いておきましょう！
+#   37ページ
+#**********************************************
+
+#MySQL起動（ログインしたら必ず実行）
+sudo service mysqld restart
+
+#Webサーバー起動（ログインしたら必ず実行）
+php artisan serve --port=8080
+
+
+
+
+#--------------------------------------------
+#５．DB起動確認(rootユーザでDB作成)・phpMyAdmin設定
+#   39ページ
+#--------------------------------------------
+sudo service mysqld restart
+mysql -u root -p
+[Enter] ※パスワードなし
+show databases;
+create database c9;
+update mysql.user set password=password('root') where user='root';
+flush privileges;
+exit;
+
+
+#--------------------------------------------
+#６ .envファイルのDB設定 （まるっとDB＿＊＊＊箇所を上書き）
+#    49,50ページ
+#--------------------------------------------
+DB_CONNECTION=mysql
+DB_PORT=3306
+DB_HOST=localhost
+DB_DATABASE=c9
+DB_USERNAME=root
+DB_PASSWORD=root
+
+
+#！！ [.env] 設定を変更したら必ずWebサーバーを再起動！！
+------
+#Webサーバー止める
+[Ctrl] + [C]キーでWebサーバーを止めます。
+------
+#Webサーバー起動（.envの再読み込み！）
+php artisan serve --port=8080
+-------
+
+
+#6.[完了]DB接続設定完了***
+#  ＜重要＞間違うと「データ構造を作成（テーブル作成）」の次章でError!
+
+
+
+
+#--------------------------------------------
+# <時間がかかるので設定先にやります>
+# /app/Providers/ AppServiceProvider.php ファイルを修正
+# Laravel5.5以上設定！
+#　 58ページ
+#--------------------------------------------
+use Illuminate\Support\Facades\Schema; //この行を追加
+use Illuminate\Support\Facades\URL;    //この行を追加
+public function boot() {
+   Schema::defaultStringLength(191);   //この行を追加
+   URL::forceScheme('https');          //この行を追加
+}
+
+#[完了]Laravel5.5以上 対応設定 完了***
+
+
+
+#----------------------
+#phpMyAdmin設定
+# 192ページ
+#----------------------
+cd public   ＃publicフォルダに移動
+
+wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
+
+unzip phpMyAdmin-4.8.3-all-languages.zip
+#重要：unzipできない場合は「PCにダウンロード→ 展開（解凍） → cloud9 → cms/publicフォルダにドラッグ＆ドロップでアップロード」
+
+cd ..
+
+
+#＜手順解説＞
+#5.1 publicフォルダ内に「phpMyAdmin-4.8.3-all-languages」フォルダが作成される 
+#5.2 フォルダ名が長いので「phpMyAdmin」に変更
+#5.3「Preview」でサイトを開き、URLの最後に「phpMyAdmin/index.php」をつけてEnterキーを押す
+#5.4 URL例： https://＊＊＊＊＊＊.cloud9.us-east-1.amazonaws.com/phpMyAdmin/index.php
+#5.5 phpMyAdmin画面が表示されたら： ユーザー名・パスワードともに「root」を入力してログイン
+#5.6 ログインできればOK
+
+#5.[完了]DB動作＆コマンド確認完了***
+
+#*********************************************************************************
+#ここまでが初期設定
+#*********************************************************************************
+
+
+
+
+
+
+#***************************
+# ◇第２章◇
+# データ構造を作成（テーブル作成） 
+#***************************
+#--------------------------------------------
+#１．booksテーブルを作成（マイグレーションファイル作成）
+#    53ページ
+#--------------------------------------------
+php artisan make:migration create_books_table --create=books
+
+#1.[完了]Tableを作成するMigrationファイルを作成 完了***
+
+
+#--------------------------------------------
+#２．[年]_[月]_[日]_[時分秒]_create_books_table.php
+#   57ページ
+#   public function up(){...}の中を追加修正
+#--------------------------------------------
+public function up()
+    {
+        Schema::create('books', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('item_name');
+            $table->integer('item_number');
+            $table->integer('item_amount');
+            $table->datetime('published');
+            $table->timestamps();
+        });
+}
+
+#2.[完了]Table作成するスクリプト準備 完了***
+
+
+#--------------------------------------------
+#３．マイグレーションを実行（テーブル作成）
+#   52ページ
+#--------------------------------------------
+php artisan migrate
+
+#3.[完了]Table作成スクリプト実行 完了***
+
+
+#--------------------------------------------
+#４．MySQL DBに作成されたテーブルを確認 
+#   59ページ
+#--------------------------------------------
+#ブラウザで確認：する場合[phpMyAdmin]
+# URL例： https://***********.com/phpMyAdmin/
+
+# ※コマンドで確認する場合（コマンドに慣れてる人用）
+mysql -u root -p
+root [Enterキー]
+use c9;
+show tables;
+desc books;
+exit;
+
+
+#4.[完了]Table作成をMySQLコマンドで確認 完了***
+
+
+
+#--------------------------------------------
+#５．モデルを作成（テーブルを簡単に扱えるようにする機能）
+  64ページ
+#--------------------------------------------
+php artisan make:model Book
+
+#5.[完了]DBを簡単に操作するためのファイルを作成 完了***
+
+
+#--------------------------------------------
+#６．モデルを作成（テーブルを簡単に扱えるようにする機能）
+#   65ページ
+#   /app/Book.php に作成されます。
+#--------------------------------------------
+
+#6.[完了]/app/Book.phpにファイルができて完了***
+
+
+
+#***************************
+# 第３章
+# ルート定義（ルーティング）
+#***************************
+#--------------------------------------------
+#１．/routes/web.php に 以下コードを貼り付けます。
+#   70ページ
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+use App\Book;
+use Illuminate\Http\Request;
+
+/**
+* 本のダッシュボード表示(books.blade.php)
+*/
+Route::get('/', function () {
+    //return view('books');  //＊＊ 以下４でこちらへ修正 ＊＊
+    return view('welcome');
+});
+
+/**
+* 新「本」を追加 
+*/
+Route::post('/books', function (Request $request) {
+    //
+});
+
+/**
+* 本を削除 
+*/
+Route::delete('/book/{book}', function (Book $book) {
+    //
+});
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+#***************************
+# View
+#***************************
+#--------------------------------------------
+#１．/resources/views/layouts/app.blade.php を作成
+#   以下コードを貼り付けます。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<!-- resources/views/layouts/app.blade.php -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>Book List</title>
+<!-- CSS と JavaScript -->
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+        <!-- ナビバーの内容 -->
+        </nav>
+    </div>
+    @yield('content')
+</body>
+</html>
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+#２．/resources/views/books.blade.php を作成
+#   78ページ
+#   以下コードを貼り付けます。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<!-- resources/views/books.blade.php -->
+@extends('layouts.app')
+@section('content')
+    <!-- Bootstrapの定形コード… -->
+    <div class="card-body">
+        <div class="card-title">
+            本のタイトル
+        </div>
+        
+        <!-- バリデーションエラーの表示に使用-->
+        @include('common.errors')
+        <!-- バリデーションエラーの表示に使用-->
+
+        <!-- 本登録フォーム -->
+        <form action="{{ url('books') }}" method="POST" class="form-horizontal">
+            {{ csrf_field() }}
+
+            <!-- 本のタイトル -->
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" name="item_name" class="form-control">
+                </div>
+            </div>
+
+            <!-- 本 登録ボタン -->
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <button type="submit" class="btn btn-primary">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Book: 既に登録されてる本のリスト -->
+
+@endsection
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+#--------------------------------------------
+# ３．/resources/views/common/errors.blade.php を作成 
+# 81ページ
+# 以下コードを貼り付けます。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<!-- resources/views/common/errors.blade.php -->
+@if (count($errors) > 0)
+    <!-- Form Error List -->
+    <div class="alert alert-danger">
+        <div><strong>入力した文字を修正してくた?さい。</strong></div> 
+        <div>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+#４．/routes/web.php  以下コードに修正
+#   70ページ
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+/**
+* 本のダッシュボード表示(books.blade.php)
+*/
+Route::get('/', function () {
+    return view('books');  //＊＊ ここを修正 ＊＊
+});
+
+
+
+
+#***************************
+# Chapter10
+#***************************
+#--------------------------------------------
+#１．/routes/web.php
+#   86ページ
+#   『新「本」を追加』のルート定義に以下コードを上書き。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+Route::post('/books', function (Request $request) {
+
+    //バリデーション
+    $validator = Validator::make($request->all(), [
+        'item_name' => 'required|max:255',
+    ]);
+
+    //バリデーション:エラー 
+    if ($validator->fails()) {
+        return redirect('/')
+            ->withInput()
+            ->withErrors($validator);
+    }
+    //以下に登録処理を記述（Eloquentモデル）
+
+
+
+
+});
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+#２．/routes/web.php 
+#   88ページ
+#   //以下に登録処理を記述（Eloquentモデル）コメントの下に以下コードを貼り付けます。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+// Eloquentモデル
+$books = new Book;
+$books->item_name = $request->item_name;
+$books->item_number = '1';
+$books->item_amount = '1000';
+$books->published = '2017-03-07 00:00:00';
+$books->save(); 
+return redirect('/');
+
+
+#[END]--------------------------------------------
+
+
+
+#***************************
+# Chapter11
+#***************************
+#--------------------------------------------
+#１．/routes/web.php
+#   90ページ
+#   『本のダッシュボード表示 』のルート定義に以下コードを上書き。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+Route::get('/', function () {
+    $books = Book::orderBy('created_at', 'asc')->get();
+    return view('books', [
+        'books' => $books
+    ]);
+    //return view('books',compact('books')); //も同じ意味
+});
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+#２．/resources/views/books.blade.php
+#   91ページ
+#   books.blade.php内の</form>タグの下行に以下コート?を追記
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+     <!-- 現在の本 -->
+    @if (count($books) > 0)
+        <div class="card-body">
+            <div class="card-body">
+                <table class="table table-striped task-table">
+                    <!-- テーブルヘッダ -->
+                    <thead>
+                        <th>本一覧</th>
+                        <th>&nbsp;</th>
+                    </thead>
+                    <!-- テーブル本体 -->
+                    <tbody>
+                        @foreach ($books as $book)
+                            <tr>
+                                <!-- 本タイトル -->
+                                <td class="table-text">
+                                    <div>{{ $book->item_name }}</div>
+                                </td>
+
+                                <!-- 本: 削除ボタン -->
+                                <td>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+#***************************
+# Chapter1２
+#***************************
+#--------------------------------------------
+#１．/resources/views/books.blade.php
+#   96ページ
+#   <!-- 本: 削除ボタン -->下の<td></td>要素内に追加
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+    <form action="{{ url('book/'.$book->id) }}" method="POST">
+         {{ csrf_field() }}
+         {{ method_field('delete') }}
+        
+        <button type="submit" class="btn btn-danger">
+            削除
+        </button>
+     </form>
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+#２．/routes/web.php
+#   98ページ
+#   『本を削除』のルート定義を追加編集
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+Route::delete('/book/{book}', function (Book $book) {
+    $book->delete();       //追加
+    return redirect('/');  //追加
+});
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+#***************************
+# Login
+#***************************
+#--------------------------------------------
+# Auth( ユーザー登録・認証画面 )
+#--------------------------------------------
+# laravel/ui パッケージをインストール（４ステップ！）
+# 【注意】Laraveのバージョンを確認して実行しないとErrorになります！！
+#  コマンド打って、yes/no がでたらyes で！！
+-----
+
+#1. Laravel 6.x の場合
+composer require laravel/ui:^1.0 --dev
+
+#2. artisan コマンドを実行
+php artisan ui vue --auth
+
+#3. npmパッケージをインストール
+npm install
+
+#4. パッケージをビルド
+npm run dev
+
+--------------------------------------------------
+// ログイン機能・画面が作成されました。
+
+#*エラーが出る場合(画面がくずる場合：JS/CSSが読み込めてない)
+/resources/views/layouts/app.blade.php を修正
+#２箇所の修正（https対応）
+13行目： {{ asset('js/app.js') }} を {{ asset('js/app.js',true) }}
+20行目： {{ asset('css/app.css') }} を {{ asset('css/app.css',true) }}
+#--------------------------------------------
+
+
+
+
+
+
+
+
+
