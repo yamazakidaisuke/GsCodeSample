@@ -1,0 +1,17 @@
+Class基礎講座（座学）
+
+１．PHP class基礎01(class?, アクセス修飾子, コンストラクタ, $this->  )
+https://youtu.be/wi0BAL2Pazg
+
+２．PHP class基礎02(アクセス修飾子, 継承って？)
+https://youtu.be/tA5IOC2ZIkw
+
+３．PHP class基礎03 static(静的メソッド・静的プロパティって？)
+https://youtu.be/l8JAJ9UH2Jk
+
+４．PHP class基礎04 namespace(名前空間とは？)
+https://youtu.be/HNTvPbU9Gek
+
+5.PHP class基礎05 - DBクラスを考えて見よう(自分なりに考えて見よう！)
+https://youtu.be/21j1l0dWvYk
+
