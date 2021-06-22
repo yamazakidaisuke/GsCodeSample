@@ -104,13 +104,18 @@ php artisan serve --port=8080
 
 
 
+#nodeを最新に
+sudo yum -y update
+
+nvm install node
+
+
+
+
 #breeze 
 composer require laravel/breeze --dev
 
 php artisan breeze:install
-
-#nodeを最新に
-nvm install node
 
 npm install
 npm run dev
