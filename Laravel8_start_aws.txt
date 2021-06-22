@@ -109,6 +109,9 @@ composer require laravel/breeze --dev
 
 php artisan breeze:install
 
+#nodeを最新に
+nvm install node
+
 npm install
 npm run dev
 php artisan migrate
