@@ -102,3 +102,18 @@ sudo service mysqld restart
 php artisan serve --port=8080
 #**********************************************
 
+
+
+#breeze 
+composer require laravel/breeze --dev
+
+php artisan breeze:install
+
+npm install
+npm run dev
+php artisan migrate
+
+
+
+
+
