@@ -644,6 +644,9 @@ Route::delete('/book/{book}', function (Book $book) {
 #  コマンド打って、yes/no がでたらyes で！！
 -----
 
+#0. app.blade.php → test.blade.php
+#ファイル名を変更以下コマンドで同じファイル名を作成するため!!
+
 #1. Laravel 6.x の場合
 composer require laravel/ui:^1.0 --dev
 
@@ -659,14 +662,15 @@ npm run dev
 --------------------------------------------------
 // ログイン機能・画面が作成されました。
 
-#*エラーが出る場合(画面がくずる場合：JS/CSSが読み込めてない)
-/resources/views/layouts/app.blade.php を修正
-#２箇所の修正（https対応）
-13行目： {{ asset('js/app.js') }} を {{ asset('js/app.js',true) }}
-20行目： {{ asset('css/app.css') }} を {{ asset('css/app.css',true) }}
+
+#**************************************************
+# <重要› エラーが出る場合(画面がくずる場合：JS/CSSが読み込めてない)
+#**************************************************
+# /resources/views/layouts/app.blade.php を修正
+#  ２箇所の修正（https対応）
+#  13行目： {{ asset('js/app.js') }} を {{ asset('js/app.js',true) }}
+#  20行目： {{ asset('css/app.css') }} を {{ asset('css/app.css',true) }}
 #--------------------------------------------
-
-
 
 #**************************************************
 #  <重要›ページネーション
