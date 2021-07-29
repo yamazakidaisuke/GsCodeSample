@@ -77,10 +77,12 @@ composer create-project laravel/laravel cms 6.* --prefer-dist
 #--------------------------------------------
 cd cms
 
+sudo composer update
+
 #Webサーバー起動
 php artisan serve --port=8080
 
-sudo composer update
+
 
 
 #4. [完了]Webサーバー起動確認***
