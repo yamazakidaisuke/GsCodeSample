@@ -57,7 +57,7 @@ composer
 #２．Laravelインストール 
 #   32P
 #--------------------------------------------
-composer global require "laravel/installer"
+# composer global require "laravel/installer"
 
 #2.[完了]Laravel インストール完了***
 
