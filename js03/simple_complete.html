@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ジーズアカデミー：入門：Chatアプリ</title>
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+
+<div>
+    <div> 名前：<input type="text" id="uname"> </div>
+    <div>
+        <textarea id="text" cols="30" rows="10"></textarea>
+        <button id="send">送信</button>
+    </div>
+    <div id="output" style="overflow: auto;height: 300px;"></div>
+</div>
+<!--/ コンテンツ表示画面 -->
+
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+    import { getFirestore, collection, doc, Timestamp, addDoc, deleteDoc, onSnapshot, query, orderBy } 
+    from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";      
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "***************",
+        authDomain: "***************",
+        projectId: "***************",
+        storageBucket: "***************",
+        messagingSenderId: "***************",
+        appId: "***************"
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    //Firestoreを使う
+    const db = getFirestore(app);
+    const ref = collection(db, "chat");
+
+    //データ登録
+    $("#send").on("click",function() {
+        const ob = {
+            uname: $("#uname").val(),
+            text:  $("#text").val(),
+            date:  Timestamp.now()
+        };
+        const docRef = addDoc(ref, ob);   //自動採番で登録
+    });
+
+    //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得
+    const q = query(ref, orderBy("date","desc"));
+    onSnapshot(q,function(snapshot){
+        snapshot.docChanges().forEach((change) => {
+            let h = '<p>';
+                h += change.doc.data().uname;
+                h += '<br>';
+                h += change.doc.data().text;
+                h += '</p>';
+                $("#output").append(h);
+        });
+    });
+
+
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
