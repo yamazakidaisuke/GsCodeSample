@@ -38,9 +38,9 @@
 #   注意 → sudoからここのコマンドは始まります。コピペ失敗要注意！
 #   30,31P
 #--------------------------------------------
-sudo yum -y install php72 php72-cli php72-common php72-devel php72-mysqlnd php72-pdo php72-xml php72-gd php72-intl php72-mbstring php72-mcrypt php72-opcache php72-pecl-apcu php72-pecl-imagick php72-pecl-memcached php72-pecl-redis php72-pecl-xdebug
+sudo yum -y install php73 php73-cli php73-common php73-devel php73-mysqlnd php73-pdo php73-xml php73-gd php73-intl php73-mbstring php73-mcrypt php73-opcache php73-pecl-apcu php73-pecl-imagick php73-pecl-memcached php73-pecl-redis php73-pecl-xdebug
 
-sudo alternatives --set php /usr/bin/php-7.2
+sudo alternatives --set php /usr/bin/php-7.3
 
 php -v
 
