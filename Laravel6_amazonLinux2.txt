@@ -5,10 +5,12 @@
 
 
 #PHPセットアップ
+#<重要！！必ず１行ずつコマンドを打つこと！>
 
 sudo amazon-linux-extras install php7.2=stable
 
-sudo yum install php-mbstring php-pecl-memcached php-gd php-apcu php-xml
+sudo yum install php-mbstring php-pecl-memcached php-gd php-apcu php-xml php-dom
+
 
 # MaryaDB 構築
 
