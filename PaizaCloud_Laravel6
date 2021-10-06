@@ -563,9 +563,14 @@ npm run dev
 
 
 
+#***************************
+# ZIP 
+#***************************
+#ZIP圧縮
+zip -r cms.zip cms
 
-
-
+#ZIP解凍（展開）
+unzip cms.zip
 
 
 
