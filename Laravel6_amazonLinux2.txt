@@ -1,18 +1,7 @@
 ###############################################################################
-# 注意！！(現在このコマンドではインストールできなくなっています！！)
-# 更新日：2021-10-06
+# 更新日：2021-10-11
+#  PHP7.2.x AmazonLinux2 のインストール
 ###############################################################################
-# Laravel6.x 最新版でのインストールできてない問題がでているようです！！
-# PHP7.3以上であれば動作確認がとれたのですが、DBも自分でインストールする必要があるため、
-# 初学者にはかなり難易度が高いです。
-# そのため、現状ではAmazon Linux AMI(元Amazon Linux 1)をオススメしています。
-###############################################################################
-
-
-
-
-
-
 <<設定確認>>
  「Create environment」で新規作成する際に、
  EC2 [ t2.small ] をセレクトボックスで選択していること!!
@@ -24,7 +13,7 @@
 
 sudo amazon-linux-extras install php7.2=stable
 
-sudo yum install php-mbstring php-pecl-memcached php-gd php-apcu php-xml php-dom
+sudo yum install php-cli php-common php-devel php-fpm php-gd php-mysqlnd php-mbstring php-pdo php-xml
 
 
 # MaryaDB 構築
