@@ -59,23 +59,27 @@ cd cms
 
 sudo composer update
 
-#BuiltInサーバーを起動：動作確認
-
-php artisan serve --port=8080
-
 
 ################
-# ここでエラーがでてるようだったら！！
+# ここでエラー or 上手くいってないようだったら！！
 ################
 
 sudo yum install php-cli php-common php-devel php-fpm php-gd php-mysqlnd php-mbstring php-pdo php-xml
 
 sudo composer update
 
+php artisan key:generate
+
 ################
 #で解決するはず（私はこれで解決しました）
 ################
 
+
+
+
+#BuiltInサーバーを起動：動作確認
+
+php artisan serve --port=8080
 
 
 
