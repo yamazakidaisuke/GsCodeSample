@@ -641,13 +641,12 @@ npm run dev
 --------------------------------------------------
 // ログイン機能・画面が作成されました。
 
-#*エラーが出る場合(画面がくずる場合：JS/CSSが読み込めてない)
-/resources/views/layouts/app.blade.php を修正
-#２箇所の修正（https対応）
-13行目： {{ asset('js/app.js') }} を {{ asset('js/app.js',true) }}
-20行目： {{ asset('css/app.css') }} を {{ asset('css/app.css',true) }}
-#--------------------------------------------
 
+
+#重要事項：DBについて
+#こちらのAmazonLinux2で環境作った場合は
+#MariaDBは自動で起動するので毎回DBを起動する必要はありません。
+#※AmazonLinux AMI（旧AmazonLinux1）の場合は毎回CLOUD9起動時に必要です！
 
 
 
