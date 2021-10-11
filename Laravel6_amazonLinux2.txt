@@ -57,10 +57,26 @@ composer create-project laravel/laravel cms 6.* --prefer-dist
 
 cd cms
 
+sudo composer update
 
 #BuiltInサーバーを起動：動作確認
 
 php artisan serve --port=8080
+
+
+################
+# ここでエラーがでてるようだったら！！
+################
+
+sudo yum install php-cli php-common php-devel php-fpm php-gd php-mysqlnd php-mbstring php-pdo php-xml
+
+sudo composer update
+
+################
+#で解決するはず（私はこれで解決しました）
+################
+
+
 
 
 #.env（ファイル内の同じ箇所を上書き）
