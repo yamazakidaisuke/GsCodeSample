@@ -574,3 +574,14 @@ unzip cms.zip
 
 
 
+#***************************
+# 以下エラーがでたら！！
+# 「The stream or file "/home/ubuntu/cms/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied 」
+#***************************
+sudo chown -R $USER:www-data storage
+
+sudo chown -R $USER:www-data bootstrap/cache
+
+chmod -R 775 storage
+
+chmod -R 775 bootstrap/cache
