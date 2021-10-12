@@ -563,14 +563,37 @@ npm run dev
 
 
 
-#***************************
-# ZIP 
-#***************************
-#ZIP圧縮
-zip -r cms.zip cms
 
-#ZIP解凍（展開）
-unzip cms.zip
+#***************************
+# DocumentRoot
+# (スタンダードプランで公開する場合にのみ変更！)
+# linux viコマンド知っていないと変更できません！
+#***************************
+
+#1.Laravelのpublic内のファイルを全て→ public_htmlへ移動
+
+#2.public_html/index.phpの24行目を以下に変更！
+require __DIR__.'/../cms/vendor/autoload.php';
+
+#3.public_html/index.phpの38行目を以下に変更！
+$app = require_once __DIR__.'/../cms/bootstrap/app.php';
+
+#4.ルート権限で実行
+sudo su
+
+#5.vi でdocumentRootを変更
+vi /etc/apache2/sites-available/default-ssl.conf
+
+#6.  DocumentRootを 「 /home/ubuntu/public_htm 」に変更
+
+#7.vi でdocumentRootを変更
+vi /etc/apache2/sites-available/000-default.conf
+
+#8.  DocumentRootを 「 /home/ubuntu/public_htm 」に変更
+
+#7.Apache再起動
+systemctl restart apache2
+
 
 
 
@@ -585,3 +608,17 @@ sudo chown -R $USER:www-data bootstrap/cache
 chmod -R 775 storage
 
 chmod -R 775 bootstrap/cache
+
+
+
+
+
+#***************************
+# ZIP 
+#***************************
+#ZIP圧縮
+zip -r cms.zip cms
+
+#ZIP解凍（展開）
+unzip cms.zip
+
