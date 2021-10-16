@@ -5,7 +5,7 @@
 ・ Laravel（ AWS Education専用 / PaizaCloud / MAMP ）
 
 # Youtube：[遅咲きエンジニア]プログラミングTips！
-# *JavaScript/PHP/Laravel/プログラミングについてやっています
+JavaScript/PHP/Laravel/プログラミングについてやっています
 https://www.youtube.com/channel/UCmMFmjhf1BXB1tlLcbkVRrg/
 
 
