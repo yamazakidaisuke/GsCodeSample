@@ -46,9 +46,8 @@ chmod -R 775 bootstrap/cache
 
 
 
-
 #***************************
-# ZIP 
+# 補足：ZIP 
 #***************************
 #ZIP圧縮
 zip -r cms.zip cms
