@@ -18,12 +18,12 @@ sudo su
 #5.vi でdocumentRootを変更
 vi /etc/apache2/sites-available/default-ssl.conf
 
-#6.  DocumentRootを 「 /home/ubuntu/public_htm 」に変更
+#6.  DocumentRootを 「 /home/ubuntu/public_html 」に変更
 
 #7.vi でdocumentRootを変更
 vi /etc/apache2/sites-available/000-default.conf
 
-#8.  DocumentRootを 「 /home/ubuntu/public_htm 」に変更
+#8.  DocumentRootを 「 /home/ubuntu/public_html 」に変更
 
 #7.Apache再起動
 systemctl restart apache2
