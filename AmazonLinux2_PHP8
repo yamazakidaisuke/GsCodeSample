@@ -295,7 +295,7 @@ php artisan make:model Book
 #以下[END]までの全てのコードをコピー
 
 
-use App\Book;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 /**
@@ -648,8 +648,8 @@ Route::delete('/book/{book}', function (Book $book) {
 #  コマンド打って、yes/no がでたらyes で！！
 -----
 
-#1. Laravel 6.x の場合
-composer require laravel/ui:^1.0 --dev
+#1. Laravel 8.x の場合
+composer require laravel/ui
 
 #2. artisan コマンドを実行
 php artisan ui vue --auth
