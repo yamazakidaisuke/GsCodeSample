@@ -38,13 +38,13 @@ sudo systemctl restart php-fpm.service
 
 
 # MaryaDB 構築
-
-sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2
+#MariaDBデフォルト確認
+sudo yum list installed | grep mariadb
 
 
 #MariaDBのインストール
 
-sudo yum install -y mariadb-server
+sudo amazon-linux-extras install mariadb10.5 -y
 
 
 #Apache, MariaDBの起動
