@@ -73,11 +73,11 @@ composer
 
 #Laravelインストール（最新バージョン）
 
-curl -s https://laravel.build/example-app | bash
+composer create-project laravel/laravel cms
 
-#ディレクトリ移動(example-appはlaravelがフォルダ名です)
+#ディレクトリ移動(cmsはlaravelがフォルダ名です)
 
-cd example-app
+cd cms
 
 sudo composer update
 
