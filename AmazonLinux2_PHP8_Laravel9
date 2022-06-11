@@ -337,7 +337,7 @@ Route::delete('/book/{book}', function (Book $book) {
 -----
 
 #1. Laravel 9.x の場合
-composer require laravel/ui
+sudo composer require laravel/ui
 
 #2. artisan コマンドを実行
 php artisan ui vue --auth
