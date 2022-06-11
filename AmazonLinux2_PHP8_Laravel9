@@ -10,8 +10,8 @@
 // パッケージのアップデート
 sudo yum update -y
 
-// composerバージョンアップ
-sudo composer self-update
+// composerバージョンアップ(必要なくなった)
+# sudo composer self-update
 
 // PHPのパッケージをすべてアンインストール
 sudo yum -y remove php-*
