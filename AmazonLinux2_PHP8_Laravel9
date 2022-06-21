@@ -104,31 +104,12 @@ php artisan key:generate
 php artisan serve --port=8080
 
 
-
-#.env（ファイル内の同じ箇所を上書き）
-DB_CONNECTION=mysql
-DB_HOST=localhost
-DB_PORT=3306
-DB_DATABASE=c9
-DB_USERNAME=root
-DB_PASSWORD=root
-
-
-#Composerコマンド実行
-sudo composer update
-
 #4. [完了]Webサーバー起動確認***
 #4.1 Preview→ [Preview Running Application]選択
 #4.2 /resouces/views/welcome.blade.php を編集して見よう！
 #4.3 ブラウザ・更新で確認 →　変更確認できればOK
 
 
-
-#データベース作成
-mysql -u root -p
-root [Enterキー]
-create database c9;
-exit;
 
 
 
@@ -154,7 +135,7 @@ php artisan serve --port=8080
 
 
 #--------------------------------------------
-# <時間がかかるので設定先にやります>
+# ＜重要＞ AWS EC2環境では必須追記！！ → MAMP/XAMPPの場合は無視！
 # /app/Providers/ AppServiceProvider.php ファイルを修正
 # Laravel6以上設定！
 #　 58ページ
@@ -170,13 +151,31 @@ public function boot() {
 
 
 
+#--------------------------------------------
+#データベース作成
+#--------------------------------------------
+mysql -u root -p
+root [Enterキー]
+create database c9;
+exit;
+
+
+#--------------------------------------------
+#.env（ファイル内の同じ箇所を上書き）
+#--------------------------------------------
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=c9
+DB_USERNAME=root
+DB_PASSWORD=root
+
 
 
 #----------------------
 #phpMyAdmin設定
-# 192ページ
 #----------------------
-cd public   ＃publicフォルダに移動
+cd public   ＃/cms/publicフォルダに移動
 
 wget https://files.phpmyadmin.net/phpMyAdmin/5.1.2/phpMyAdmin-5.1.2-all-languages.zip
 
@@ -226,10 +225,12 @@ public function up()
     {
         Schema::create('books', function (Blueprint $table) {
             $table->bigIncrements('id');
+            //** ↓ 下をコピー ↓ **
             $table->string('item_name');
             $table->integer('item_number');
             $table->integer('item_amount');
             $table->datetime('published');
+            //** ↑ 上をコピー ↑ **
             $table->timestamps();
         });
 }
