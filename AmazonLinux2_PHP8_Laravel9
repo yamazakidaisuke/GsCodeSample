@@ -140,10 +140,8 @@ php artisan serve --port=8080
 # Laravel6以上設定！
 #　 58ページ
 #--------------------------------------------
-use Illuminate\Support\Facades\Schema; //この行を追加
 use Illuminate\Support\Facades\URL;    //この行を追加
 public function boot() {
-   Schema::defaultStringLength(191);   //この行を追加
    URL::forceScheme('https');          //この行を追加
 }
 
