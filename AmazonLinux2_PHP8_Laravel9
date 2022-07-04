@@ -209,7 +209,7 @@ cd ..
 
 #1. Laravel 9.x の場合
 #sudo composer require laravel/ui
-composer require laravel/breeze --dev
+sudo composer require laravel/breeze --dev
 
 #2. artisan コマンドを実行
 #php artisan ui vue --auth
