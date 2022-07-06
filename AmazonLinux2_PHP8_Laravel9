@@ -369,13 +369,51 @@ require __DIR__.'/auth.php';
 # View
 #***************************
 
+#--------------------------------------------
+# 1．/resources/views/components/collection.blade.php を作成
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
+  <div>{{ $slot }}</div>
+  <button>×</button>
+</div>
+
+
+#[END]--------------------------------------------
 
 
 
 #--------------------------------------------
-#２．/resources/views/books.blade.php を作成
-#   78ページ
-#   以下コードを貼り付けます。
+# 2．/resources/views/common/errors.blade.php を作成 
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<!-- resources/views/common/errors.blade.php -->
+@if (count($errors) > 0)
+    <!-- Form Error List -->
+    <div class="alert alert-danger">
+        <div><strong>入力した文字を修正してくた?さい。</strong></div> 
+        <div>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+# 3．/resources/views/books.blade.php を作成
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
@@ -481,38 +519,11 @@ require __DIR__.'/auth.php';
 
 
 
-#--------------------------------------------
-# ３．/resources/views/common/errors.blade.php を作成 
-# 81ページ
-# 以下コードを貼り付けます。
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
-<!-- resources/views/common/errors.blade.php -->
-@if (count($errors) > 0)
-    <!-- Form Error List -->
-    <div class="alert alert-danger">
-        <div><strong>入力した文字を修正してくた?さい。</strong></div> 
-        <div>
-            <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-            </ul>
-        </div>
-    </div>
-@endif
-
-
-
-#[END]--------------------------------------------
-
 
 
 
 #--------------------------------------------
-#４．/routes/web.php  以下コードに修正
+# 4．/routes/web.php  以下コードに修正
 #   70ページ
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
