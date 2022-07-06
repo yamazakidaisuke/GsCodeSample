@@ -517,30 +517,11 @@ require __DIR__.'/auth.php';
 
 
 
-
-
-#--------------------------------------------
-# 4．/routes/web.php  以下コードに修正
-#   70ページ
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-/**
-* 本のダッシュボード表示(books.blade.php)
-*/
-Route::get('/', function () {
-    return view('books');  //＊＊ ここを修正 ＊＊
-});
-
-
-
-
 #***************************
-# Chapter10
+# Root/Controller
 #***************************
 #--------------------------------------------
 #１．/routes/web.php
-#   86ページ
 #   『新「本」を追加』のルート定義に以下コードを上書き。
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
@@ -578,14 +559,8 @@ Route::post('/books', function (Request $request) {
 
 
 
-
-
-#***************************
-# Chapter11
-#***************************
 #--------------------------------------------
-#１．/routes/web.php
-#   90ページ
+# 2．/routes/web.php
 #   『本のダッシュボード表示 』のルート定義に以下コードを上書き。
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
@@ -596,8 +571,7 @@ Route::get('/', function () {
     return view('books', [
         'books' => $books
     ]);
-    //return view('books',compact('books')); //も同じ意味
-});
+})->middleware(['auth'])->name('home');
 
 
 #[END]--------------------------------------------
@@ -606,44 +580,23 @@ Route::get('/', function () {
 
 
 #--------------------------------------------
-#２．/resources/views/books.blade.php
-#   91ページ
-#   books.blade.php内の</form>タグの下行に以下コート?を追記
+# 3．/resources/views/books.blade.php
+#   books.blade.phpの 右側エリアを全て上書き！！
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-     <!-- 現在の本 -->
-    @if (count($books) > 0)
-        <div class="card-body">
-            <div class="card-body">
-                <table class="table table-striped task-table">
-                    <!-- テーブルヘッダ -->
-                    <thead>
-                        <th>本一覧</th>
-                        <th>&nbsp;</th>
-                    </thead>
-                    <!-- テーブル本体 -->
-                    <tbody>
-                        @foreach ($books as $book)
-                            <tr>
-                                <!-- 本タイトル -->
-                                <td class="table-text">
-                                    <div>{{ $book->item_name }}</div>
-                                </td>
-
-                                <!-- 本: 削除ボタン -->
-                                <td>
-
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @endif
-
+    <!--右側エリア[START]-->
+    <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
+         <!-- 現在の本 -->
+        @if (count($books) > 0)
+            @foreach ($books as $book)
+                <x-collection id="{{ $book->id }}" >{{ $book->item_name }}</x-collection>
+            @endforeach
+        @endif
+    </div>
+    <!--右側エリア[[END]-->     
+    
 
 
 #[END]--------------------------------------------
@@ -651,26 +604,30 @@ Route::get('/', function () {
 
 
 
-#***************************
-# Chapter1２
-#***************************
 #--------------------------------------------
-#１．/resources/views/books.blade.php
-#   96ページ
-#   <!-- 本: 削除ボタン -->下の<td></td>要素内に追加
+# 4．/resources/views/components/collection.blade.php を作成
+#    collectionコンポーネントを全て上書き！！
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-    <form action="{{ url('book/'.$book->id) }}" method="POST">
-         {{ csrf_field() }}
-         {{ method_field('delete') }}
+ <!-- 本: 削除ボタン -->
+<div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
+  <div>{{ $slot }}</div>
+  
+  <div>
+    <form action="{{ url('book/'.$id) }}" method="POST">
+         @csrf
+         @method('DELETE')
         
-        <button type="submit" class="btn btn-danger">
+        <button type="submit"  class="btn bg-blue-500 rounded-lg">
             削除
         </button>
+        
      </form>
+  </div>
 
+</div>
 
 
 #[END]--------------------------------------------
@@ -679,8 +636,7 @@ Route::get('/', function () {
 
 
 #--------------------------------------------
-#２．/routes/web.php
-#   98ページ
+# 5．/routes/web.php
 #   『本を削除』のルート定義を追加編集
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
@@ -704,7 +660,6 @@ Route::delete('/book/{book}', function (Book $book) {
 #重要事項：DBについて
 #こちらのAmazonLinux2で環境作った場合は
 #MariaDBは自動で起動するので毎回DBを起動する必要はありません。
-#※AmazonLinux AMI（旧AmazonLinux1）の場合は毎回CLOUD9起動時に必要です！
 
 
 
