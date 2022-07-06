@@ -433,12 +433,14 @@ require __DIR__.'/auth.php';
         </h2>
     </x-slot>
     <!--ヘッダー[END]-->
-    
+            
+        <!-- バリデーションエラーの表示に使用-->
+        @include('common.errors')
+        <!-- バリデーションエラーの表示に使用-->
     
     <!--全エリア[START]-->
     <div class="flex bg-gray-100">
-        
-        
+
         <!--左エリア[START]--> 
         <div class="text-gray-700 text-left px-4 py-4 m-2">
             
@@ -448,11 +450,7 @@ require __DIR__.'/auth.php';
                 </div>
             </div>
 
-            <!-- バリデーションエラーの表示に使用-->
-            @include('common.errors')
-            <!-- バリデーションエラーの表示に使用-->
-            
-                
+
             <!-- 本のタイトル -->
             <form action="{{ url('books') }}" method="POST" class="w-full max-w-lg">
                 @csrf
@@ -483,7 +481,7 @@ require __DIR__.'/auth.php';
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         発売日
                       </label>
-                      <input name="published" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                      <input name="published" type="date" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
                     </div>
                   </div>
                   <!-- カラム５ -->
@@ -503,16 +501,12 @@ require __DIR__.'/auth.php';
         <x-collection>テスト２</x-collection>
         <x-collection>テスト３</x-collection>
     </div>
-    <!--右側エリア[[END]-->     
-    
-    
+    <!--右側エリア[[END]-->       
 
 </div>
  <!--全エリア[END]-->
 
 </x-app-layout>
-
-
 
 
 
