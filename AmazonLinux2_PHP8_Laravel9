@@ -208,18 +208,15 @@ cd ..
 -----
 
 #1. Laravel 9.x の場合
-#sudo composer require laravel/ui
 sudo composer require laravel/breeze --dev
 
 #2. artisan コマンドを実行
-#php artisan ui vue --auth
 php artisan breeze:install
 
 #3. npmパッケージをインストール
 npm install
 
 #4. パッケージをビルド
-#npm run dev
 npm run build
 
 #5．テーブル作成
@@ -324,6 +321,7 @@ php artisan make:model Book -c
 #以下[END]までの全てのコードをコピー
 
 
+use Illuminate\Support\Facades\Route;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -331,8 +329,8 @@ use Illuminate\Http\Request;
 * 本のダッシュボード表示(books.blade.php)
 */
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('books');
+})->middleware(['auth'])->name('home'); //route("home")で呼び出せるように
 
 /**
 * 新「本」を追加 
@@ -348,9 +346,20 @@ Route::delete('/book/{book}', function (Book $book) {
     //
 });
 
+/**
+* 「ログイン機能」インストールで追加されています 
+*/
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
 
 
 #[END]--------------------------------------------
+
+
 
 
 
@@ -372,42 +381,97 @@ Route::delete('/book/{book}', function (Book $book) {
 
 
 <!-- resources/views/books.blade.php -->
-@extends('layouts.app')
-@section('content')
-    <!-- Bootstrapの定形コード… -->
-    <div class="card-body">
-        <div class="card-title">
-            本のタイトル
-        </div>
+<x-app-layout>
+
+    <!--ヘッダー[START]-->
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <form action="{{ route('home') }}" method="GET" class="w-full max-w-lg">
+                <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}</x-button>
+            </form>
+        </h2>
+    </x-slot>
+    <!--ヘッダー[END]-->
+    
+    
+    <!--全エリア[START]-->
+    <div class="flex bg-gray-100">
         
-        <!-- バリデーションエラーの表示に使用-->
-        @include('common.errors')
-        <!-- バリデーションエラーの表示に使用-->
+        
+        <!--左エリア[START]--> 
+        <div class="text-gray-700 text-left px-4 py-4 m-2">
+            
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-500 font-bold">
+                    本を管理する
+                </div>
+            </div>
 
-        <!-- 本登録フォーム -->
-        <form action="{{ url('books') }}" method="POST" class="form-horizontal">
-            {{ csrf_field() }}
-
+            <!-- バリデーションエラーの表示に使用-->
+            @include('common.errors')
+            <!-- バリデーションエラーの表示に使用-->
+            
+                
             <!-- 本のタイトル -->
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <input type="text" name="item_name" class="form-control">
-                </div>
-            </div>
-
-            <!-- 本 登録ボタン -->
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-primary">
-                        Save
-                    </button>
-                </div>
-            </div>
-        </form>
+            <form action="{{ url('books') }}" method="POST" class="w-full max-w-lg">
+                @csrf
+                  <div class="flex flex-col px-2 py-2">
+                   <!-- カラム１ -->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                       Book Name
+                      </label>
+                      <input name="item_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                    </div>
+                    <!-- カラム２ -->
+                    <div class="w-full md:w-1/1 px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        金額
+                      </label>
+                      <input name="item_amount" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                    <!-- カラム３ -->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        数
+                      </label>
+                      <input name="item_number" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                    <!-- カラム４ -->
+                    <div class="w-full md:w-1/1 px-3 mb-6 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        発売日
+                      </label>
+                      <input name="published" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                  </div>
+                  <!-- カラム５ -->
+                  <div class="flex flex-col">
+                      <div class="text-gray-700 text-center px-4 py-2 m-2">
+                             <x-button class="bg-blue-500 rounded-lg">送信</x-button>
+                      </div>
+                   </div>
+            </form>
+        </div>
+        <!--左エリア[END]--> 
+    
+    
+    <!--右側エリア[START]-->
+    <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
+        <x-collection>テスト１</x-collection>
+        <x-collection>テスト２</x-collection>
+        <x-collection>テスト３</x-collection>
     </div>
-    <!-- Book: 既に登録されてる本のリスト -->
+    <!--右側エリア[[END]-->     
+    
+    
 
-@endsection
+</div>
+ <!--全エリア[END]-->
+
+</x-app-layout>
+
+
 
 
 
