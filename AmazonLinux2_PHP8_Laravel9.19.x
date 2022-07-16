@@ -328,16 +328,20 @@ use App\Models\Book; //Add
 use Illuminate\Http\Request;
 use App\Http\Controllers\BookController; //Add
 
-//本のダッシュボード表示(books.blade.php)
+//本：ダッシュボード表示(books.blade.php)
 Route::get('/', [BookController::class,'index'])->middleware(['auth'])->name('home');
 
-//新「本」を追加 
+//本：追加 
 Route::post('/books',[BookController::class,"store"]);
 
-//本を削除 
+//本：削除 
 Route::delete('/book/{book}', [BookController::class,"destroy"]);
 
+//本：更新画面
+Route::post('/booksedit/{book}',[BookController::class,"edit"]);
 
+//本：更新画面
+Route::post('/books/update}',[BookController::class,"update"]);
 /**
 * 「ログイン機能」インストールで追加されています 
 */
@@ -625,9 +629,20 @@ public function index() {
 #以下[END]までの全てのコードをコピー
 
 
- <!-- 本: 削除ボタン -->
+  <!-- 本: 削除ボタン -->
 <div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
   <div>{{ $slot }}</div>
+  
+    <div>
+    <form action="{{ url('booksedit/'.$id) }}" method="POST">
+         @csrf
+         
+        <button type="submit"  class="btn bg-blue-500 rounded-lg">
+            更新
+        </button>
+        
+     </form>
+  </div>
   
   <div>
     <form action="{{ url('book/'.$id) }}" method="POST">
@@ -642,6 +657,7 @@ public function index() {
   </div>
 
 </div>
+
 
 
 #[END]--------------------------------------------
@@ -669,6 +685,10 @@ public function destroy(Book $book) {
 
 
 #[END]--------------------------------------------
+
+
+
+
 
 
 
