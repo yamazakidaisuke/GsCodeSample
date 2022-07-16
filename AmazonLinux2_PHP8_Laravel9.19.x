@@ -695,7 +695,7 @@ public function destroy(Book $book) {
 
 
 #--------------------------------------------
-# 1．更新機能・画面
+# 1．[更新機能] 画面を作成
 #   /resources/views/booksedit.blade.php を作成
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
@@ -798,8 +798,9 @@ public function destroy(Book $book) {
 
 
 #--------------------------------------------
-# 2．/app/Http/Controllers/BookController.php
-#   データ取得・表示[BookController::class,"edit"]
+# 2．[更新機能] コントローラー
+#   /app/Http/Controllers/BookController.php
+#   更新画面・ルーティング[BookController::class,"edit"]
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
     
@@ -820,8 +821,51 @@ public function destroy(Book $book) {
 
 
 
-
+#--------------------------------------------
+# 3．[更新機能] 更新処理
+#   /app/Http/Controllers/BookController.php
+#   データ更新・処理[BookController::class,"update"]
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
     
+ 
+    public function update(Request $request, Book $book)
+    {
+      //** ↓ 下をコピー ↓ **
+
+
+        //バリデーション
+         $validator = Validator::make($request->all(), [
+             'id' => 'required',
+             'item_name' => 'required|min:3|max:255',
+             'item_number' => 'required|min:1|max:3',
+             'item_amount' => 'required|max:6',
+             'published' => 'required',
+        ]);
+        //バリデーション:エラー
+         if ($validator->fails()) {
+             return redirect('/')
+                 ->withInput()
+                 ->withErrors($validator);
+        }
+        
+        //データ更新
+        $books = Book::find($request->id);
+        $books->item_name   = $request->item_name;
+        $books->item_number = $request->item_number;
+        $books->item_amount = $request->item_amount;
+        $books->published   = $request->published;
+        $books->save();
+        return redirect('/');
+        
+        
+        //** ↑ 上をコピー ↑ **!
+    }
+    
+    
+#[END]--------------------------------------------
+
+
 
 
 
