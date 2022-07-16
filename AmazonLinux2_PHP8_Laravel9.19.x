@@ -321,8 +321,8 @@ php artisan make:model Book -mcr
 #１．/routes/web.php に 以下コードを貼り付けます。
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
+<?php
 
-<?
 use Illuminate\Support\Facades\Route;
 use App\Models\Book; //Add
 use Illuminate\Http\Request;
@@ -341,7 +341,7 @@ Route::delete('/book/{book}', [BookController::class,"destroy"]);
 Route::post('/booksedit/{book}',[BookController::class,"edit"]);
 
 //本：更新画面
-Route::post('/books/update}',[BookController::class,"update"]);
+Route::post('/books/update',[BookController::class,"update"]);
 
 /**
 * 「ログイン機能」インストールで追加されています 
@@ -545,7 +545,10 @@ public function store(Request $request) {
       
     //バリデーション
     $validator = Validator::make($request->all(), [
-        'item_name' => 'required|max:255',
+         'item_name' => 'required|min:3|max:255',
+         'item_number' => 'required | min:1 | max:3',
+         'item_amount' => 'required | max:6',
+         'published'   => 'required',
     ]);
 
     //バリデーション:エラー 
@@ -558,10 +561,10 @@ public function store(Request $request) {
 
   // Eloquentモデル
   $books = new Book;
-  $books->item_name = $request->item_name;
-  $books->item_number = '1';
-  $books->item_amount = '1000';
-  $books->published = '2017-03-07 00:00:00';
+  $books->item_name   = $request->item_name;
+  $books->item_number = $request->item_number;
+  $books->item_amount = $request->item_amount;
+  $books->published   = $request->published;
   $books->save(); 
   return redirect('/');
   
@@ -691,16 +694,134 @@ public function destroy(Book $book) {
 
 
 
+#--------------------------------------------
+# 1．更新機能・画面
+#   /resources/views/booksedit.blade.php を作成
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<!-- resources/views/books.blade.php -->
+<x-app-layout>
+
+    <!--ヘッダー[START]-->
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <form action="{{ route('home') }}" method="GET" class="w-full max-w-lg">
+                <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}：更新画面</x-button>
+            </form>
+        </h2>
+    </x-slot>
+    <!--ヘッダー[END]-->
+            
+        <!-- バリデーションエラーの表示に使用-->
+        @include('common.errors')
+        <!-- バリデーションエラーの表示に使用-->
+    
+    <!--全エリア[START]-->
+    <div class="flex bg-gray-100">
+
+        <!--左エリア[START]--> 
+        <div class="text-gray-700 text-left px-4 py-4 m-2">
+            
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-500 font-bold">
+                    本を管理する
+                </div>
+            </div>
+
+
+            <!-- 本のタイトル -->
+            <form action="{{ url('books/update') }}" method="POST" class="w-full max-w-lg">
+                @csrf
+                
+                  <div class="flex flex-col px-2 py-2">
+                   <!-- カラム１ -->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                       Book Name
+                      </label>
+                      <input name="item_name" value="{{$book->item_name}}" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                    </div>
+                    <!-- カラム２ -->
+                    <div class="w-full md:w-1/1 px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        金額
+                      </label>
+                      <input name="item_amount" value="{{$book->item_amount}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                    <!-- カラム３ -->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        数
+                      </label>
+                      <input name="item_number" value="{{$book->item_number}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                    <!-- カラム４ -->
+                    <div class="w-full md:w-1/1 px-3 mb-6 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        発売日
+                      </label>
+                      <input name="published" type="datetime-local" value="{{$book->published}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  placeholder="">
+                    </div>
+                  </div>
+                  <!-- カラム５ -->
+                  <div class="flex flex-col">
+                      <div class="text-gray-700 text-center px-4 py-2 m-2">
+                             <x-button class="bg-blue-500 rounded-lg">更新</x-button>
+                      </div>
+                   </div>
+                <!-- id値を送信 -->
+                <input type="hidden" name="id" value="{{$book->id}}">
+                <!--/ id値を送信 -->
+            </form>
+        </div>
+        <!--左エリア[END]--> 
+    
+    
+    <!--右側エリア[START]-->
+    <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
+      
+    </div>
+    <!--右側エリア[[END]-->       
+
+</div>
+ <!--全エリア[END]-->
+
+</x-app-layout>
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+# 2．/app/Http/Controllers/BookController.php
+#   データ取得・表示[BookController::class,"edit"]
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+    
+    
+ public function edit(Book $book)
+    {
+        //** ↓ 下をコピー ↓ **
+        
+        //{books}id 値を取得 => Book $books id 値の1レコード取得
+        return view('booksedit', ['book' => $book]);
+        
+        //** ↑ 上をコピー ↑ **!
+    }
+    
+    
+#[END]--------------------------------------------
 
 
 
 
 
-
-#重要事項：DBについて
-#こちらのAmazonLinux2で環境作った場合は
-#MariaDBは自動で起動するので毎回DBを起動する必要はありません。
-
+    
 
 
 
