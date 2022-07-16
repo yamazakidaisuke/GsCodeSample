@@ -506,17 +506,28 @@ require __DIR__.'/auth.php';
 
 
 #***************************
-# Root/Controller
+# Controller
 #***************************
 #--------------------------------------------
-#１．/routes/web.php
-#   『新「本」を追加』のルート定義に以下コードを上書き。
+#１．/app/Http/Controllers/BookController.php
+#   useの次の行に追加
+#--------------------------------------------
+# use App\Models\Book; 
+# use Illuminate\Http\Request;
+
+use Validator;  //この1行だけ追加！
+
+
+
+#--------------------------------------------
+#１．/app/Http/Controllers/BookController.php
+#   データ登録[BookController::class,"store"]
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
-
-Route::post('/books', function (Request $request) {
-
+public function store(Request $request) {
+   //** ↓ 下をコピー ↓ **
+      
     //バリデーション
     $validator = Validator::make($request->all(), [
         'item_name' => 'required|max:255',
@@ -538,9 +549,9 @@ Route::post('/books', function (Request $request) {
   $books->published = '2017-03-07 00:00:00';
   $books->save(); 
   return redirect('/');
-
-
-});
+  
+   //** ↑ 上をコピー ↑ **
+}
 
 
 #[END]--------------------------------------------
@@ -548,18 +559,22 @@ Route::post('/books', function (Request $request) {
 
 
 #--------------------------------------------
-# 2．/routes/web.php
-#   『本のダッシュボード表示 』のルート定義に以下コードを上書き。
+#2．/app/Http/Controllers/BookController.php
+#   データ取得・表示[BookController::class,"index"]
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-Route::get('/', function () {
+public function index() {
+   //** ↓ 下をコピー ↓ **    
+    
     $books = Book::orderBy('created_at', 'asc')->get();
     return view('books', [
         'books' => $books
     ]);
-})->middleware(['auth'])->name('home');
+    
+    //** ↑ 上をコピー ↑ **
+}
 
 
 #[END]--------------------------------------------
