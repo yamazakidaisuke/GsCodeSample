@@ -651,8 +651,8 @@ public function index() {
 
 
 #--------------------------------------------
-# 5．/routes/web.php
-#   『本を削除』のルート定義を追加編集
+# 5．/app/Http/Controllers/BookController.php
+#   データ削除[BookController::class,"destroy"]
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
