@@ -322,7 +322,7 @@ php artisan make:model Book -mcr
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
-
+<?
 use Illuminate\Support\Facades\Route;
 use App\Models\Book; //Add
 use Illuminate\Http\Request;
@@ -342,6 +342,7 @@ Route::post('/booksedit/{book}',[BookController::class,"edit"]);
 
 //本：更新画面
 Route::post('/books/update}',[BookController::class,"update"]);
+
 /**
 * 「ログイン機能」インストールで追加されています 
 */
