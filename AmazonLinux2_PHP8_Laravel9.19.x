@@ -303,10 +303,9 @@ php artisan make:model Book -mcr
 
 #--------------------------------------------
 #６．モデルを作成（テーブルを簡単に扱えるようにする機能）
-#   65ページ
 #   /app/models/Book.php に作成されます。
-#   /app/Http/Controllers/BookController.php に作成されます。
-#   /app/models/Book.php に作成されます。
+#   /app/Http/Controllers/BookController.php に生成されます。
+#   /app/Http/Controllers/BookController.php にメソッドも自動で生成
 #--------------------------------------------
 
 #6.[完了]/app/models/Book.phpにファイルができて完了***
