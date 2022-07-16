@@ -503,14 +503,23 @@ require __DIR__.'/auth.php';
 
 
 
+#***************************
+#  コンポーネントをビルド
+#  表示確認
+#***************************
+
+npm run build
+
+
+
 
 
 #***************************
 # Controller
 #***************************
 #--------------------------------------------
-#１．/app/Http/Controllers/BookController.php
-#   useの次の行に追加
+#0．/app/Http/Controllers/BookController.php
+#   use の次の行に追加
 #--------------------------------------------
 # use App\Models\Book; 
 # use Illuminate\Http\Request;
@@ -527,6 +536,7 @@ use Validator;  //この1行だけ追加！
 
 public function store(Request $request) {
    //** ↓ 下をコピー ↓ **
+   
       
     //バリデーション
     $validator = Validator::make($request->all(), [
@@ -549,6 +559,7 @@ public function store(Request $request) {
   $books->published = '2017-03-07 00:00:00';
   $books->save(); 
   return redirect('/');
+  
   
    //** ↑ 上をコピー ↑ **
 }
@@ -608,7 +619,7 @@ public function index() {
 
 
 #--------------------------------------------
-# 4．/resources/views/components/collection.blade.php を作成
+# 4．/resources/views/components/collection.blade.php を更新！！
 #    collectionコンポーネントを全て上書き！！
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
@@ -637,23 +648,22 @@ public function index() {
 
 
 
-#--------------------------------------------
-# 5．コンポーネントをビルド
-#--------------------------------------------
-npm run build
-
 
 
 #--------------------------------------------
-# 6．/routes/web.php
+# 5．/routes/web.php
 #   『本を削除』のルート定義を追加編集
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-Route::delete('/book/{book}', function (Book $book) {
+public function destroy(Book $book) {
+   //** ↓ 下をコピー ↓ **    
+    
     $book->delete();       //追加
     return redirect('/');  //追加
+    
+     //** ↑ 上をコピー ↑ **
 });
 
 
