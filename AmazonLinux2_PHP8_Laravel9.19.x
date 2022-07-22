@@ -329,19 +329,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BookController; //Add
 
 //本：ダッシュボード表示(books.blade.php)
-Route::get('/', [BookController::class,'index'])->middleware(['auth'])->name('home');
+Route::get('/', [BookController::class,'index'])->middleware(['auth'])->name('book_index');
 
 //本：追加 
-Route::post('/books',[BookController::class,"store"]);
+Route::post('/books',[BookController::class,"store"])->name('book_store');
 
 //本：削除 
-Route::delete('/book/{book}', [BookController::class,"destroy"]);
+Route::delete('/book/{book}', [BookController::class,"destroy"])->name('book_destroy');
 
 //本：更新画面
-Route::post('/booksedit/{book}',[BookController::class,"edit"]);
+Route::post('/booksedit/{book}',[BookController::class,"edit"])->name('book_edit'); //通常
+Route::get('/booksedit/{book}', [BookController::class,"edit"])->name('edit');      //Validationエラーありの場合
 
 //本：更新画面
-Route::post('/books/update',[BookController::class,"update"]);
+Route::post('/books/update',[BookController::class,"update"])->name('book_update');
 
 /**
 * 「ログイン機能」インストールで追加されています 
@@ -382,12 +383,12 @@ require __DIR__.'/auth.php';
 
 
 #--------------------------------------------
-# 2．/resources/views/common/errors.blade.php を作成 
+# 2．/resources/views/components/errors.blade.php を作成 
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-<!-- resources/views/common/errors.blade.php -->
+<!-- resources/views/components/errors.blade.php -->
 @if (count($errors) > 0)
     <!-- Form Error List -->
     <div class="flex justify-between p-4 items-center bg-red-500 text-white rounded-lg border-2 border-white">
@@ -420,7 +421,7 @@ require __DIR__.'/auth.php';
     <!--ヘッダー[START]-->
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <form action="{{ route('home') }}" method="GET" class="w-full max-w-lg">
+            <form action="{{ route('book_index') }}" method="GET" class="w-full max-w-lg">
                 <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}</x-button>
             </form>
         </h2>
@@ -428,7 +429,7 @@ require __DIR__.'/auth.php';
     <!--ヘッダー[END]-->
             
         <!-- バリデーションエラーの表示に使用-->
-        @include('common.errors')
+       <x-errors id="errors" class="bg-blue-500 rounded-lg">{{$errors}}</x-button>
         <!-- バリデーションエラーの表示に使用-->
     
     <!--全エリア[START]-->
@@ -701,13 +702,13 @@ public function destroy(Book $book) {
 #以下[END]までの全てのコードをコピー
 
 
-<!-- resources/views/books.blade.php -->
+<!-- resources/views/booksedit.blade.php -->
 <x-app-layout>
 
     <!--ヘッダー[START]-->
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <form action="{{ route('home') }}" method="GET" class="w-full max-w-lg">
+            <form action="{{ route('book_index') }}" method="GET" class="w-full max-w-lg">
                 <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}：更新画面</x-button>
             </form>
         </h2>
@@ -715,7 +716,7 @@ public function destroy(Book $book) {
     <!--ヘッダー[END]-->
             
         <!-- バリデーションエラーの表示に使用-->
-        @include('common.errors')
+        <x-errors id="errors" class="bg-blue-500 rounded-lg">{{$errors}}</x-button>
         <!-- バリデーションエラーの表示に使用-->
     
     <!--全エリア[START]-->
@@ -844,7 +845,7 @@ public function destroy(Book $book) {
         ]);
         //バリデーション:エラー
          if ($validator->fails()) {
-             return redirect('/')
+             return redirect('/booksedit/'.$request->id)
                  ->withInput()
                  ->withErrors($validator);
         }
