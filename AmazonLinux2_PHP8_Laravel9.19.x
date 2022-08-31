@@ -614,7 +614,7 @@ public function index() {
          <!-- 現在の本 -->
         @if (count($books) > 0)
             @foreach ($books as $book)
-                <x-collection id="{{ $book->id }}" >{{ $book->item_name }}</x-collection>
+                <x-collection id="{{ $book->id }}">{{ $book->item_name }}</x-collection>
             @endforeach
         @endif
     </div>
