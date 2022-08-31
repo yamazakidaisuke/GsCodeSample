@@ -689,6 +689,8 @@ public function destroy(Book $book) {
 
 
 
+#Errorが出た場合以下のコマンドでdeleteになっているか確認
+#「　php artisan route:list -v  」
 #[END]--------------------------------------------
 
 
