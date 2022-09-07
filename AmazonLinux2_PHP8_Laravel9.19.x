@@ -71,7 +71,7 @@ sudo mv composer.phar /usr/bin/composer
 composer
 
 
-#Laravelインストール（最新バージョン）
+#Laravelインストール ( バージョン指定する場合 → composer create-project "laravel/laravel=9.*" cms )
 
 composer create-project laravel/laravel cms
 
