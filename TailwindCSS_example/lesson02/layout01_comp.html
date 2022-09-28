@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>layout01</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-500">
+
+    <!-- Header[start] -->
+    <header class="flex justify-center items-center bg-white h-32 my-5">ヘッダー</header>
+    <!-- Header[end] -->
+
+    <!-- MainContents[start] -->
+    <section class="flex h-screen">
+
+        <!-- Left Area[start] -->
+        <nav class="w-1/4 bg-gray-300 overflow-hidden">
+            <h1>Left Area</h1>
+            <ul class="p-3">
+                <li>
+                    <h2 class="text-xl font-bold text-black sm:text-orange-600 md:text-blue-400">◇ SITE</h2>
+                    <ul class="pl-6">
+                        <li><a href="" class="hover:text-orange-600">Home</a></li>
+                        <li><a href="" class="hover:text-orange-600">BLOG</a></li>
+                        <li><a href="" class="hover:text-orange-600">CONTACT</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- Left Area[end] -->
+
+        <!-- Right Area[start] -->
+        <div class="w-full bg-red-100 ">
+            Right Area
+        </div>
+        <!-- Right Area[end] -->
+
+    </section>
+    <!-- MainContents[end] -->
+
+</body>
+</html>
