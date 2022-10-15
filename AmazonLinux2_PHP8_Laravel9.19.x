@@ -429,7 +429,7 @@ require __DIR__.'/auth.php';
     <!--ヘッダー[END]-->
             
         <!-- バリデーションエラーの表示に使用-->
-       <x-errors id="errors" class="bg-blue-500 rounded-lg">{{$errors}}</x-button>
+       <x-errors id="errors" class="bg-blue-500 rounded-lg">{{$errors}}</x-errors>
         <!-- バリデーションエラーの表示に使用-->
     
     <!--全エリア[START]-->
@@ -738,7 +738,7 @@ public function destroy(Book $book) {
     <!--ヘッダー[END]-->
             
         <!-- バリデーションエラーの表示に使用-->
-        <x-errors id="errors" class="bg-blue-500 rounded-lg">{{$errors}}</x-button>
+        <x-errors id="errors" class="bg-blue-500 rounded-lg">{{$errors}}</x-errors>
         <!-- バリデーションエラーの表示に使用-->
     
     <!--全エリア[START]-->
