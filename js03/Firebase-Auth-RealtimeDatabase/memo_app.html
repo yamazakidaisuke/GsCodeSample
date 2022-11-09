@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firebase_version9_Auth_RealtimeDB (G'sACADEMY初学者用サンプル)</title>
+<style>.remove:hover{background:aquamarine;}</style>
+</head>
+<body>
+    <h1 id="status"> Login... </h1>
+    <button id="out">ログアウト</button>
+    <!-- コンテンツ表示画面 -->
+    <div>
+        <div>
+            名前：<span id="uname"></span>
+        </div>
+        <div>
+            <select id="title">
+                <option value="memo1">memo1</option>
+                <option value="memo2">memo2</option>
+                <option value="memo3">memo3</option>
+            </select>
+            <textarea id="text" cols="30" rows="10"></textarea>
+            <button id="send">送信</button>
+        </div>
+        <div id="output" style="overflow: auto;height: 300px;"></div>
+    </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="module">
+//###############################################
+// 必要なJSを読み込み
+//###############################################
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+import { getDatabase, ref, push, set, onValue, onChildAdded, remove, onChildRemoved } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
+ 
+
+//###############################################
+//FirebaseConfig [ KEYを取得して設定！！ ]
+//###############################################
+const firebaseConfig = {
+    apiKey: "***********************************",
+    authDomain: "*******************************",
+    databaseURL: "******************************",
+    projectId: "********************************",
+    storageBucket: "****************************",
+    messagingSenderId: "************************",
+    appId: "************************************",
+};
+const app = initializeApp(firebaseConfig);
+
+
+//###############################################
+//Firebase-RealtimeDatabase接続
+//###############################################
+const db  = getDatabase(app); //RealtimeDBに接続
+
+
+//###############################################
+//GoogleAuth用
+//###############################################
+const provider = new GoogleAuthProvider();
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+const auth = getAuth();
+
+
+//###############################################
+//Loginしていれば処理します
+//###############################################
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        //ユーザー情報取得できます
+        if (user !== null) {
+            user.providerData.forEach((profile) => {
+                //Login情報取得
+                $("#uname").val(profile.displayName);
+                console.log("Sign-in provider: " + profile.providerId);
+                console.log("  Provider-specific UID: " + profile.uid);
+                console.log("  Email: " + profile.email);
+                console.log("  Photo URL: " + profile.photoURL);
+            });
+        }
+
+        //データ登録(Click)
+        $("#send").on("click",function() {
+            const msg = {
+                title: $("#title").val(),
+                text:  $("#text").val()
+            }
+            const dbRef = ref( db, "users/"+uid+"/memo/"+$("#title").val() ); //RealtimeDB内の"chat"を使う
+            set(dbRef, msg);  //DBに値をセットする
+        });
+
+        //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得
+        $("#title").on("change",function(){
+            const dbRef = ref( db, "users/"+uid+"/memo/"+$(this).val() ); //RealtimeDB内の"chat"を使う
+            onValue(dbRef, function(data){   
+                console.log(msg);
+                const msg  = data.val();    //オブジェクトデータを取得し、変数msgに代入
+                const key  = data.key;      //データのユニークキー（削除や更新に使用可能）
+                $("#text").val(msg.text);
+            });
+        });
+
+    } else {
+        _redirect();  // User is signed out
+    }
+});
+
+
+//###############################################
+//Logout処理
+//###############################################
+$("#out").on("click", function () {
+    // signInWithRedirect(auth, provider);ß
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        _redirect();
+    }).catch((error) => {
+        // An error happened.
+        console.error(error);
+    });
+});
+
+
+//###############################################
+//Login画面へ
+//###############################################
+function _redirect(){
+    location.href="login.html";
+}
+
+</script>
+</body>
+</html>

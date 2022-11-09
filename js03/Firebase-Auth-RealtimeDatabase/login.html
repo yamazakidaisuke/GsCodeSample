@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firebase_version9_Auth_RealtimeDB (G'sACADEMY初学者用サンプル)</title>
+</head>
+
+<body>
+<button id="login">LOGIN</button>
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery -->
+
+<script type="module">
+//###############################################
+// 必要なJSを読み込み
+//###############################################
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
+
+
+//###############################################
+//FirebaseConfig [ KEYを取得して設定！！ ]
+//###############################################
+const firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+};
+const app = initializeApp(firebaseConfig);
+
+
+//###############################################
+//GoogleAuth用
+//###############################################
+const provider = new GoogleAuthProvider();
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+const auth = getAuth();
+
+
+//###############################################
+//Login処理
+//###############################################
+$("#login").on("click",function(){
+    signInWithPopup(auth, provider).then((result) => {
+        //Login後のページ遷移
+        location.href="memo_app.html";  
+
+    }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+    });
+});
+
+</script>
+</body>
+
+</html>
