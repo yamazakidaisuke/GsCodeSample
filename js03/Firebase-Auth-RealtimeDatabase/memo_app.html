@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Firebase_version9_Auth_RealtimeDB (G'sACADEMY初学者用サンプル)</title>
+<title>Firebase_version9_Auth_RealtimeDB (初学者用サンプル)</title>
 <style>.remove:hover{background:aquamarine;}</style>
 </head>
 <body>
-    <h1 id="status"> Login... </h1>
     <button id="out">ログアウト</button>
+    <h1 id="status"> Login... </h1>
     <!-- コンテンツ表示画面 -->
     <div>
         <div>
-            名前：<span id="uname"></span>
+            名前：<span id="uname"></span><br>
+            <img src="" id="prof">
         </div>
         <div>
             <select id="title">
@@ -21,21 +22,25 @@
                 <option value="memo2">memo2</option>
                 <option value="memo3">memo3</option>
             </select>
+        </div>
+        <div>
             <textarea id="text" cols="30" rows="10"></textarea>
             <button id="send">送信</button>
         </div>
-        <div id="output" style="overflow: auto;height: 300px;"></div>
     </div>
-
+    
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="module">
 //###############################################
 // 必要なJSを読み込み
 //###############################################
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
-import { getDatabase, ref, push, set, onValue, onChildAdded, remove, onChildRemoved } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
+import { initializeApp } 
+    from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+import { getDatabase, ref, push, set, onValue, onChildAdded, remove, onChildRemoved } 
+    from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
  
 
 //###############################################
@@ -79,12 +84,14 @@ onAuthStateChanged(auth, (user) => {
         if (user !== null) {
             user.providerData.forEach((profile) => {
                 //Login情報取得
-                $("#uname").val(profile.displayName);
-                console.log("Sign-in provider: " + profile.providerId);
-                console.log("  Provider-specific UID: " + profile.uid);
-                console.log("  Email: " + profile.email);
-                console.log("  Photo URL: " + profile.photoURL);
+                $("#uname").text(profile.displayName);
+                $("#prof").attr("src",profile.photoURL);
+                // console.log("Sign-in provider: " + profile.providerId);
+                // console.log("Provider-specific UID: " + profile.uid);
+                // console.log("Email: " + profile.email);
+                // console.log("Photo URL: " + profile.photoURL);
             });
+            $("#status").fadeOut(500);
         }
 
         //データ登録(Click)
@@ -101,9 +108,9 @@ onAuthStateChanged(auth, (user) => {
         $("#title").on("change",function(){
             const dbRef = ref( db, "users/"+uid+"/memo/"+$(this).val() ); //RealtimeDB内の"chat"を使う
             onValue(dbRef, function(data){   
-                console.log(msg);
                 const msg  = data.val();    //オブジェクトデータを取得し、変数msgに代入
-                const key  = data.key;      //データのユニークキー（削除や更新に使用可能）
+                console.log(msg);
+                // const key  = data.key;      //データのユニークキー（削除や更新に使用可能）
                 $("#text").val(msg.text);
             });
         });
@@ -118,7 +125,7 @@ onAuthStateChanged(auth, (user) => {
 //Logout処理
 //###############################################
 $("#out").on("click", function () {
-    // signInWithRedirect(auth, provider);ß
+    // signInWithRedirect(auth, provider);
     signOut(auth).then(() => {
         // Sign-out successful.
         _redirect();
@@ -130,7 +137,7 @@ $("#out").on("click", function () {
 
 
 //###############################################
-//Login画面へ
+//Login画面へリダイレクト(関数作成)
 //###############################################
 function _redirect(){
     location.href="login.html";
