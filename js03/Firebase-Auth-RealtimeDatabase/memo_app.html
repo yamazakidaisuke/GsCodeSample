@@ -100,17 +100,17 @@ onAuthStateChanged(auth, (user) => {
                 title: $("#title").val(),
                 text:  $("#text").val()
             }
-            const dbRef = ref( db, "users/"+uid+"/memo/"+$("#title").val() ); //RealtimeDB内の"chat"を使う
+            const dbRef = ref( db, "users/"+uid+"/memo/"+$("#title").val() ); //RealtimeDB内の"users/以下"を使う
             set(dbRef, msg);  //DBに値をセットする
         });
 
         //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得
         $("#title").on("change",function(){
-            const dbRef = ref( db, "users/"+uid+"/memo/"+$(this).val() ); //RealtimeDB内の"chat"を使う
+            const dbRef = ref( db, "users/"+uid+"/memo/"+$(this).val() ); //RealtimeDB内の"users/以下"を使う
             onValue(dbRef, function(data){   
                 const msg  = data.val();    //オブジェクトデータを取得し、変数msgに代入
                 console.log(msg);
-                // const key  = data.key;      //データのユニークキー（削除や更新に使用可能）
+                // const key  = data.key;   //データのユニークキー（削除や更新に使用可能）
                 $("#text").val(msg.text);
             });
         });
