@@ -332,6 +332,7 @@ use App\Models\Book; //Add
 
 //本：ダッシュボード表示(books.blade.php)
 Route::get('/', [BookController::class,'index'])->middleware(['auth'])->name('book_index');
+Route::get('/dashboard', [BookController::class,'index'])->middleware(['auth'])->name('dashboard');
 
 //本：追加 
 Route::post('/books',[BookController::class,"store"])->name('book_store');
@@ -349,9 +350,9 @@ Route::post('/books/update',[BookController::class,"update"])->name('book_update
 /**
 * 「ログイン機能」インストールで追加されています 
 */
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
