@@ -1,0 +1,673 @@
+###############################################################################
+# 更新日：2022-12-15
+#  Laravel9.49 ~ 対応中
+#  環境：PHP8.x.x AmazonLinux2 のインストール
+###############################################################################
+
+
+#PHPセットアップ
+#<重要！！必ず１行ずつコマンドを打つこと！>
+// パッケージのアップデート
+sudo yum update -y
+
+// composerバージョンアップ(必要なくなった)
+# sudo composer self-update
+
+// PHPのパッケージをすべてアンインストール
+sudo yum -y remove php-*
+
+// amazon-linux-extrasをアップデート
+sudo yum update -y amazon-linux-extras
+
+// amazon-linux-extrasで使用中のパッケージと使えるパッケージを確認
+amazon-linux-extras
+
+// lamp-mariadb10.2-php7.2を使用停止
+sudo amazon-linux-extras disable lamp-mariadb10.2-php7.2
+
+// PHP8.0を有効化
+sudo amazon-linux-extras enable php8.0
+
+// インストールするパッケージの案内があったので、表示されたコマンドを実行
+sudo yum clean metadata && sudo yum install php-cli php-pdo php-fpm php-mysqlnd
+sudo yum install php-cli php-common php-devel php-fpm php-gd php-mysqlnd php-mbstring php-pdo php-xml
+
+// apacheなどを再起動
+sudo systemctl restart httpd.service
+sudo systemctl restart php-fpm.service
+
+
+
+# MaryaDB 構築
+#MariaDBデフォルト確認
+sudo yum list installed | grep mariadb
+
+
+#MariaDBのインストール
+
+sudo amazon-linux-extras install mariadb10.5 -y
+
+
+#Apache, MariaDBの起動
+
+sudo systemctl start mariadb
+
+sudo mysql_secure_installation
+
+
+#MaridaDBの自動起動を有効化
+
+sudo systemctl enable mariadb
+
+sudo systemctl is-enabled mariadb
+
+
+#Composerインストール
+
+curl -sS https://getcomposer.org/installer | php
+
+sudo mv composer.phar /usr/bin/composer
+
+composer
+
+
+#Laravelインストール（最新バージョン）
+
+composer create-project laravel/laravel cms
+
+#ディレクトリ移動(cmsはlaravelがフォルダ名です)
+
+cd cms
+
+sudo composer update
+
+
+################
+# ここでエラー or 上手くいってないようだったら！！
+################
+
+sudo yum install php-cli php-common php-devel php-fpm php-gd php-mysqlnd php-mbstring php-pdo php-xml
+
+sudo composer update
+
+php artisan key:generate
+
+################
+#で解決するはず（私はこれで解決しました）
+################
+
+
+
+
+#BuiltInサーバーを起動：動作確認
+
+php artisan serve --port=8080
+
+
+#4. [完了]Webサーバー起動確認***
+#4.1 Preview→ [Preview Running Application]選択
+#4.2 /resouces/views/welcome.blade.php を編集して見よう！
+#4.3 ブラウザ・更新で確認 →　変更確認できればOK
+
+
+
+
+
+#**********************************************
+#  超大事！！！！！！！！！！！！！！！
+#  いつも使うので、覚えておくか直ぐコピペできる場所に書いておきましょう！
+#*********************************************
+
+#！！ [.env] 設定を変更したら必ずWebサーバーを再起動！！
+------
+#Webサーバー止める
+[ Ctl + C ]キーでWebサーバーを止めます。
+------
+#Webサーバー起動（.envの再読み込み！）
+php artisan serve --port=8080
+-------
+
+
+#6.[完了]DB接続設定完了***
+#  ＜重要＞間違うと「データ構造を作成（テーブル作成）」の次章でError!
+
+
+
+
+#--------------------------------------------
+# ＜重要＞ AWS EC2環境では必須追記！！ → MAMP/XAMPPの場合は無視！
+# /app/Providers/ AppServiceProvider.php ファイルを修正
+#--------------------------------------------
+use Illuminate\Support\Facades\URL;    //この行を追加
+public function boot() {
+   URL::forceScheme('https');          //この行を追加
+}
+
+#[完了]Laravel6以上 対応設定 完了***
+
+
+
+#--------------------------------------------
+#データベース作成
+#--------------------------------------------
+mysql -u root -p
+root [Enterキー]
+create database c9;
+exit;
+
+
+#--------------------------------------------
+#.env（ファイル内の同じ箇所を上書き）
+#--------------------------------------------
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=c9
+DB_USERNAME=root
+DB_PASSWORD=root
+
+
+
+#----------------------
+#phpMyAdmin設定
+#----------------------
+cd public   ＃/cms/publicフォルダに移動
+
+wget https://files.phpmyadmin.net/phpMyAdmin/5.1.2/phpMyAdmin-5.1.2-all-languages.zip
+
+unzip phpMyAdmin-5.1.2-all-languages.zip
+
+cd ..
+
+
+#＜手順解説＞
+#5.1 publicフォルダ内に「phpMyAdmin-5.1.2-all-languages」フォルダが作成される 
+#5.2 フォルダ名が長いので「phpMyAdmin」に変更
+#5.3「Preview」でサイトを開き、URLの最後に「phpMyAdmin/index.php」をつけてEnterキーを押す
+#5.4 URL例： https://＊＊＊＊＊＊.cloud9.us-east-1.amazonaws.com/phpMyAdmin/index.php
+#5.5 phpMyAdmin画面が表示されたら： ユーザー名・パスワードともに「root」を入力してログイン
+#5.6 ログインできればOK
+
+#5.[完了]DB動作＆コマンド確認完了***
+
+#*********************************************************************************
+#ここまでが初期設定
+#*********************************************************************************
+
+
+
+
+
+#*********************************************************************************
+# Auth( ユーザー登録・認証画面とテンプレート作成 )
+#ver Laravel 9.19 ~ 以降対応
+#*********************************************************************************
+# laravel/ui パッケージをインストール（４ステップ！）
+# 【注意】Laraveのバージョンを確認して実行しないとErrorになります！！
+#  コマンド打って、yes/no がでたらyes で！！
+-----
+
+#1. Laravel 9.x の場合
+sudo composer require laravel/breeze --dev
+
+#2. artisan コマンドを実行
+php artisan breeze:install
+
+#3. npmパッケージをインストール
+npm install
+
+#4. パッケージをビルド
+npm run build
+
+#5．テーブル作成
+php artisan migrate
+
+--------------------------------------------------
+// ログイン機能・画面が作成されました。
+
+
+
+
+
+
+#***************************
+# データ構造を作成（テーブル作成） 
+#***************************
+#--------------------------------------------
+#１．booksテーブルを作成（マイグレーションファイル作成）
+#--------------------------------------------
+php artisan make:migration create_books_table --create=books
+
+#1.[完了]Tableを作成するMigrationファイルを作成 完了***
+
+
+#--------------------------------------------
+#２．[年]_[月]_[日]_[時分秒]_create_books_table.php
+#   57ページ
+#   public function up(){...}の中を追加修正
+#--------------------------------------------
+public function up()
+    {
+        Schema::create('books', function (Blueprint $table) {
+            $table->id();
+            //** ↓ 下をコピー ↓ **
+            $table->string('item_name');
+            $table->integer('item_number');
+            $table->integer('item_amount');
+            $table->datetime('published');
+            //** ↑ 上をコピー ↑ **
+            $table->timestamps();
+        });
+}
+
+#2.[完了]Table作成するスクリプト準備 完了***
+
+
+
+
+#--------------------------------------------
+#３．マイグレーションを実行（テーブル作成）
+#   52ページ
+#--------------------------------------------
+php artisan migrate
+
+#3.[完了]Table作成スクリプト実行 完了***
+
+
+#--------------------------------------------
+#４．MySQL DBに作成されたテーブルを確認 
+#   59ページ
+#--------------------------------------------
+# ※コマンドで確認する（コマンドに慣れてる人用）
+mysql -u root -p
+root [Enterキー]
+use c9;
+show tables;
+desc books;
+exit;
+
+
+#4.[完了]Table作成をMySQLコマンドで確認 完了***
+
+
+
+#--------------------------------------------
+#５．モデル＆コントローラーも一緒に作成
+（テーブルを簡単に扱えるようにする機能）
+#--------------------------------------------
+php artisan make:model Book -c
+
+#5.[完了]DBを簡単に操作するためのファイルを作成 完了***
+
+
+
+#--------------------------------------------
+#６．モデルを作成（テーブルを簡単に扱えるようにする機能）
+#   65ページ
+#   /app/models/Book.php に作成されます。
+#--------------------------------------------
+
+#6.[完了]/app/models/Book.phpにファイルができて完了***
+
+
+
+
+
+#***************************
+# ルート定義（ルーティング）
+#***************************
+#--------------------------------------------
+#１．/routes/web.php に 以下コードを貼り付けます。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+use Illuminate\Support\Facades\Route;
+use App\Models\Book;
+use Illuminate\Http\Request;
+
+/**
+* 本のダッシュボード表示(books.blade.php)
+*/
+Route::get('/', function () {
+    return view('books');
+})->middleware(['auth'])->name('home'); //route("home")で呼び出せるように
+
+/**
+* 新「本」を追加 
+*/
+Route::post('/books', function (Request $request) {
+    //
+});
+
+/**
+* 本を削除 
+*/
+Route::delete('/book/{book}', function (Book $book) {
+    //
+});
+
+/**
+* 「ログイン機能」インストールで追加されています 
+*/
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+#***************************
+# View
+#***************************
+
+#--------------------------------------------
+# 1．/resources/views/components/collection.blade.php を作成
+#    Laravel9.19~ コンポーネント必須です。登録されたデータをコンポーネント化して表示してみましょう！
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
+  <div>{{ $slot }}</div>
+  <button>×</button>
+</div>
+
+
+#[END]--------------------------------------------
+
+
+
+#--------------------------------------------
+# 2．/resources/views/common/errors.blade.php を作成 
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<!-- resources/views/common/errors.blade.php -->
+@if (count($errors) > 0)
+    <!-- Form Error List -->
+    <div class="flex justify-between p-4 items-center bg-red-500 text-white rounded-lg border-2 border-white">
+        <div><strong>入力した文字を修正してくた?さい。</strong></div> 
+        <div>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+# 3．/resources/views/books.blade.php を作成
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<!-- resources/views/books.blade.php -->
+<x-app-layout>
+
+    <!--ヘッダー[START]-->
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <form action="{{ route('home') }}" method="GET" class="w-full max-w-lg">
+                <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}</x-button>
+            </form>
+        </h2>
+    </x-slot>
+    <!--ヘッダー[END]-->
+            
+        <!-- バリデーションエラーの表示に使用-->
+        @include('common.errors')
+        <!-- バリデーションエラーの表示に使用-->
+    
+    <!--全エリア[START]-->
+    <div class="flex bg-gray-100">
+
+        <!--左エリア[START]--> 
+        <div class="text-gray-700 text-left px-4 py-4 m-2">
+            
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-500 font-bold">
+                    本を管理する
+                </div>
+            </div>
+
+
+            <!-- 本のタイトル -->
+            <form action="{{ url('books') }}" method="POST" class="w-full max-w-lg">
+                @csrf
+                  <div class="flex flex-col px-2 py-2">
+                   <!-- カラム１ -->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                       Book Name
+                      </label>
+                      <input name="item_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                    </div>
+                    <!-- カラム２ -->
+                    <div class="w-full md:w-1/1 px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        金額
+                      </label>
+                      <input name="item_amount" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                    <!-- カラム３ -->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        数
+                      </label>
+                      <input name="item_number" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                    <!-- カラム４ -->
+                    <div class="w-full md:w-1/1 px-3 mb-6 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        発売日
+                      </label>
+                      <input name="published" type="date" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                  </div>
+                  <!-- カラム５ -->
+                  <div class="flex flex-col">
+                      <div class="text-gray-700 text-center px-4 py-2 m-2">
+                             <x-button class="bg-blue-500 rounded-lg">送信</x-button>
+                      </div>
+                   </div>
+            </form>
+        </div>
+        <!--左エリア[END]--> 
+    
+    
+    <!--右側エリア[START]-->
+    <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
+        <x-collection>テスト１</x-collection>
+        <x-collection>テスト２</x-collection>
+        <x-collection>テスト３</x-collection>
+    </div>
+    <!--右側エリア[[END]-->       
+
+</div>
+ <!--全エリア[END]-->
+
+</x-app-layout>
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+#***************************
+# Root/Controller
+#***************************
+#--------------------------------------------
+#１．/routes/web.php
+#   『新「本」を追加』のルート定義に以下コードを上書き。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+Route::post('/books', function (Request $request) {
+
+    //バリデーション
+    $validator = Validator::make($request->all(), [
+        'item_name' => 'required|max:255',
+    ]);
+
+    //バリデーション:エラー 
+    if ($validator->fails()) {
+        return redirect('/')
+            ->withInput()
+            ->withErrors($validator);
+    }
+    //以下に登録処理を記述（Eloquentモデル）
+
+  // Eloquentモデル
+  $books = new Book;
+  $books->item_name = $request->item_name;
+  $books->item_number = '1';
+  $books->item_amount = '1000';
+  $books->published = '2017-03-07 00:00:00';
+  $books->save(); 
+  return redirect('/');
+
+
+});
+
+
+#[END]--------------------------------------------
+
+
+
+#--------------------------------------------
+# 2．/routes/web.php
+#   『本のダッシュボード表示 』のルート定義に以下コードを上書き。
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+Route::get('/', function () {
+    $books = Book::orderBy('created_at', 'asc')->get();
+    return view('books', [
+        'books' => $books
+    ]);
+})->middleware(['auth'])->name('home');
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+# 3．/resources/views/books.blade.php
+#   books.blade.phpの 右側エリアを全て上書き！！
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+    <!--右側エリア[START]-->
+    <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
+         <!-- 現在の本 -->
+        @if (count($books) > 0)
+            @foreach ($books as $book)
+                <x-collection id="{{ $book->id }}" >{{ $book->item_name }}</x-collection>
+            @endforeach
+        @endif
+    </div>
+    <!--右側エリア[[END]-->     
+    
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+# 4．/resources/views/components/collection.blade.php を作成
+#    collectionコンポーネントを全て上書き！！
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+ <!-- 本: 削除ボタン -->
+<div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
+  <div>{{ $slot }}</div>
+  
+  <div>
+    <form action="{{ url('book/'.$id) }}" method="POST">
+         @csrf
+         @method('DELETE')
+        
+        <button type="submit"  class="btn bg-blue-500 rounded-lg">
+            削除
+        </button>
+        
+     </form>
+  </div>
+
+</div>
+
+
+#[END]--------------------------------------------
+
+
+
+#--------------------------------------------
+# 5．コンポーネントをビルド
+#--------------------------------------------
+npm run build
+
+
+
+#--------------------------------------------
+# 6．/routes/web.php
+#   『本を削除』のルート定義を追加編集
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+Route::delete('/book/{book}', function (Book $book) {
+    $book->delete();       //追加
+    return redirect('/');  //追加
+});
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+
+#重要事項：DBについて
+#こちらのAmazonLinux2で環境作った場合は
+#MariaDBは自動で起動するので毎回DBを起動する必要はありません。
+
+
+
+
+
+
+
+
