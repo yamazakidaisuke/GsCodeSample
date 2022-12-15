@@ -321,41 +321,44 @@ php artisan make:model Book -c
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
-
+<?php
+use App\Http\Controllers\ProfileController; //Laravel9.43.x~
 use Illuminate\Support\Facades\Route;
-use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Http\Controllers\BookController; //Add
+use App\Models\Book; //Add
 
-/**
-* 本のダッシュボード表示(books.blade.php)
-*/
-Route::get('/', function () {
-    return view('books');
-})->middleware(['auth'])->name('home'); //route("home")で呼び出せるように
+//本：ダッシュボード表示(books.blade.php)
+Route::get('/', [BookController::class,'index'])->middleware(['auth'])->name('book_index');
 
-/**
-* 新「本」を追加 
-*/
-Route::post('/books', function (Request $request) {
-    //
-});
+//本：追加 
+Route::post('/books',[BookController::class,"store"])->name('book_store');
 
-/**
-* 本を削除 
-*/
-Route::delete('/book/{book}', function (Book $book) {
-    //
-});
+//本：削除 
+Route::delete('/book/{book}', [BookController::class,"destroy"])->name('book_destroy');
+
+//本：更新画面
+Route::post('/booksedit/{book}',[BookController::class,"edit"])->name('book_edit'); //通常
+Route::get('/booksedit/{book}', [BookController::class,"edit"])->name('edit');      //Validationエラーありの場合
+
+//本：更新画面
+Route::post('/books/update',[BookController::class,"update"])->name('book_update');
 
 /**
 * 「ログイン機能」インストールで追加されています 
+*  Laravel9.43~少し変わった 
 */
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';
-
 
 
 #[END]--------------------------------------------
