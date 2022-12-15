@@ -1,6 +1,6 @@
 ###############################################################################
 # 更新日：2022-12-15
-#  Laravel9.49 ~ 対応中
+#  Laravel9.43 ~ CURD実装版
 #  環境：PHP8.x.x AmazonLinux2 のインストール
 ###############################################################################
 
@@ -71,7 +71,7 @@ sudo mv composer.phar /usr/bin/composer
 composer
 
 
-#Laravelインストール（最新バージョン）
+#Laravelインストール ( バージョン指定する場合 → composer create-project "laravel/laravel=9.*" cms )
 
 composer create-project laravel/laravel cms
 
@@ -292,10 +292,10 @@ exit;
 
 
 #--------------------------------------------
-#５．モデル＆コントローラーも一緒に作成
-（テーブルを簡単に扱えるようにする機能）
+#５．モデル＆コントローラー&Viewも一緒に作成
+#   （テーブルを簡単に扱えるようにする機能）
 #--------------------------------------------
-php artisan make:model Book -c
+php artisan make:model Book -mcr
 
 #5.[完了]DBを簡単に操作するためのファイルを作成 完了***
 
@@ -303,8 +303,9 @@ php artisan make:model Book -c
 
 #--------------------------------------------
 #６．モデルを作成（テーブルを簡単に扱えるようにする機能）
-#   65ページ
 #   /app/models/Book.php に作成されます。
+#   /app/Http/Controllers/BookController.php に生成されます。
+#   /app/Http/Controllers/BookController.php にメソッドも自動で生成
 #--------------------------------------------
 
 #6.[完了]/app/models/Book.phpにファイルができて完了***
@@ -321,8 +322,9 @@ php artisan make:model Book -c
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
+
 <?php
-use App\Http\Controllers\ProfileController; //Laravel9.43.x~
+use App\Http\Controllers\ProfileController;//9.43.x~
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BookController; //Add
@@ -346,7 +348,6 @@ Route::post('/books/update',[BookController::class,"update"])->name('book_update
 
 /**
 * 「ログイン機能」インストールで追加されています 
-*  Laravel9.43~少し変わった 
 */
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -359,6 +360,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
 
 
 #[END]--------------------------------------------
@@ -389,12 +392,12 @@ require __DIR__.'/auth.php';
 
 
 #--------------------------------------------
-# 2．/resources/views/common/errors.blade.php を作成 
+# 2．/resources/views/components/errors.blade.php を作成 
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-<!-- resources/views/common/errors.blade.php -->
+<!-- resources/views/components/errors.blade.php -->
 @if (count($errors) > 0)
     <!-- Form Error List -->
     <div class="flex justify-between p-4 items-center bg-red-500 text-white rounded-lg border-2 border-white">
@@ -427,7 +430,7 @@ require __DIR__.'/auth.php';
     <!--ヘッダー[START]-->
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <form action="{{ route('home') }}" method="GET" class="w-full max-w-lg">
+            <form action="{{ route('book_index') }}" method="GET" class="w-full max-w-lg">
                 <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}</x-button>
             </form>
         </h2>
@@ -435,7 +438,7 @@ require __DIR__.'/auth.php';
     <!--ヘッダー[END]-->
             
         <!-- バリデーションエラーの表示に使用-->
-        @include('common.errors')
+       <x-errors id="errors" class="bg-blue-500 rounded-lg">{{$errors}}</x-errors>
         <!-- バリデーションエラーの表示に使用-->
     
     <!--全エリア[START]-->
@@ -515,23 +518,67 @@ require __DIR__.'/auth.php';
 
 
 
-
-
-#***************************
-# Root/Controller
-#***************************
 #--------------------------------------------
-#１．/routes/web.php
-#   『新「本」を追加』のルート定義に以下コードを上書き。
+# 4．/resources/views/components/button.blade.php 以下確認
+#  *** 要チェック！！「 無ければ作成！ 」***
+#    Laravel9.19~ コンポーネントがあったりなかったり、、、無ければ追加作成です！！
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-Route::post('/books', function (Request $request) {
+<button {{ $attributes->merge(['type' => 'submit', 'class' => 'inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150']) }}>
+    {{ $slot }}
+</button>
 
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+#***************************
+#  コンポーネントをビルド
+#  表示確認
+#***************************
+
+npm run build
+
+
+
+
+
+#***************************
+# Controller
+#***************************
+#--------------------------------------------
+#0．/app/Http/Controllers/BookController.php
+#   use の次の行に追加
+#--------------------------------------------
+# use App\Models\Book; 
+# use Illuminate\Http\Request;
+
+use Validator;  //この1行だけ追加！
+
+
+
+#--------------------------------------------
+#１．/app/Http/Controllers/BookController.php
+#   データ登録[BookController::class,"store"]
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+public function store(Request $request) {
+   //** ↓ 下をコピー ↓ **
+   
+      
     //バリデーション
     $validator = Validator::make($request->all(), [
-        'item_name' => 'required|max:255',
+         'item_name' => 'required|min:3|max:255',
+         'item_number' => 'required | min:1 | max:3',
+         'item_amount' => 'required | max:6',
+         'published'   => 'required',
     ]);
 
     //バリデーション:エラー 
@@ -544,15 +591,16 @@ Route::post('/books', function (Request $request) {
 
   // Eloquentモデル
   $books = new Book;
-  $books->item_name = $request->item_name;
-  $books->item_number = '1';
-  $books->item_amount = '1000';
-  $books->published = '2017-03-07 00:00:00';
+  $books->item_name   = $request->item_name;
+  $books->item_number = $request->item_number;
+  $books->item_amount = $request->item_amount;
+  $books->published   = $request->published;
   $books->save(); 
   return redirect('/');
-
-
-});
+  
+  
+   //** ↑ 上をコピー ↑ **
+}
 
 
 #[END]--------------------------------------------
@@ -560,18 +608,22 @@ Route::post('/books', function (Request $request) {
 
 
 #--------------------------------------------
-# 2．/routes/web.php
-#   『本のダッシュボード表示 』のルート定義に以下コードを上書き。
+#2．/app/Http/Controllers/BookController.php
+#   データ取得・表示[BookController::class,"index"]
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-Route::get('/', function () {
+public function index() {
+   //** ↓ 下をコピー ↓ **    
+    
     $books = Book::orderBy('created_at', 'asc')->get();
     return view('books', [
         'books' => $books
     ]);
-})->middleware(['auth'])->name('home');
+    
+    //** ↑ 上をコピー ↑ **
+}
 
 
 #[END]--------------------------------------------
@@ -591,7 +643,7 @@ Route::get('/', function () {
          <!-- 現在の本 -->
         @if (count($books) > 0)
             @foreach ($books as $book)
-                <x-collection id="{{ $book->id }}" >{{ $book->item_name }}</x-collection>
+                <x-collection id="{{ $book->id }}">{{ $book->item_name }}</x-collection>
             @endforeach
         @endif
     </div>
@@ -605,15 +657,26 @@ Route::get('/', function () {
 
 
 #--------------------------------------------
-# 4．/resources/views/components/collection.blade.php を作成
+# 4．/resources/views/components/collection.blade.php を更新！！
 #    collectionコンポーネントを全て上書き！！
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
- <!-- 本: 削除ボタン -->
+  <!-- 本: 削除ボタン -->
 <div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
   <div>{{ $slot }}</div>
+  
+    <div>
+    <form action="{{ url('booksedit/'.$id) }}" method="POST">
+         @csrf
+         
+        <button type="submit"  class="btn bg-blue-500 rounded-lg">
+            更新
+        </button>
+        
+     </form>
+  </div>
   
   <div>
     <form action="{{ url('book/'.$id) }}" method="POST">
@@ -630,29 +693,281 @@ Route::get('/', function () {
 </div>
 
 
+
 #[END]--------------------------------------------
 
 
 
-#--------------------------------------------
-# 5．コンポーネントをビルド
-#--------------------------------------------
-npm run build
-
 
 
 #--------------------------------------------
-# 6．/routes/web.php
-#   『本を削除』のルート定義を追加編集
+# 5．/app/Http/Controllers/BookController.php
+#   データ削除[BookController::class,"destroy"]
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
 
-Route::delete('/book/{book}', function (Book $book) {
+public function destroy(Book $book) {
+   //** ↓ 下をコピー ↓ **    
+    
     $book->delete();       //追加
     return redirect('/');  //追加
+    
+     //** ↑ 上をコピー ↑ **
 });
 
+
+
+#Errorが出た場合以下のコマンドでdeleteになっているか確認
+#「　php artisan route:list -v  」
+#[END]--------------------------------------------
+
+
+
+
+
+#--------------------------------------------
+# 1．[更新機能] 画面を作成
+#   /resources/views/booksedit.blade.php を作成
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+<!-- resources/views/booksedit.blade.php -->
+<x-app-layout>
+
+    <!--ヘッダー[START]-->
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <form action="{{ route('book_index') }}" method="GET" class="w-full max-w-lg">
+                <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}：更新画面</x-button>
+            </form>
+        </h2>
+    </x-slot>
+    <!--ヘッダー[END]-->
+            
+        <!-- バリデーションエラーの表示に使用-->
+        <x-errors id="errors" class="bg-blue-500 rounded-lg">{{$errors}}</x-errors>
+        <!-- バリデーションエラーの表示に使用-->
+    
+    <!--全エリア[START]-->
+    <div class="flex bg-gray-100">
+
+        <!--左エリア[START]--> 
+        <div class="text-gray-700 text-left px-4 py-4 m-2">
+            
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-500 font-bold">
+                    本を管理する
+                </div>
+            </div>
+
+
+            <!-- 本のタイトル -->
+            <form action="{{ url('books/update') }}" method="POST" class="w-full max-w-lg">
+                @csrf
+                
+                  <div class="flex flex-col px-2 py-2">
+                   <!-- カラム１ -->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                       Book Name
+                      </label>
+                      <input name="item_name" value="{{$book->item_name}}" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                    </div>
+                    <!-- カラム２ -->
+                    <div class="w-full md:w-1/1 px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        金額
+                      </label>
+                      <input name="item_amount" value="{{$book->item_amount}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                    <!-- カラム３ -->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        数
+                      </label>
+                      <input name="item_number" value="{{$book->item_number}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                    </div>
+                    <!-- カラム４ -->
+                    <div class="w-full md:w-1/1 px-3 mb-6 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        発売日
+                      </label>
+                      <input name="published" type="datetime-local" value="{{$book->published}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  placeholder="">
+                    </div>
+                  </div>
+                  <!-- カラム５ -->
+                  <div class="flex flex-col">
+                      <div class="text-gray-700 text-center px-4 py-2 m-2">
+                             <x-button class="bg-blue-500 rounded-lg">更新</x-button>
+                      </div>
+                   </div>
+                <!-- id値を送信 -->
+                <input type="hidden" name="id" value="{{$book->id}}">
+                <!--/ id値を送信 -->
+            </form>
+        </div>
+        <!--左エリア[END]--> 
+    
+    
+    <!--右側エリア[START]-->
+    <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
+      
+    </div>
+    <!--右側エリア[[END]-->       
+
+</div>
+ <!--全エリア[END]-->
+
+</x-app-layout>
+
+
+
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+# 2．[更新機能] コントローラー
+#   /app/Http/Controllers/BookController.php
+#   更新画面・ルーティング[BookController::class,"edit"]
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+    
+    
+ public function edit(Book $book)
+    {
+        //** ↓ 下をコピー ↓ **
+        
+        //{books}id 値を取得 => Book $books id 値の1レコード取得
+        return view('booksedit', ['book' => $book]);
+        
+        //** ↑ 上をコピー ↑ **!
+    }
+    
+    
+#[END]--------------------------------------------
+
+
+
+
+#--------------------------------------------
+# 3．[更新機能] 更新処理
+#   /app/Http/Controllers/BookController.php
+#   データ更新・処理[BookController::class,"update"]
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+    
+ 
+    public function update(Request $request, Book $book)
+    {
+      //** ↓ 下をコピー ↓ **
+
+
+        //バリデーション
+         $validator = Validator::make($request->all(), [
+             'id' => 'required',
+             'item_name' => 'required|min:3|max:255',
+             'item_number' => 'required|min:1|max:3',
+             'item_amount' => 'required|max:6',
+             'published' => 'required',
+        ]);
+        //バリデーション:エラー
+         if ($validator->fails()) {
+             return redirect('/booksedit/'.$request->id)
+                 ->withInput()
+                 ->withErrors($validator);
+        }
+        
+        //データ更新
+        $books = Book::find($request->id);
+        $books->item_name   = $request->item_name;
+        $books->item_number = $request->item_number;
+        $books->item_amount = $request->item_amount;
+        $books->published   = $request->published;
+        $books->save();
+        return redirect('/');
+        
+        
+        //** ↑ 上をコピー ↑ **!
+    }
+    
+    
+#[END]--------------------------------------------
+
+
+
+
+
+========================================================================================================
+★ Pagenation 
+========================================================================================================
+#**************************************************
+# 1. コントローラ：indexメソッドの修正
+#**************************************************
+ BookController に 以下コードを貼り付けます。
+#--------------------------------------------
+#以下[END]までの全てのコード、indexメソッドのみ上書き。
+
+    public function index()
+    {
+        $books = Book::orderBy('created_at', 'asc')->paginate(3);
+        return view('books', [
+            'books' => $books
+        ]);
+    }
+
+#[END]--------------------------------------------
+
+#**************************************************
+# 2. ビュー：コードを追加
+#**************************************************
+ books.blade.php に 以下コードを追加します。
+  <!--右側エリア[START]-->の下に追加
+#--------------------------------------------
+#以下[END]まで
+
+        <div>
+            {{ $books->links()}}
+        </div>
+
+#[END]--------------------------------------------
+
+
+
+
+
+
+========================================================================================================
+★ログインしたユーザーにしか表示させない設定
+========================================================================================================
+#--------------------------------------------
+#  方法１．コンストラクタを追加 [ログインしていない場合にLOGIN画面へ遷移]
+#   /app/Http/Controllers/BookController.php
+#   classに追加
+#--------------------------------------------
+#以下[END]までの全てのコードをコピー
+
+
+ public function __construct()
+ {
+      $this->middleware('auth');
+ }
+
+
+#[END]--------------------------------------------
+
+#--------------------------------------------
+#  方法２． Route::groupを使ったログイン認証
+# * 注意）上記4の「コンストラクタ」か「Route::group」のどちらかだけの記述にします。
+#--------------------------------------------
+
+Route::group(['middleware' => 'auth'], function () {
+   //LOGIN認証後にしか見せたくないルーティングは中に入れる
+   //...
+});
 
 
 #[END]--------------------------------------------
@@ -662,13 +977,145 @@ Route::delete('/book/{book}', function (Book $book) {
 
 
 
-
-#重要事項：DBについて
-#こちらのAmazonLinux2で環境作った場合は
-#MariaDBは自動で起動するので毎回DBを起動する必要はありません。
-
+========================================================================================================
+★ユーザーがログインしたらユーザーが登録した本のみ表示（１ユーザー ✕ １サービス）
+========================================================================================================
 
 
+#**************************************************
+#１．ユーザーidを登録できるようにbooksテーブルを変更
+#**************************************************
+/database/migrations/[yyyy_mm_dd_hhiiss]_create_books_table.php に以下１行を追加します。
+#--------------------------------------------
+
+$table->bigInteger('user_id'); //Add:user_id
+
+#[END]--------------------------------------------
+
+
+
+#**************************************************
+#２．テーブルをリセットする
+#**************************************************
+#cmsディレクトリで実行
+cd cms
+
+#Migrate実行
+php artisan migrate:reset
+
+#[END]--------------------------------------------
+
+
+
+#**************************************************
+#３．テーブルを再構築
+#**************************************************
+
+php artisan migrate
+
+#[END]--------------------------------------------
+
+#実は以下コマンドでresetとmigrateを一気に実行可能です！
+# php artisan migrate:refresh
+
+
+#**************************************************
+#４．再構築したテーブルを確認
+#**************************************************
+
+mysql -u root -p
+root  #パスワード
+use c9;
+show tables;
+desc books;
+
+#[END]--------------------------------------------
+
+
+
+#**************************************************
+#５．コントローラ「BooksController@index」を修正（リスト16.13）
+#**************************************************
+
+ $books = Book::where('user_id',Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
+
+#[END]--------------------------------------------
+
+
+
+
+#**************************************************
+#６．コントローラ「BooksController@store」に追加
+#**************************************************
+
+$books->user_id  = Auth::user()->id; //追加のコード
+
+#[END]--------------------------------------------
+
+
+
+
+#**************************************************
+#７．コントローラ「BooksController@update」を修正
+#**************************************************
+
+$books = Book::where('user_id',Auth::user()->id)->find($request->id);
+
+#[END]--------------------------------------------
+
+
+
+
+#**************************************************
+#８．コントローラ「BooksController@edit」を修正
+#**************************************************
+#修正範囲が多いのでeditメソッドを上書きでもOK
+
+//更新画面
+public function edit($book_id){
+    $books = Book::where('user_id',Auth::user()->id)->find($book_id);
+    return view('booksedit', ['book' => $books]);
+}
+    
+#[END]--------------------------------------------
+
+
+#**************************************************
+#9. ContorollerでAuthを使うための設定を追加
+#   BookControllerの最初の方に記述
+#**************************************************
+
+use Auth;
+
+#[END]--------------------------------------------
+
+
+
+#*************************************************
+#  Login画面にRegister画面のリンクを追加
+#**************************************************
+#<x-slot name="logo">
+#   <a href="/">
+#       <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+#   </a>
+#</x-slot>
+#...
+
+<!-- 以下を追加 -->
+@if (Route::has('login'))
+    <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+        @auth
+            <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+        @else
+            <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+            @endif
+        @endauth
+    </div>
+@endif
+<!--ここまで-->
 
 
 
