@@ -247,11 +247,9 @@ php artisan migrate
 #  /resources/views/auth/register.blade.php
 #  /resources/views/auth/login.blade.php
 #**************************************************
-#<x-slot name="logo">
-#   <a href="/">
-#       <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-#   </a>
-#</x-slot>...以下...
+#<!-- Session Status -->
+#    <x-auth-session-status class="mb-4" :status="session('status')" />
+#...の次に以下を貼り付け ...
 
 <!-- 以下を追加 -->
 @if (Route::has('login'))
