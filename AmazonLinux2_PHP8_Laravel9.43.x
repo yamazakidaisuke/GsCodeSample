@@ -247,9 +247,8 @@ php artisan migrate
 #  /resources/views/auth/register.blade.php
 #  /resources/views/auth/login.blade.php
 #**************************************************
-#<!-- Session Status -->
-#    <x-auth-session-status class="mb-4" :status="session('status')" />
-#...の次に以下を貼り付け ...
+#<x-guest-layout>
+#...の次、2行目に以下を貼り付け ...
 
 <!-- 以下を追加 -->
 @if (Route::has('login'))
