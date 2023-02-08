@@ -658,18 +658,14 @@ public function store(Request $request) {
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
-
-public function index() {
-   //** ↓ 下をコピー ↓ **    
-    
+//** ↓ 下をコピー ↓ **    
+public function index(): string {
     $books = Book::orderBy('created_at', 'asc')->get();
     return view('books', [
         'books' => $books
     ]);
-    
-    //** ↑ 上をコピー ↑ **
 }
-
+//** ↑ 上をコピー ↑ **
 
 #[END]--------------------------------------------
 
