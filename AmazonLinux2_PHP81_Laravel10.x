@@ -599,13 +599,13 @@ npm run build
 #***************************
 #--------------------------------------------
 #0．/app/Http/Controllers/BookController.php
-#   use の次の行に追加
+#   use の次の2行追加
 #--------------------------------------------
 # use App\Models\Book; 
 # use Illuminate\Http\Request;
 
-use Validator;  //この1行だけ追加！
-
+use Validator;             //この2行追加！
+use Illuminate\View\View;  //この2行追加！
 
 
 #--------------------------------------------
@@ -614,7 +614,8 @@ use Validator;  //この1行だけ追加！
 #--------------------------------------------
 #以下[END]までの全てのコードをコピー
 
-public function store(Request $request) {
+public function store(Request $request): RedirectResponse
+{
    //** ↓ 下をコピー ↓ **
    
       
@@ -656,10 +657,10 @@ public function store(Request $request) {
 #2．/app/Http/Controllers/BookController.php
 #   データ取得・表示[BookController::class,"index"]
 #--------------------------------------------
-#以下[END]までの全てのコードをコピー
+#以下[END]までの全てのコードをコピーし、indexメソッドを上書き（View型に注意！）
 
 //** ↓ 下をコピー ↓ **    
-public function index(): string {
+public function index(): View {
     $books = Book::orderBy('created_at', 'asc')->get();
     return view('books', [
         'books' => $books
@@ -748,7 +749,8 @@ public function index(): string {
 #以下[END]までの全てのコードをコピー
 
 
-public function destroy(Book $book) {
+public function destroy(Book $book): RedirectResponse
+{
    //** ↓ 下をコピー ↓ **    
     
     $book->delete();       //追加
@@ -875,10 +877,10 @@ public function destroy(Book $book) {
 #   /app/Http/Controllers/BookController.php
 #   更新画面・ルーティング[BookController::class,"edit"]
 #--------------------------------------------
-#以下[END]までの全てのコードをコピー
+#以下[END]までの全てのコードをコピー、editメソッドを上書き（View型に注意！）
     
     
- public function edit(Book $book)
+   public function edit(Book $book): View
     {
         //** ↓ 下をコピー ↓ **
         
@@ -902,7 +904,7 @@ public function destroy(Book $book) {
 #以下[END]までの全てのコードをコピー
     
  
-    public function update(Request $request, Book $book)
+    public function update(Request $request, Book $book): RedirectResponse
     {
       //** ↓ 下をコピー ↓ **
 
@@ -952,7 +954,7 @@ public function destroy(Book $book) {
 #--------------------------------------------
 #以下[END]までの全てのコード、indexメソッドのみ上書き。
 
-    public function index()
+    public function index(): View
     {
         $books = Book::orderBy('created_at', 'asc')->paginate(3);
         return view('books', [
@@ -1113,7 +1115,8 @@ $books = Book::where('user_id',Auth::user()->id)->find($request->id);
 #修正範囲が多いのでeditメソッドを上書きでもOK
 
 //更新画面
-public function edit($book_id){
+public function edit($book_id): View
+{
     $books = Book::where('user_id',Auth::user()->id)->find($book_id);
     return view('booksedit', ['book' => $books]);
 }
