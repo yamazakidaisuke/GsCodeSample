@@ -295,7 +295,7 @@ exit;
 #５．モデル＆コントローラー&Viewも一緒に作成
 #   （テーブルを簡単に扱えるようにする機能）
 #--------------------------------------------
-php artisan make:model Book -mcr
+php artisan make:model Book -cr
 
 #5.[完了]DBを簡単に操作するためのファイルを作成 完了***
 
