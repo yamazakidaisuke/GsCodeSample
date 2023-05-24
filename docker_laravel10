@@ -16,7 +16,8 @@ localhost
 #Laravelディレクトリへ移動
 cd fast-laravel
 
-
+#
+chmod -R 777 storage/
 
 #**********************************************
 #  超大事！！！！！！！！！！！！！！！
@@ -72,7 +73,13 @@ sail php -v
 #  コマンド打って、yes/no がでたらyes で！！
 -----
 
-#1. Laravel 10.x の場合
+#0. Laravel 10.x の場合
+#権限変更
+sail root-shell
+chown sail:sail -R .
+exit
+
+#1.ダウンロード
 sail composer require laravel/breeze --dev
 
 #2. artisan コマンドを実行
@@ -101,7 +108,7 @@ npm install
 npm run build
 
 #8．テーブル作成
-php artisan migrate
+sail artisan migrate
 
 --------------------------------------------------
 // ログイン機能・画面が作成されました。
