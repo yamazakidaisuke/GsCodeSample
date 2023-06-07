@@ -23,16 +23,23 @@ https://kind-dill-384.notion.site/Laravel_Sail02-880d98ae7c514aefb845a86fcb6d5d8
 ################
 # 起動（開発環境が整ったら👇）
 ################
+#起動
 sail up
+
+#Laravelディレクトリへ移動(既に移動していれば必要無し！)
+cd fast-laravel
 
 #ブラウザ起動でLaravel画面確認
 localhost
 
-#Laravelディレクトリへ移動
-cd fast-laravel
-
-#
+#エラーがでたら以下で対応
 chmod -R 777 storage/
+
+#--------------------------------------------
+# phpMyAdmin 確認
+#--------------------------------------------
+http://localhost:8080/
+
 
 
 #**********************************************
@@ -48,19 +55,14 @@ sail down
 -------
 
 
-#--------------------------------------------
-# phpMyAdmin 確認
-#--------------------------------------------
-http://localhost:8080/
-
 
 #--------------------------------------------
-#.env 開発環境の設定ファイル
+#.env 開発環境の設定ファイルを確認
 #--------------------------------------------
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
-DB_DATABASE=first_laravel
+DB_DATABASE=first_laravel #プロジェクト名が入る
 DB_USERNAME=sail
 DB_PASSWORD=password
 #開発はこのままでOK＝＞本番サーバーはこの内容を変える
