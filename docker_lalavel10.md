@@ -14,6 +14,23 @@ https://kind-dill-384.notion.site/Laravel-Sail01-0420040e02b848b9b6227753abbed82
 ２．Laravel_Sail02  事前準備
 https://kind-dill-384.notion.site/Laravel_Sail02-880d98ae7c514aefb845a86fcb6d5d85
 
+---
+
+### フレームワーク心構え
+LaravelやReact、Djangoなどの他フレームワークもそうですが、
+- 10回作って慣れる（理解より慣れること、今までよりもより一層）
+- 解らなくても、こういう風に使うのかと「飲み込む」姿勢が大事
+- 勝手にルールを変えない(その通り打つ、大文字小文字、順番、変えない！！)
+- Laravelは情報が多いのでググる!! AIは古い情報なので厳しいと思うよ
+
+
+## 主に使うディレクトリ説明
+- /app/models               #DB操作系
+- /app/Http/Controllers     #Main処理系
+- /database/migrations      #テーブル作成
+- /resources/views          #表示
+- /routes/web.php           #URLと処理を紐づけるルーティング
+- .env                      #DB設定等
 
 ---
 
@@ -31,13 +48,6 @@ sail down
 ```
 
 ---
-
-### フレームワーク心構え
-LaravelやReact、Djangoなどの他フレームワークもそうですが、
-- 10回作って慣れる（理解より慣れること、今までよりもより一層）
-- 解らなくても、こういう風に使うのかと「飲み込む」姿勢が大事
-- 勝手にルールを変えない(その通り打つ、大文字小文字、順番、変えない！！)
-- Laravelは情報が多いのでググる!! AIは古い情報なので厳しいと思うよ
 
 
 #### 1. 開始！（ Docker+sail開発環境が整ったら👇）
