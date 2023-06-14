@@ -454,8 +454,8 @@ npm run build
 
 ### 7. Controller
 ##### 1. app/Http/Controllers/BookController.php を開く
-- `use Validator;` を追加 👉 このControllerでValidatorを使えるようにする
-- `use Auth;` を追加 👉 このControllerでAuthを使えるようにする
+- このControllerでValidatorを使えるようにする
+- このControllerでAuthを使えるようにする
 ```
 # use App\Models\Book;
 # use Illuminate\Http\Request;
