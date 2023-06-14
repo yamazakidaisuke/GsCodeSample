@@ -661,7 +661,7 @@ sail artisan route:list -v
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         発売日
                       </label>
-                      <input name="published" type="datetime-local" value="{{$book->published}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  placeholder="">
+                      <input name="published" type="date" value="{{$book->published}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  placeholder="">
                     </div>
                   </div>
                   <!-- カラム５ -->
