@@ -851,6 +851,10 @@ $user = Auth::user();
 $id = Auth::id();
 ```
 
+### 【保存版】バリデーションルールのまとめ
+https://www.wakuwakubank.com/posts/376-laravel-validation/
+
+
 #### Validatorの日本語対応方法例
 ```
   $rulus = [
