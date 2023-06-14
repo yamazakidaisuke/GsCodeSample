@@ -460,6 +460,11 @@ npm run build
 # use App\Models\Book;
 # use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator; //この2行を追加！
+use Illuminate\Support\Facades\Auth;      //この2行を追加！
+```
+上記 または 以下どちらか
+```
 use Validator;  //この2行を追加！
 use Auth;       //この2行を追加！
 ```
