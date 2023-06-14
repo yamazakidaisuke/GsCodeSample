@@ -171,6 +171,11 @@ sail artisan migrate
 ログイン機能・画面が作成されました。
 TOP画面の右上にリンクが表示されてるのを確認
 
+###### [ 参考Documents ]
+
+[Laravel Document LOGIN認証](https://readouble.com/laravel/10.x/ja/starter-kits.html#laravel-breeze)
+
+
 ---
 
 
@@ -207,6 +212,7 @@ TOP画面の右上にリンクが表示されてるのを確認
 ```
 sail artisan make:migration create_books_table --create=books
 ```
+
 
 ##### 2．[年]_[月]_[日]_[時分秒]_create_books_table.phpが作成されます
 - /database/migrations/フォルダの中に生成されます
@@ -249,11 +255,18 @@ http://localhost:8080/
 sail artisan make:model Book -cr
 ```
 
+
 ##### 6．生成されたファイルを確認
 - /app/models/Book.php に作成されます。
 - /app/Http/Controllers/BookController.php に生成されます＋メソッドも自動で生成
 
+###### [ 参考Documents ]
 
+[Laravel Document マイグレーション](https://readouble.com/laravel/10.x/ja/migrations.html)
+
+[Laravel Document コントロール](https://readouble.com/laravel/10.x/ja/controllers.html)
+
+[Laravel Document モデル](https://readouble.com/laravel/10.x/ja/eloquent.html)
 
 ---
 
@@ -302,6 +315,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 ```
 
+###### [ 参考Documents ]
+[Laravel Document ルーティング](https://readouble.com/laravel/10.x/ja/routing.html)
 
 
 ---
@@ -446,6 +461,10 @@ require __DIR__.'/auth.php';
 ```
 npm run build
 ```
+
+###### 参考Documents
+[Laravel Document View](https://readouble.com/laravel/10.x/ja/views.html)
+
 
 
 ---
@@ -594,6 +613,11 @@ public function destroy(Book $book)
 ```
 sail artisan route:list -v
 ```
+
+###### [ 参考Documents ]
+
+[Laravel Document コントロール](https://readouble.com/laravel/10.x/ja/controllers.html)
+
 
 
 --- 
@@ -845,6 +869,8 @@ public function edit($book_id)
  
  
 ## 補足
+####  Laravel Document
+https://readouble.com/laravel/10.x/ja/
 
 #### Auth(認証)USER情報取得
   ```
