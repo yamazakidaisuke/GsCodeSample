@@ -268,7 +268,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request; //Add
 use App\Http\Controllers\BookController; //Add
-use App\Models\Book; //Add
 
 //本：ダッシュボード表示(books.blade.php)
 Route::get('/', [BookController::class,'index'])->middleware(['auth'])->name('book_index');
