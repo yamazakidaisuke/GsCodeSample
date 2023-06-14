@@ -855,7 +855,11 @@ $id = Auth::id();
 https://www.wakuwakubank.com/posts/376-laravel-validation/
 
 
-#### Validatorの日本語対応方法例
+#### Validatorの日本語対応方法例1
+https://utubou-tech.com/laravel_validation_ja/
+  
+
+#### Validatorの日本語対応方法例2
 ```
   $rulus = [
     'name' => 'required',
@@ -872,6 +876,8 @@ https://www.wakuwakubank.com/posts/376-laravel-validation/
 
   $validator = Validator::make($request->all(), $rulus, $message);
   ```
+  
+ 
   
  #### データテーブルをJOINしてデータを取得したい
  
