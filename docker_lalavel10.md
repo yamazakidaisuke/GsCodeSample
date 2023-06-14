@@ -128,7 +128,7 @@ sail artisan breeze:install
 ```
 
 
-##### 4. 以下が表示されます
+##### 4. 以下が表示されます＜確認のみ！＞
 ```
   Which stack would you like to install?
   blade .................................................................... 0  
