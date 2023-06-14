@@ -874,6 +874,9 @@ https://readouble.com/laravel/10.x/ja/
 
 #### Auth(認証)USER情報取得
   ```
+//Authを使うControllerに追加してあること
+use Illuminate\Support\Facades\Auth;
+
 // 現在認証しているユーザーを取得
 $user = Auth::user();
 
