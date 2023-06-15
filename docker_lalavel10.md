@@ -869,10 +869,10 @@ public function edit($book_id)
  
  
 ## 補足
-####  Laravel Document
+####  ★Laravel Document
 https://readouble.com/laravel/10.x/ja/
 
-#### Auth(認証)USER情報取得
+#### ★Auth(認証)USER情報取得
   ```
 //Authを使うControllerに追加してあること
 use Illuminate\Support\Facades\Auth;
@@ -884,15 +884,15 @@ $user = Auth::user();
 $id = Auth::id();
 ```
 
-### 【保存版】バリデーションルールのまとめ
+### ★【保存版】バリデーションルールのまとめ
 https://www.wakuwakubank.com/posts/376-laravel-validation/
 
 
-#### Validatorの日本語対応方法例1
+#### ★Validatorの日本語対応方法例1
 https://utubou-tech.com/laravel_validation_ja/
   
 
-#### Validatorの日本語対応方法例2
+#### ★Validatorの日本語対応方法例2
 ```
   $rulus = [
     'name' => 'required',
@@ -912,7 +912,7 @@ https://utubou-tech.com/laravel_validation_ja/
   
  
   
- #### データテーブルをJOINしてデータを取得したい
+ #### ★データテーブルをJOINしてデータを取得したい
  
  ***参考URL***
  https://migisanblog.com/laravel-eloquent-relation/
@@ -921,10 +921,10 @@ https://utubou-tech.com/laravel_validation_ja/
  https://qiita.com/zaburo/items/d665804f8ea850502c64
  
 
-  #### phpMyAdmin ユーザー＆パスワード変更
- 1． envのユーザー名とパスワード変更
+#### ★phpMyAdmin ユーザー＆パスワード変更
+1． envのユーザー名とパスワード変更
 
- 2. 以下順番に実行
+2． 以下順番に実行
   ```
 docker-compose down --volumes
 
