@@ -923,7 +923,8 @@ https://utubou-tech.com/laravel_validation_ja/
 
   #### phpMyAdmin ユーザー＆パスワード変更
  1． envのユーザー名とパスワード変更
- 以下順番に実行
+
+ 2. 以下順番に実行
   ```
 docker-compose down --volumes
 
