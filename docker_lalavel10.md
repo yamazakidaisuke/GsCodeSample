@@ -920,5 +920,14 @@ https://utubou-tech.com/laravel_validation_ja/
  ***Qiita参考URL***
  https://qiita.com/zaburo/items/d665804f8ea850502c64
  
- 
-  
+
+  #### phpMyAdmin ユーザー＆パスワード変更
+ 1． envのユーザー名とパスワード変更
+ 以下順番に実行
+  ```
+docker-compose down --volumes
+
+ocker-compose up -d
+```
+
+
