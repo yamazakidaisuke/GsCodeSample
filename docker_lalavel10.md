@@ -909,8 +909,12 @@ https://utubou-tech.com/laravel_validation_ja/
 
   $validator = Validator::make($request->all(), $rulus, $message);
   ```
-  
+
+  ####  ★Validatorの日本語対応方法例3 FormRequestクラスを使った場合
+  https://qiita.com/daisu_yamazaki/items/e44d4b744d9d5f9bc8b3
  
+
+
   
  #### ★データテーブルをJOINしてデータを取得したい
  
