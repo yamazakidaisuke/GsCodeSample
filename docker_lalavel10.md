@@ -140,7 +140,7 @@ sail artisan breeze:install
 
 ##### 5.
 ```
- 0 を入力してEnter
+ 0 を入力(選択)してEnter
 ```
 
 ##### 6
