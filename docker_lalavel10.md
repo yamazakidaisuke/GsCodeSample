@@ -93,7 +93,7 @@ DB_PASSWORD=password
 ```
 sail node -v
 sail php -v
-sail comopser
+sail composer
 ```
 
 
