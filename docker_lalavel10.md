@@ -131,9 +131,9 @@ sail artisan breeze:install
 ##### 4. 以下が表示されます＜確認のみ！＞
 ※ここは変更が多いので少し変わってることがあります
 ```
-Blade with Alpine 
+「 Blade with Alpine 」をキーボードの↑↓で選択してEnter
 ```
-を選択。キーボードの↑↓で選択してEnter
+
 
 ##### 5.
 ```
