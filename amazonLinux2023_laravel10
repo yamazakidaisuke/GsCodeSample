@@ -2,8 +2,6 @@
 # 更新日：2023-12-13
 #  Laravel0 ~ CURD実装版
 #  環境：PHP8.2.9 Amazon Linux 2023 のインストール
-#  解説Video 
-#  2023/12/13 17時公開: ************
 ###############################################################################
 
 # MaryaDB 再構築
@@ -61,11 +59,34 @@ sudo composer update
 php artisan serve --port=8080
 
 
+
+
 #4. [完了]Webサーバー起動確認***
 #4.1 Preview→ [Preview Running Application]選択
 #4.2 /resouces/views/welcome.blade.php を編集して見よう！
 #4.3 ブラウザ・更新で確認 →　変更確認できればOK
+#----------------------
+#phpMyAdmin設定
+#----------------------
+cd public
 
+wget https://files.phpmyadmin.net/phpMyAdmin/5.1.2/phpMyAdmin-5.1.2-all-languages.zip
+
+unzip phpMyAdmin-5.1.2-all-languages.zip
+
+cd ..
+
+
+
+#＜手順解説＞
+#5.1 publicフォルダ内に「phpMyAdmin-5.1.2-all-languages」フォルダが作成される 
+#5.2 フォルダ名が長いので「phpMyAdmin」に変更
+#5.3「Preview」でサイトを開き、URLの最後に「phpMyAdmin/index.php」をつけてEnterキーを押す
+#5.4 URL例： https://＊＊＊＊＊＊.cloud9.us-east-1.amazonaws.com/phpMyAdmin/index.php
+#5.5 phpMyAdmin画面が表示されたら： ユーザー名・パスワードともに「root」を入力してログイン
+#5.6 ログインできればOK
+
+#5.[完了]DB動作＆コマンド確認完了***
 
 
 
@@ -124,29 +145,6 @@ DB_USERNAME=root
 DB_PASSWORD=root
 
 
-
-#----------------------
-#phpMyAdmin設定
-#----------------------
-cd public   ＃/cms/publicフォルダに移動
-
-wget https://files.phpmyadmin.net/phpMyAdmin/5.1.2/phpMyAdmin-5.1.2-all-languages.zip
-
-unzip phpMyAdmin-5.1.2-all-languages.zip
-
-cd ..
-
-
-#＜手順解説＞
-#5.1 publicフォルダ内に「phpMyAdmin-5.1.2-all-languages」フォルダが作成される 
-#5.2 フォルダ名が長いので「phpMyAdmin」に変更
-#5.3「Preview」でサイトを開き、URLの最後に「phpMyAdmin/index.php」をつけてEnterキーを押す
-#5.4 URL例： https://＊＊＊＊＊＊.cloud9.us-east-1.amazonaws.com/phpMyAdmin/index.php
-#5.5 phpMyAdmin画面が表示されたら： ユーザー名・パスワードともに「root」を入力してログイン
-#5.6 ログインできればOK
-
-#5.[完了]DB動作＆コマンド確認完了***
-
 #*********************************************************************************
 #ここまでが初期設定
 #*********************************************************************************
@@ -157,7 +155,7 @@ cd ..
 
 #*********************************************************************************
 # Auth( ユーザー登録・認証画面とテンプレート作成 )
-#ver Laravel 9.48 ~ 以降対応
+#ver Laravel10.x ~ 以降対応
 #*********************************************************************************
 # laravel/ui パッケージをインストール（４ステップ！）
 # 【注意】Laraveのバージョンを確認して実行しないとErrorになります！！
