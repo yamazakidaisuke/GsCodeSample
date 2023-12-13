@@ -1,134 +1,137 @@
-###############################################################################
-# 更新日：2023-12-13
-#  Laravel0 ~ CURD実装版
-#  環境：PHP8.2.9 Amazon Linux 2023 のインストール
-#  解説Video 
-#  2023/12/13 17時公開: ************
-###############################################################################
+---
 
-# MaryaDB 再構築
-#MariaDBデフォルト確認
+# Laravel0:CURD実装版
+#### 作成日：2023-12-13
+#### 更新日：
+#### 環境：PHP8.2.9 Amazon Linux 2023 対象
+
+---
+
+### MaryaDB 再構築
+##### MariaDBデフォルト確認
+```
 sudo yum list installed | grep mariadb
+```
 
-#Apache, MariaDBの起動
-
+##### Apache, MariaDBの起動
+```
 sudo systemctl start mariadb
+```
 
+```
 sudo mysql_secure_installation
+```
 
-
-#MaridaDBの自動起動を有効化
-
+##### MaridaDBの自動起動を有効化
+```
 sudo systemctl enable mariadb
+```
 
+```
 sudo systemctl is-enabled mariadb
+```
 
-
-# DB接続確認
-
+##### DB接続確認
+```
 mysql -u root -p
+```
 
+```
 root
+```
 
+```
 exit;
+```
 
 
-#Composerインストール
+---
 
+
+### Composerインストール(3行一気にOK)
+```
 curl -sS https://getcomposer.org/installer | php
-
 sudo mv composer.phar /usr/bin/composer
-
 composer
+```
 
-
-#Laravelインストール
-# バージョン指定する場合 → composer create-project "laravel/laravel=10.*" cms 
-# Laravel0.x 最新を指定 → composer create-project --prefer-dist laravel/laravel cms dev-master
-
+### Laravelインストール
+- バージョン指定する場合 → composer create-project "laravel/laravel=10.*" cms 
+- Laravel0.x 最新を指定 → composer create-project --prefer-dist laravel/laravel cms dev-master
+```
 composer create-project laravel/laravel cms
+```
 
-#ディレクトリ移動(cmsはlaravelがフォルダ名です)
-
+### ディレクトリ移動(cmsはlaravelがフォルダ名です) ※2行一気にOK
+```
 cd cms
-
 sudo composer update
+```
 
 
-
-#BuiltInサーバーを起動：動作確認
-
+### BuiltInサーバーを起動：動作確認
+```
 php artisan serve --port=8080
+```
 
 
-#4. [完了]Webサーバー起動確認***
-#4.1 Preview→ [Preview Running Application]選択
-#4.2 /resouces/views/welcome.blade.php を編集して見よう！
-#4.3 ブラウザ・更新で確認 →　変更確認できればOK
+### Webサーバー＆Laravel画面の確認
+- 4.1  [Preview]ボタン → [Preview Running Application]を選択
+- 4.2  /resouces/views/welcome.blade.php を編集して確認しよう！
+- 4.3  ブラウザ・更新で確認 →　変更確認できればOK
 
 
+---
 
 
+### <<重要ポイント>> [.env]ファイルを更新したら必ずWebサーバーを再起動！！
 
-#**********************************************
-#  超大事！！！！！！！！！！！！！！！
-#  いつも使うので、覚えておくか直ぐコピペできる場所に書いておきましょう！
-#*********************************************
+##### Webサーバー止める
+ [ Ctl + C ]キー でWebサーバーを止める
 
-#！！ [.env] 設定を変更したら必ずWebサーバーを再起動！！
-------
-#Webサーバー止める
-[ Ctl + C ]キーでWebサーバーを止めます。
-------
-#Webサーバー起動（.envの再読み込み！）
+##### Webサーバー起動（.envの再読み込み！）
+```
 php artisan serve --port=8080
+```
+
 -------
 
 
-#6.[完了]DB接続設定完了***
-#  ＜重要＞間違うと「データ構造を作成（テーブル作成）」の次章でError!
 
-
-
-
-#--------------------------------------------
-# ＜重要＞ AWS EC2環境では必須追記！！ → MAMP/XAMPPの場合は無視！
-# /app/Providers/ AppServiceProvider.php ファイルを修正
-#--------------------------------------------
+### ＜重要＞ AWS EC2環境では必須追記！！ → MAMP/XAMPPの場合は無視！
+/app/Providers/ AppServiceProvider.php ファイルを修正
+```
 use Illuminate\Support\Facades\URL;    //この行を追加
 public function boot() {
    URL::forceScheme('https');          //この行を追加
 }
-
-#[完了]Laravel6以上 対応設定 完了***
-
+```
 
 
-#--------------------------------------------
-#データベース作成
-#--------------------------------------------
+### データベース作成
+```
 mysql -u root -p
 root [Enterキー]
 create database c9;
 exit;
+```
 
 
-#--------------------------------------------
-#.env（ファイル内の同じ箇所を上書き）
-#--------------------------------------------
+
+##### .env（ファイル内の同じ箇所を上書き）
+``` 
 DB_CONNECTION=mysql
 DB_HOST=localhost
 DB_PORT=3306
 DB_DATABASE=c9
 DB_USERNAME=root
 DB_PASSWORD=root
+```
 
 
-
-#----------------------
-#phpMyAdmin設定
-#----------------------
-cd public   ＃/cms/publicフォルダに移動
+### phpMyAdmin設定
+```
+cd public
 
 wget https://files.phpmyadmin.net/phpMyAdmin/5.1.2/phpMyAdmin-5.1.2-all-languages.zip
 
@@ -136,60 +139,66 @@ unzip phpMyAdmin-5.1.2-all-languages.zip
 
 cd ..
 
+```
 
-#＜手順解説＞
-#5.1 publicフォルダ内に「phpMyAdmin-5.1.2-all-languages」フォルダが作成される 
-#5.2 フォルダ名が長いので「phpMyAdmin」に変更
-#5.3「Preview」でサイトを開き、URLの最後に「phpMyAdmin/index.php」をつけてEnterキーを押す
-#5.4 URL例： https://＊＊＊＊＊＊.cloud9.us-east-1.amazonaws.com/phpMyAdmin/index.php
-#5.5 phpMyAdmin画面が表示されたら： ユーザー名・パスワードともに「root」を入力してログイン
-#5.6 ログインできればOK
+---
 
-#5.[完了]DB動作＆コマンド確認完了***
+### ＜phpMyAdmin確認手順＞
+- 5.1 publicフォルダ内に「phpMyAdmin-*.*.*-all-languages」フォルダが作成される 
+- 5.2 フォルダ名が長いので「phpMyAdmin」に変更
+- 5.3「Preview」でサイトを開き、URLの最後に「phpMyAdmin/index.php」をつけてEnterキーを押す
+- 5.4 URL例： https://＊＊＊＊＊＊.cloud9.us-east-1.amazonaws.com/phpMyAdmin/
+- 5.5 phpMyAdmin画面が表示されたら： ユーザー名・パスワードともに「root」を入力してログイン
+- 5.6 ログインできればOK
 
-#*********************************************************************************
-#ここまでが初期設定
-#*********************************************************************************
-
+---
 
 
 
+### Auth( ユーザー登録・認証画面とテンプレート作成 )
+―  Laravel0.x ~ 以降対応
+-  laravel/breeze のインストール
+- 【注意】Laraveのバージョンが違うとErrorになります！！
+-  コマンド打って、yes/no がでたらyes で！！
 
-#*********************************************************************************
-# Auth( ユーザー登録・認証画面とテンプレート作成 )
-#ver Laravel 9.48 ~ 以降対応
-#*********************************************************************************
-# laravel/ui パッケージをインストール（４ステップ！）
-# 【注意】Laraveのバージョンを確認して実行しないとErrorになります！！
-#  コマンド打って、yes/no がでたらyes で！！
------
-# 0. ＜＜重要＞＞cmsの中で実行
+#### 0. ＜＜重要＞＞cmsの中で実行
+```
 cd cms
+```
 
-#1. Laravel 10.x の場合
+#### 1. Laravel 10.x の場合
+```
 sudo composer require laravel/breeze --dev
+```
 
-#2. artisan コマンドを実行
+#### 2. artisan コマンドを実行
+```
 php artisan breeze:install
+```
 
-
-#3.以下が表示されます
+#### 3.以下が表示されます
 「 Blade with Alpine 」をキーボードの↑↓で選択してEnter
 
-#4
+#### 4.Dark Mode対応？
  Yes 選択してEnter
 
-#5
+#### 5.テストライブラリの選択
 PHPUnit を選択してEnter
 
-#6. パッケージをビルド
+#### 6. HTML/CSS/JSをビルド（構築👉フロントで修正があるたびにビルド）
+```
 npm run build
+```
 
-#8．テーブル作成
+#### 7．テーブル作成
+```
 php artisan migrate
+```
 
---------------------------------------------------
-// ログイン機能・画面が作成されました。
+ログイン機能・画面が作成されました、画面で確認！。
+
+
+---
 
 
 ### 3．Login画面とRegister画面にリンクを追加( 2ファイル修正)
