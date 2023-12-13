@@ -192,15 +192,13 @@ php artisan migrate
 // ログイン機能・画面が作成されました。
 
 
+### 3．Login画面とRegister画面にリンクを追加( 2ファイル修正)
+- /resources/views/auth/register.blade.php
+- /resources/views/auth/login.blade.php
 
-#*************************************************
-#  Login画面にRegister画面のリンクを追加( 2画面)
-#  /resources/views/auth/register.blade.php
-#  /resources/views/auth/login.blade.php
-#**************************************************
-#<x-guest-layout>
-#...の次、2行目に以下を貼り付け ...
 
+##### `<x-guest-layout>`の次「2行目」に以下を貼り付け ... 
+```
 <!-- 以下を追加 -->
 @if (Route::has('login'))
     <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -215,108 +213,86 @@ php artisan migrate
         @endauth
     </div>
 @endif
+```
 
 
-
-#***************************
-# データ構造を作成（テーブル作成） 
-#***************************
-#--------------------------------------------
-#１．booksテーブルを作成（マイグレーションファイル作成）
-#--------------------------------------------
-php artisan make:migration create_books_table --create=books
-
-#1.[完了]Tableを作成するMigrationファイルを作成 完了***
+---
 
 
-#--------------------------------------------
-#２．[年]_[月]_[日]_[時分秒]_create_books_table.php
-#   57ページ
-#   public function up(){...}の中を追加修正
-#--------------------------------------------
+### 4. データ構造を作成（テーブル作成） 
+##### １．booksテーブルを作成（マイグレーションファイル作成）
+```
+sail artisan make:migration create_books_table --create=books
+```
+
+
+##### 2．[年]_[月]_[日]_[時分秒]_create_books_table.phpが作成されます
+- /database/migrations/フォルダの中に生成されます
+- 生成されたファイルを開き、public function up(){...}の中を追加修正
+```
 public function up()
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             //** ↓ 下をコピー ↓ **
-            $table->string('item_name');
-            $table->integer('item_number');
-            $table->integer('item_amount');
-            $table->datetime('published');
+            
+            $table->string('item_name');     //ここを追加
+            $table->integer('item_number');  //ここを追加
+            $table->integer('item_amount');  //ここを追加
+            $table->date('published');       //ここを追加
+            
             //** ↑ 上をコピー ↑ **
             $table->timestamps();
         });
 }
-
-#2.[完了]Table作成するスクリプト準備 完了***
-
+```
 
 
-
-#--------------------------------------------
-#３．マイグレーションを実行（テーブル作成）
-#   52ページ
-#--------------------------------------------
-php artisan migrate
-
-#3.[完了]Table作成スクリプト実行 完了***
+##### 3．マイグレーションを実行（テーブル作成）
+```
+sail artisan migrate
+```
 
 
-#--------------------------------------------
-#４．MySQL DBに作成されたテーブルを確認 
-#   59ページ
-#--------------------------------------------
-# ※コマンドで確認する（コマンドに慣れてる人用）
-mysql -u root -p
-root [Enterキー]
-use c9;
-show tables;
-desc books;
-exit;
+##### 4．MySQL DBに作成されたテーブルを確認 
+phpMyAdmin
+```
+http://localhost:8080/
+```
+
+##### 5．ModelとControllerを一括作成
+- ModelとはDB周りを簡単に扱えるようにする部分を書くファイル
+- Controllerとは処理の部分(if文とかfor文とか)を書くファイル
+```
+sail artisan make:model Book -cr
+```
 
 
-#4.[完了]Table作成をMySQLコマンドで確認 完了***
+##### 6．生成されたファイルを確認
+- /app/models/Book.php に作成されます。
+- /app/Http/Controllers/BookController.php に生成されます＋メソッドも自動で生成
 
+###### [ 参考Documents ]
 
+[Laravel Document マイグレーション](https://readouble.com/laravel/10.x/ja/migrations.html)
 
-#--------------------------------------------
-#５．モデル＆コントローラー&Viewも一緒に作成
-#   （テーブルを簡単に扱えるようにする機能）
-#--------------------------------------------
-php artisan make:model Book -cr
+[Laravel Document コントロール](https://readouble.com/laravel/10.x/ja/controllers.html)
 
-#5.[完了]DBを簡単に操作するためのファイルを作成 完了***
+[Laravel Document モデル](https://readouble.com/laravel/10.x/ja/eloquent.html)
 
-
-
-#--------------------------------------------
-#６．モデルを作成（テーブルを簡単に扱えるようにする機能）
-#   /app/models/Book.php に作成されます。
-#   /app/Http/Controllers/BookController.php に生成されます。
-#   /app/Http/Controllers/BookController.php にメソッドも自動で生成
-#--------------------------------------------
-
-#6.[完了]/app/models/Book.phpにファイルができて完了***
+---
 
 
 
 
-
-#***************************
-# ルート定義（ルーティング）
-#***************************
-#--------------------------------------------
-#１．/routes/web.php に 以下コードを貼り付けます。
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
+### 5. ルート定義（ルーティング）
+##### 1. /routes/web.php に 以下コードを貼り付けます。
+```
 <?php
-use App\Http\Controllers\ProfileController;//9.43.x~
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; //Add
 use App\Http\Controllers\BookController; //Add
-use App\Models\Book; //Add
 
 //本：ダッシュボード表示(books.blade.php)
 Route::get('/', [BookController::class,'index'])->middleware(['auth'])->name('book_index');
@@ -349,43 +325,30 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+```
+
+###### [ 参考Documents ]
+[Laravel Document ルーティング](https://readouble.com/laravel/10.x/ja/routing.html)
+
+
+---
 
 
 
-
-#[END]--------------------------------------------
-
-
-
-
-
-#***************************
-# View
-#***************************
-
-#--------------------------------------------
-# 1．/resources/views/components/collection.blade.php を作成
-#    Laravel9.19~ コンポーネント必須です。登録されたデータをコンポーネント化して表示してみましょう！
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
+### 6. View
+##### 1. /resources/views/components/collection.blade.php を作成
+- 以下のコードを貼り付ける
+```
 <div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
   <div>{{ $slot }}</div>
   <button>×</button>
 </div>
+```
 
 
-#[END]--------------------------------------------
-
-
-
-#--------------------------------------------
-# 2．/resources/views/components/errors.blade.php を作成 
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
+##### 2. /resources/views/components/errors.blade.php を作成 
+- 以下のコードを貼り付ける
+```
 <!-- resources/views/components/errors.blade.php -->
 @if (count($errors) > 0)
     <!-- Form Error List -->
@@ -400,19 +363,12 @@ require __DIR__.'/auth.php';
         </div>
     </div>
 @endif
+```
 
 
-#[END]--------------------------------------------
-
-
-
-
-#--------------------------------------------
-# 3．/resources/views/books.blade.php を作成
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
+##### 3. /resources/views/books.blade.php を作成
+- 以下のコードを貼り付ける
+```
 <!-- resources/views/books.blade.php -->
 <x-app-layout>
 
@@ -473,7 +429,7 @@ require __DIR__.'/auth.php';
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         発売日
                       </label>
-                      <input name="published" type="date" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                      <input name="published" type="date" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     </div>
                   </div>
                   <!-- カラム５ -->
@@ -499,65 +455,54 @@ require __DIR__.'/auth.php';
  <!--全エリア[END]-->
 
 </x-app-layout>
+```
 
 
-
-#[END]--------------------------------------------
-
-
-
-
-#--------------------------------------------
-# 4．/resources/views/components/button.blade.php 以下確認
-#  *** 要チェック！！「 無ければ作成！ 」***
-#    Laravel9.19~ コンポーネントがあったりなかったり、、、無ければ追加作成です！！
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
+##### 4. /resources/views/components/button.blade.php を作成
+- 以下のコードを貼り付ける
+```
 <button {{ $attributes->merge(['type' => 'submit', 'class' => 'inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150']) }}>
     {{ $slot }}
 </button>
+```
 
-
-#[END]--------------------------------------------
-
-
-
-
-
-
-#***************************
-#  コンポーネントをビルド
-#  表示確認
-#***************************
-
+##### 5. componentファイルとbladeファイルをBuild!!
+- bladeファイルとcomponentファイルを合体させます
+- JS/CSS(TailwindCSS)も同時にBuildされます
+- <重要>　フロント側の修正したら必ず実行してください
+```
 npm run build
+```
+
+###### 参考Documents
+[Laravel Document View](https://readouble.com/laravel/10.x/ja/views.html)
 
 
 
+---
 
 
-#***************************
-# Controller
-#***************************
-#--------------------------------------------
-#0．/app/Http/Controllers/BookController.php
-#   use の次の1行追加
-#--------------------------------------------
-# use App\Models\Book; 
+### 7. Controller
+##### 1. app/Http/Controllers/BookController.php を開く
+- このControllerでValidatorを使えるようにする
+- このControllerでAuthを使えるようにする
+```
+# use App\Models\Book;
 # use Illuminate\Http\Request;
 
-use Validator;             //この1行追加！
+use Illuminate\Support\Facades\Validator; //この2行を追加！
+use Illuminate\Support\Facades\Auth;      //この2行を追加！
+```
+上記 または 以下どちらか
+```
+use Validator;  //この2行を追加！
+use Auth;       //この2行を追加！
+```
 
 
-
-#--------------------------------------------
-#１．/app/Http/Controllers/BookController.php
-#   データ登録[BookController::class,"store"]
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
+##### 2. /app/Http/Controllers/BookController.php を開く
+- [データ登録処理] public function store の中に以下を追加
+```
 public function store(Request $request)
 {
    //** ↓ 下をコピー ↓ **
@@ -591,19 +536,12 @@ public function store(Request $request)
   
    //** ↑ 上をコピー ↑ **
 }
+```
 
 
-#[END]--------------------------------------------
-
-
-
-#--------------------------------------------
-#2．/app/Http/Controllers/BookController.php
-#   データ取得・表示[BookController::class,"index"]
-#--------------------------------------------
-#以下[END]までの全てのコードをコピーし、indexメソッドを上書き（View型に注意！）
-
-
+##### 3. /app/Http/Controllers/BookController.php を開く
+- [データ取得・表示処理] public function index() 内に以下を追加
+```
 public function index() {
    //** ↓ 下をコピー ↓ **    
    
@@ -614,20 +552,12 @@ public function index() {
     
     //** ↑ 上をコピー ↑ **
 }
+```
 
 
-#[END]--------------------------------------------
-
-
-
-
-#--------------------------------------------
-# 3．/resources/views/books.blade.php
-#   books.blade.phpの 右側エリアを全て上書き！！
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
+##### 4. /resources/views/books.blade.php を開く
+- books.blade.php の ***「右側エリア」*** を全て上書き！！
+```
     <!--右側エリア[START]-->
     <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
          <!-- 現在の本 -->
@@ -638,22 +568,14 @@ public function index() {
         @endif
     </div>
     <!--右側エリア[[END]-->     
-    
-
-
-#[END]--------------------------------------------
+```
 
 
 
-
-#--------------------------------------------
-# 4．/resources/views/components/collection.blade.php を更新！！
-#    collectionコンポーネントを全て上書き！！
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
-  <!-- 本: 削除ボタン -->
+##### 5. /resources/views/components/collection.blade.php を開く
+- collection.blade.php 内のcomponentを以下CODEに ***全て上書き！！*** 
+```
+<!-- 本: 削除ボタン -->
 <div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
   <div>{{ $slot }}</div>
   
@@ -681,22 +603,13 @@ public function index() {
   </div>
 
 </div>
+```
 
 
 
-#[END]--------------------------------------------
-
-
-
-
-
-#--------------------------------------------
-# 5．/app/Http/Controllers/BookController.php
-#   データ削除[BookController::class,"destroy"]
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
+##### 6. /app/Http/Controllers/BookController.php を開く
+- [データ削除処理] public function destroy に以下コードを追加
+```
 public function destroy(Book $book)
 {
    //** ↓ 下をコピー ↓ **    
@@ -706,24 +619,27 @@ public function destroy(Book $book)
     
      //** ↑ 上をコピー ↑ **
 }
+```
+
+- [Errorが出た場合] 以下のコマンドでdeleteになっているか確認
+```
+sail artisan route:list -v
+```
+
+###### [ 参考Documents ]
+
+[Laravel Document コントロール](https://readouble.com/laravel/10.x/ja/controllers.html)
 
 
 
-#Errorが出た場合以下のコマンドでdeleteになっているか確認
-#「　php artisan route:list -v  」
-#[END]--------------------------------------------
+--- 
 
 
-
-
-
-#--------------------------------------------
-# 1．[更新機能] 画面を作成
-#   /resources/views/booksedit.blade.php を作成
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-
-
+### 8. 更新機能を作成 
+##### 1. [更新機能] view画面を作成
+- /resources/views/booksedit.blade.php を新規作成
+- 以下コードを貼り付ける
+```
 <!-- resources/views/booksedit.blade.php -->
 <x-app-layout>
 
@@ -785,7 +701,7 @@ public function destroy(Book $book)
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         発売日
                       </label>
-                      <input name="published" type="datetime-local" value="{{$book->published}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  placeholder="">
+                      <input name="published" type="date" value="{{$book->published}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     </div>
                   </div>
                   <!-- カラム５ -->
@@ -812,22 +728,13 @@ public function destroy(Book $book)
  <!--全エリア[END]-->
 
 </x-app-layout>
+```
 
 
-
-#[END]--------------------------------------------
-
-
-
-
-#--------------------------------------------
-# 2．[更新機能] コントローラー
-#   /app/Http/Controllers/BookController.php
-#   更新画面・ルーティング[BookController::class,"edit"]
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー、editメソッドを上書き（View型に注意！）
-    
-    
+##### 2．[更新機能] コントローラー
+- /app/Http/Controllers/BookController.phpを開く
+- 以下コードを ***edit*** に追加する
+```   
    public function edit(Book $book)
     {
         //** ↓ 下をコピー ↓ **
@@ -837,21 +744,19 @@ public function destroy(Book $book)
         
         //** ↑ 上をコピー ↑ **!
     }
-    
-    
-#[END]--------------------------------------------
+```
+
+###### 更新画面へのルーティングは以下(/routes/web.php)
+```
+Route::post('/booksedit/{book}',[BookController::class,"edit"])->name('book_edit'); //通常
+Route::get('/booksedit/{book}', [BookController::class,"edit"])->name('edit');      //Validationエラーありの場合
+```
 
 
-
-
-#--------------------------------------------
-# 3．[更新機能] 更新処理
-#   /app/Http/Controllers/BookController.php
-#   データ更新・処理[BookController::class,"update"]
-#--------------------------------------------
-#以下[END]までの全てのコードをコピー
-    
- 
+##### 3．[更新機能] 更新処理
+- /app/Http/Controllers/BookController.php を開く
+- 以下コードを ***update*** メソッドに追加する
+``` 
     public function update(Request $request, Book $book)
     {
       //** ↓ 下をコピー ↓ **
@@ -884,24 +789,22 @@ public function destroy(Book $book)
         
         //** ↑ 上をコピー ↑ **!
     }
-    
-    
-#[END]--------------------------------------------
+```
 
 
 
 
+---
 
-========================================================================================================
-★ Pagenation 
-========================================================================================================
-#**************************************************
-# 1. コントローラ：indexメソッドの修正
-#**************************************************
- BookController に 以下コードを貼り付けます。
-#--------------------------------------------
-#以下[END]までの全てのコード、indexメソッドのみ上書き。
 
+
+
+### 9. Pagenation機能
+
+##### 1. コントローラ：indexメソッドの修正
+- BookController.phpの ***indexメソッド*** に以下コードを上書き
+- paginate(3); の箇所だけ変わります
+```
     public function index()
     {
         $books = Book::orderBy('created_at', 'asc')->paginate(3);
@@ -909,142 +812,127 @@ public function destroy(Book $book)
             'books' => $books
         ]);
     }
+```
 
-#[END]--------------------------------------------
 
-#**************************************************
-# 2. ビュー：コードを追加
-#**************************************************
- books.blade.php に 以下コードを追加します。
-  <!--右側エリア[START]-->の下に追加
-#--------------------------------------------
-#以下[END]まで
-
+##### 2. Viewにリンクを生成するコードを追加
+- books.blade.php に 以下コードを追加します。
+-  `<!--右側エリア[START]-->`の下くらいに追加
+```
         <div>
             {{ $books->links()}}
         </div>
-
-#[END]--------------------------------------------
-
+```
 
 
 
 
-========================================================================================================
-★ユーザーがログインしたらユーザーが登録した本のみ表示（１ユーザー ✕ １サービス）
-========================================================================================================
+### 10. ユーザーがログインしたらユーザーが登録した本のみ表示
+- １ユーザー ✕ １サービス
+
+##### 1. ユーザーidを登録できるようにbooksテーブルを変更
+- /database/migrations/[yyyy_mm_dd_hhiiss]_create_books_table.php に以下***１行を追加します***。
+```
+$table->bigInteger('user_id'); //追加:user_id
+```
+
+##### 2. テーブルを再構築する
+- テーブルをリセットして、再構築するコマンド
+```
+sail artisan migrate:refresh
+```
+
+##### 3．再構築されたbooksテーブルを確認 
+phpMyAdmin
+```
+http://localhost:8080/
+```
 
 
-#**************************************************
-#１．ユーザーidを登録できるようにbooksテーブルを変更
-#**************************************************
-/database/migrations/[yyyy_mm_dd_hhiiss]_create_books_table.php に以下１行を追加します。
-#--------------------------------------------
-
-$table->bigInteger('user_id'); //Add:user_id
-
-#[END]--------------------------------------------
-
-
-
-#**************************************************
-#２．テーブルをリセットする
-#**************************************************
-#cmsディレクトリで実行
-cd cms
-
-#Migrate実行
-php artisan migrate:reset
-
-#[END]--------------------------------------------
-
-
-
-#**************************************************
-#３．テーブルを再構築
-#**************************************************
-
-php artisan migrate
-
-#[END]--------------------------------------------
-
-#実は以下コマンドでresetとmigrateを一気に実行可能です！
-# php artisan migrate:refresh
-
-
-#**************************************************
-#４．再構築したテーブルを確認
-#**************************************************
-
-mysql -u root -p
-root  #パスワード
-use c9;
-show tables;
-desc books;
-
-#[END]--------------------------------------------
-
-
-
-#**************************************************
-#５．コントローラ「BooksController@index」を修正（リスト16.13）
-#**************************************************
-
+##### 5. コントローラ「BooksController@index」を修正
+- 以下indexメソッドの「Book」モデルの条件を変えます
+- "where('user_id',Auth::user()->id)->"を追加して認証してる人のAuthIDを条件に追加しています
+```
  $books = Book::where('user_id',Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
-
-#[END]--------------------------------------------
-
+```
 
 
-
-#**************************************************
-#６．コントローラ「BooksController@store」に追加
-#**************************************************
-
+##### 6. コントローラ「BooksController@store」に追加
+```
 $books->user_id  = Auth::user()->id; //追加のコード
+```
 
-#[END]--------------------------------------------
-
-
-
-
-#**************************************************
-#７．コントローラ「BooksController@update」を修正
-#**************************************************
-
+##### 7. コントローラ「BooksController@update」を修正
+```
 $books = Book::where('user_id',Auth::user()->id)->find($request->id);
+```
 
-#[END]--------------------------------------------
-
-
-
-
-#**************************************************
-#８．コントローラ「BooksController@edit」を修正
-#**************************************************
-#修正範囲が多いのでeditメソッドを上書きでもOK
-
-//更新画面
+##### 8. コントローラ「BooksController@edit」を修正
+- 修正範囲が多いのでeditメソッドを上書き
+```
 public function edit($book_id)
 {
     $books = Book::where('user_id',Auth::user()->id)->find($book_id);
     return view('booksedit', ['book' => $books]);
 }
-    
-#[END]--------------------------------------------
+ ```
+ 
+ ---
+ 
+ 
+## 補足
+####  ★Laravel Document
+https://readouble.com/laravel/10.x/ja/
+
+#### ★Auth(認証)USER情報取得
+  ```
+//Authを使うControllerに追加してあること
+use Illuminate\Support\Facades\Auth;
+
+// 現在認証しているユーザーを取得
+$user = Auth::user();
+
+// 現在認証しているユーザーのIDを取得
+$id = Auth::id();
+```
+
+### ★【保存版】バリデーションルールのまとめ
+https://www.wakuwakubank.com/posts/376-laravel-validation/
 
 
-#**************************************************
-#9. ContorollerでAuthを使うための設定を追加
-#   BookControllerの最初の方に記述
-#**************************************************
+#### ★Validatorの日本語対応方法例1
+https://utubou-tech.com/laravel_validation_ja/
+  
 
-use Auth;
+#### ★Validatorの日本語対応方法例2
+```
+  $rulus = [
+    'name' => 'required',
+    'age' => 'integer | between:0,150',
+    'sex' => ['max:1', 'regex:/^[男|女]+$/u'],
+  ];
 
-#[END]--------------------------------------------
+  $message = [
+    'name.required' => '名前を入力してください',
+    'age.numeric' => '整数で入力してください',
+    'age.between' => '0～150で入力してください'
+    'sex.regex' => '男か女で入力してください',
+  ];
+
+  $validator = Validator::make($request->all(), $rulus, $message);
+  ```
+
+  ####  ★Validatorの日本語対応方法例3 FormRequestクラスを使った場合
+  https://qiita.com/daisu_yamazaki/items/e44d4b744d9d5f9bc8b3
+ 
 
 
-
-
-
-
+  
+ #### ★データテーブルをJOINしてデータを取得したい
+ 
+ ***参考URL***
+ https://migisanblog.com/laravel-eloquent-relation/
+ 
+ ***Qiita参考URL***
+ https://qiita.com/zaburo/items/d665804f8ea850502c64
+ 
