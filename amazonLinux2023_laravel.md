@@ -1,6 +1,6 @@
 ---
 
-# Laravel0:CURD実装版
+# Laravel.10:CURD実装版
 #### 作成日：2023-12-13
 #### 更新日：
 #### 環境：PHP8.2.9 Amazon Linux 2023 対象
