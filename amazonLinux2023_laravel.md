@@ -168,7 +168,8 @@ cd cms
 
 #### 1. Laravel 10.x の場合
 ```
-sudo composer require laravel/breeze --dev
+# sudo composer require laravel/breeze --dev
+composer require laravel/breeze:*
 ```
 
 #### 2. artisan コマンドを実行
