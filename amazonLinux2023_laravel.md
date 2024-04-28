@@ -266,10 +266,10 @@ php artisan migrate
 ```
 
 
-##### 4．MySQL DBに作成されたテーブルを確認 
-phpMyAdmin
+##### 4．MySQL DBに作成されたテーブルを確認 (php+MyAdminの画面で)
+phpMyAdmin URL例： 
 ```
-http://localhost:8080/
+https://＊＊＊＊＊＊.cloud9.us-east-1.amazonaws.com/phpMyAdmin/
 ```
 
 ##### 5．ModelとControllerを一括作成
