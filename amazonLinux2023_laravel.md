@@ -234,7 +234,7 @@ php artisan migrate
 ### 4. データ構造を作成（テーブル作成） 
 ##### １．booksテーブルを作成（マイグレーションファイル作成）
 ```
-sail artisan make:migration create_books_table --create=books
+php artisan make:migration create_books_table --create=books
 ```
 
 
@@ -262,7 +262,7 @@ public function up()
 
 ##### 3．マイグレーションを実行（テーブル作成）
 ```
-sail artisan migrate
+php artisan migrate
 ```
 
 
@@ -276,7 +276,7 @@ http://localhost:8080/
 - ModelとはDB周りを簡単に扱えるようにする部分を書くファイル
 - Controllerとは処理の部分(if文とかfor文とか)を書くファイル
 ```
-sail artisan make:model Book -cr
+php artisan make:model Book -cr
 ```
 
 
@@ -635,7 +635,7 @@ public function destroy(Book $book)
 
 - [Errorが出た場合] 以下のコマンドでdeleteになっているか確認
 ```
-sail artisan route:list -v
+php artisan route:list -v
 ```
 
 ###### [ 参考Documents ]
@@ -851,7 +851,7 @@ $table->bigInteger('user_id'); //追加:user_id
 ##### 2. テーブルを再構築する
 - テーブルをリセットして、再構築するコマンド
 ```
-sail artisan migrate:refresh
+php artisan migrate:refresh
 ```
 
 ##### 3．再構築されたbooksテーブルを確認 
