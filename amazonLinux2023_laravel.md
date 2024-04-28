@@ -1,7 +1,7 @@
 ---
 
 # Laravel.10:CURD実装版
-#### 作成日：2024-04-19
+#### 作成日：2024-04-28
 #### 更新日：
 #### 環境：PHP8.2.9 Amazon Linux 2023 対象
 
@@ -21,6 +21,7 @@ sudo systemctl start mariadb
 ```
 sudo mysql_secure_installation
 ```
+※最初コマンドで聞かれたら「空」のPasswordでEnter、NewPassword「root」を次に求められます。後は基本「Y」を入力！
 
 ##### MaridaDBの自動起動を有効化
 ```
@@ -56,10 +57,11 @@ composer
 ```
 
 ### Laravelインストール
-- バージョン指定する場合 → composer create-project "laravel/laravel=10.*" cms 
+- バージョン指定する場合 → composer create-project "laravel/laravel=10.*" cms
+- バージョン指定ない場合 → composer create-project laravel/laravel cms
 - Laravel0.x 最新を指定 → composer create-project --prefer-dist laravel/laravel cms dev-master
 ```
-composer create-project laravel/laravel cms
+composer create-project "laravel/laravel=10.*" cms 
 ```
 
 ### ディレクトリ移動(cmsはlaravelがフォルダ名です) ※2行一気にOK
