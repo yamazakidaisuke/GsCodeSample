@@ -64,11 +64,11 @@ cd fast-laravel
 
 ブラウザ起動でLaravel画面確認
 ```
-#laravel10.x
+#laravel 10.xの場合
 localhost
 
-#Laravel11.x
-#127.0.0.1
+#Laravel 11.xの場合
+127.0.0.1
 ```
 
 ***[エラーがでたら以下で対応]***
@@ -124,9 +124,12 @@ exit
 
 ##### 2. ダウンロード
 ```
+#laravel 11.xの場合
 sail composer require laravel/breeze --dev
-#sail composer require laravel/breeze:*
-```
+
+#laravel 10.xの場合
+sail composer require laravel/breeze:*
+``` 
 
 ##### 3. artisan コマンドを実行
 ```
