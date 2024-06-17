@@ -1,6 +1,6 @@
-# Laravel 10.x ~ CURD基礎入門
+# Laravel 10.x ~ CURD基礎入門(11対応)
 ###### 環境：Docker Laravel Sail
-###### 更新日：2023-12-11
+###### 更新日：2024-06-18
 
 
 
