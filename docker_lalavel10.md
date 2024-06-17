@@ -64,7 +64,11 @@ cd fast-laravel
 
 ブラウザ起動でLaravel画面確認
 ```
+#laravel10.x
 localhost
+
+#Laravel11.x
+#127.0.0.1
 ```
 
 ***[エラーがでたら以下で対応]***
@@ -84,6 +88,7 @@ DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=first_laravel  #自分が作ったプロジェクト名
+#DB_DATABASE=laravel  #Laravel11.x
 DB_USERNAME=sail
 DB_PASSWORD=password
 ```
