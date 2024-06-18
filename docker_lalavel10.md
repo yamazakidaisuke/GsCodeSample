@@ -62,9 +62,8 @@ Laravelディレクトリへ移動(既に移動していれば必要無し！)
 cd fast-laravel
 ```
 
-ブラウザ起動でLaravel画面確認
+ブラウザ起動でLaravel画面確認（確認できない場合こっちかも http://127.0.0.1 ）
 ```
-#以下で動作しない場合（127.0.0.1）
 localhost
 ```
 
@@ -114,13 +113,18 @@ laravel/ui パッケージをインストール（４ステップ）
 - 権限変更するため３つのコマンドを実行
 ```
 sail root-shell
+```
+
+```
 chown sail:sail -R .
+```
+
+```
 exit
 ```
 
 ##### 2. ダウンロード
 ```
-#laravel 10.xの場合
 sail composer require laravel/breeze:*
 ``` 
 
