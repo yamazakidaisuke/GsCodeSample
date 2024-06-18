@@ -1,4 +1,4 @@
-# Laravel 10/11.x ~ CURD基礎入門
+# Laravel 10.x ~ CURD基礎入門
 ###### 環境：Docker Laravel Sail
 ###### 更新日：2024-06-18
 
@@ -85,7 +85,6 @@ DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=first_laravel  #自分が作ったプロジェクト名
-#DB_DATABASE=laravel  #Laravel11.x
 DB_USERNAME=sail
 DB_PASSWORD=password
 ```
@@ -121,9 +120,6 @@ exit
 
 ##### 2. ダウンロード
 ```
-#laravel 11.xの場合
-sail composer require laravel/breeze --dev
-
 #laravel 10.xの場合
 sail composer require laravel/breeze:*
 ``` 
