@@ -68,7 +68,7 @@ cd fast-laravel
 localhost
 ```
 
-***[エラーがでたら以下で対応]***
+Storageフォルダに権限を付与
 ```
 chmod -R 777 storage/
 ```
