@@ -64,11 +64,8 @@ cd fast-laravel
 
 ブラウザ起動でLaravel画面確認
 ```
-#laravel 10.xの場合
+#以下で動作しない場合（127.0.0.1）
 localhost
-
-#Laravel 11.xの場合
-127.0.0.1
 ```
 
 ***[エラーがでたら以下で対応]***
