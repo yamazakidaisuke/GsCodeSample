@@ -12,7 +12,7 @@
 https://kind-dill-384.notion.site/Laravel-Sail01-0420040e02b848b9b6227753abbed82b
 
 ２．Laravel_Sail02  事前準備
-https://kind-dill-384.notion.site/Laravel_Sail02-880d98ae7c514aefb845a86fcb6d5d85
+https://kind-dill-384.notion.site/Laravel10_Sail02_-aea0e8ee5d4941fbb10f55f211ce442e
 
 ---
 
