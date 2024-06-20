@@ -125,7 +125,7 @@ exit
 
 ##### 2. ダウンロード
 ```
-sail composer require laravel/breeze:*
+sail composer require laravel/breeze --dev
 ``` 
 
 ##### 3. artisan コマンドを実行
