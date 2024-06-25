@@ -125,12 +125,8 @@ exit
 
 ##### 2. ダウンロード
 ```
-#laravel 10.xの場合
+# Laravel 10/11 の場合
 sail composer require laravel/breeze --dev
-
-#laravel 11.xの場合
-sail composer require laravel/breeze --dev
-
 ``` 
 
 ##### 3. artisan コマンドを実行
