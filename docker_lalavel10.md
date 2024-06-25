@@ -125,7 +125,7 @@ exit
 
 ##### 2. ダウンロード
 ```
-# Laravel 10/11 の場合
+# Laravel 10/11 の場合[2024-06-18現在]
 sail composer require laravel/breeze --dev
 ``` 
 
