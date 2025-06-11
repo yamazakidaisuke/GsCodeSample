@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI API</title>
+</head>
+<body>
+  <h1>GPT-4oに質問してみよう！</h1>
+  <label for="">API KEY</label>
+  <input type="text" id="key">
+  <br>
+  <label for="text">質問内容</label>
+  <input type="text" id="text">
+  <button id="btn">質問する！</button>
+  <p id="res"></p>
+
+<script>
+const btn = document.getElementById('btn');
+const text = document.getElementById('text');
+const resArea = document.getElementById('res');
+const key = document.getElementById('key');
+
+btn.addEventListener('click', async () => {
+  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + key.value
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [ //prompt
+          {
+            role: 'user',
+            content: text.value,
+            name: 'youname'
+          }
+        ],
+      })
+    }
+  );
+  const data = await res.json();
+  console.log(data);
+  // resArea.innerHTML = data.choices[0].message.content;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Sample[完成版]</title>
+    <style>
+        #view{
+            padding: 10px;
+            border: 4px solid #6f28bb;
+            width: 50%px;
+            background-color: aliceblue;
+            height:500px;
+            overflow: auto;
+        }
+        img{
+            width:50px;
+        }
+        #view>div{
+            border-bottom: 1px dotted #3838ab;
+            font-size:medium;
+        }
+        .bold{
+            font-weight: bold;
+        }
+        h2{
+            font-size:x-large;
+            color:#f1071e;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>
+           <span id="area"></span> 天気5日間！
+        </h1>
+        <div id="view"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+        //MAP表示処理
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+        const key   = "";  //***自分のKEYを！！！！！！！！！！！！！！！***
+        const lat   = "35.713456";   //原宿の緯度
+        const lon   = "139.663682";  //原宿の軽度
+        const icon  = "http://openweathermap.org/img/wn/"; //ICONにアクセスするURL
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+        //OpenWeatherAPI（天気情報を取得）5DAY/3hour
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+        const url = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&appid='+key+'&lang=ja';
+        $.ajax({
+            url:url,
+            type:'get',
+            cache:false,
+            dataType:'json'
+        }).done(function(data){
+            // console.log(data.list[0].dt_txt); //オブジェクト変数を確認
+            console.log(data); //オブジェクト変数を確認
+
+            let html=""; 
+            for(let i=0; i<data.list.length; i++){
+                html += `
+                    <div>
+                        <div>時刻：${data.list[i].dt_txt}</div>
+                        <div>風速：${data.list[i].wind.speed}</div>
+                        <div>天気：${data.list[i].weather[0].description}</div>
+                        <div>降水確率：${data.list[i].pop*100}</div>
+                        <div><img src="${icon+data.list[i].weather[0].icon}@2x.png"></div>
+                    </div>
+                `;
+                
+            }
+            //作成したHTML埋め込む
+            $("#view").append(html);
+
+            //場所
+            $("#area").html(data.city.name)
+        });
+
+    </script>
+</body>
+</html>

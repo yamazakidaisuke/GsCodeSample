@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoogleMap現在地表示サンプル</title>
+<style>
+/* 初期化用 */
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+/* マップ用のCSS */
+.map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+
+<!-- GoogleMap表示[Start] -->
+<div class="wrapper">
+    <div id="js-map" class="map"></div>
+</div>
+<!-- GoogleMap表示[End] -->
+
+
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_MAP_KEY&libraries=geometry&callback=initMap">
+</script>
+<script>
+//=========================================================
+//Mapオブジェクト
+//=========================================================
+let map;
+let myLocation;
+
+//=========================================================
+//GoogleMapライブラリを読み込んだら「一番最初に実行される」！
+//=========================================================
+function initMap(){
+    navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+//=========================================================
+// 位置情報取得が成功したら
+//=========================================================
+function success(pos){
+    //posに位置情報が入っている
+    let nowLat = pos.coords.latitude;    // 緯度
+    let nowLng = pos.coords.longitude;   // 経度
+    // 現在地の緯度・経度をmap専用変数に格納
+    let nowLatLng = new google.maps.LatLng(nowLat, nowLng);
+
+    // MAPオプションを変数に格納
+    let mapOptions = {
+        zoom: 14,         // 拡大率[1~20]
+        center: nowLatLng // 中心座標を指定
+    };
+
+    // マップオブジェクト作成
+    map = new google.maps.Map(
+        document.getElementById('js-map'),
+        mapOptions
+    );
+
+    // マップにマーカーを表示する
+    myLocation = new google.maps.Marker({
+        map: map,                    // mapに対して指定（マップオブジェクト作成したやつ）
+        position: mapOptions.center, // mapOptionsから座標を指定
+        //表示アイコン設定
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,//シンボル円
+            scale: 22,             //サイズ
+            fillColor: '#fff',     //塗り潰し色
+            fillOpacity: 0.8,      //塗り潰し透過率
+            strokeColor: "red",    //枠線の色
+            strokeWeight: 8,       //枠線の幅
+        },
+        //表示文字ラベル設定
+        label: {
+            text:  '現在地',        //ラベル文字
+            color: 'oraneg',       //文字の色
+            fontSize: '20px',      //文字のサイズ
+            fontWeight: '900'      //文字の太さ
+        },
+        draggable: false,          //ドラッグしたいならtrue
+        map: map,                  //地図オブジェクト
+        animation:  google.maps.Animation.DROP //DROPマーカーアニメーション
+    });
+}
+
+
+//=========================================================
+// 位置情報取得が失敗したら
+//=========================================================
+function error(err){
+    // エラーメッセージ
+    msg = 'エラーが発生しました: ' + err;
+    console.log(msg);
+}
+
+
+//=========================================================
+// getCurrentPositionのオプション
+//=========================================================
+let options = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 0
+};
+
+</script>
+</body>
+</html>
