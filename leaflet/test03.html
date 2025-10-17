@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サンプル3</title>
+    <!-- Leaflet's CSS -->
+    <link rel="stylesheet" href="leaflet.css">
+     <!-- Leaflet's JS -->
+    <script src="leaflet.js"></script>
+    <style>
+        #map { height: 380px; }
+    </style>
+</head>
+<body>
+    
+    <div id="map"></div>
+
+    <script>
+    const map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    //Add marker to Map
+    var marker = L.marker([51.5, -0.09]).addTo(map);
+    //Add color to Map
+    var circle = L.circle([51.508, -0.11], {
+        color: 'red', 
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+    }).addTo(map);
+    //Add polygon to Map
+    var polygon = L.polygon([
+        [51.509, -0.08],
+        [51.503, -0.06],
+        [51.51, -0.047]
+    ]).addTo(map);
+    //Add popup to Map
+    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+    circle.bindPopup("I am a circle.");
+    polygon.bindPopup("I am a polygon.");
+    //Add clickEvent to Map
+    function onMapClick(e) {
+        alert("You clicked the map at " + e.latlng);
+    }
+    map.on('click', onMapClick);
+    //Set Template
+
+    //Set IconURL
+
+    //Add maerker to map
+
+    </script>
+</body>
+</html>
